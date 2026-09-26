@@ -3,211 +3,987 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pureblood Syndicate </title>
+<title>Hogwarts — Calendario del Códice</title>
+
+<!-- Tipografías: gótica para títulos y serif editorial para el contenido -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --bg:#070c09; --surface:#101c16; --surface2:#152418;
-  --gold:#c3a565; --gold-dim:#8a7642; --mist:#8fa495;
-  --gryf:#7f2626; --huff:#a8802a; --raven:#28466b; --slyt:#2f6b45;
-  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#e7e4d8;
+  --ink-soft:#b9b9aa;
+  --paper:#d7d4c4;
+  --paper-dark:#aaa896;
+
+  --bg:#080d0b;
+  --bg-2:#0b120e;
+  --panel:#101713;
+  --panel-2:#141d17;
+
+  --green:#315d45;
+  --green-light:#5f8c6e;
+  --green-deep:#183526;
+  --silver:#9da49c;
+
+  --line:rgba(214,211,192,.30);
+  --line-soft:rgba(214,211,192,.13);
+  --glow:rgba(95,140,110,.18);
+
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --blackletter:'UnifrakturMaguntia', 'Times New Roman', serif;
+
   box-sizing:border-box;
 }
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:#d9d2bd;font-family:'Cormorant Garamond',serif;min-height:100%;}
+
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
 body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:var(--serif);
   background:
-    radial-gradient(ellipse at top, #0e1a12 0%, var(--bg) 60%);
-  padding:2.2rem 1rem 3rem;
+    radial-gradient(ellipse at 50% -15%, rgba(48,88,65,.18), transparent 48%),
+    radial-gradient(ellipse at 50% 110%, rgba(20,42,30,.20), transparent 42%),
+    var(--bg);
   overflow-x:hidden;
 }
-.wrap{max-width:1180px;margin:0 auto;}
 
-/* ---- header ---- */
-<div class="medieval-border-top">
-  <img src="https://github.com/imvchhhh/Calendar/blob/main/imagenes%20/imagen%201.png?raw=true alt="Decorado Medieval" class="vine-art">
-</div>
-
-
-header{text-align:center;margin-bottom:2.4rem;position:relative;}
-h1{
-  font-family:'Cinzel Decorative',serif;
-  font-weight:900;
-  font-size:clamp(1.7rem,4.6vw,2.9rem);
-  color:var(--gold);
-  letter-spacing:.03em;
-  margin:.2rem 0 .3rem;
-  text-shadow:0 0 18px rgba(195,165,101,.25);
+/* Textura muy leve: evita el aspecto de "gradiente de IA" */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 1px, transparent 1px 5px);
+  mix-blend-mode:soft-light;
 }
-header p{color:var(--mist);font-style:italic;font-size:1.05rem;margin:0;letter-spacing:.02em;}
-.divider{width:min(420px,80%);height:14px;margin:1.1rem auto 0;opacity:.75;}
 
-/* ---- grid ---- */
+button{font:inherit}
+
+.page{
+  width:min(1280px, calc(100% - 34px));
+  margin:0 auto;
+  padding:38px 0 70px;
+}
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.header{
+  position:relative;
+  text-align:center;
+  padding:8px 0 30px;
+}
+
+.header::before,
+.header::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(700px, 90%);
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.header::before{top:0}
+.header::after{bottom:0}
+
+.header-ornament{
+  color:var(--silver);
+  font-size:18px;
+  letter-spacing:.55em;
+  opacity:.72;
+  margin-bottom:8px;
+}
+
+h1{
+  margin:0;
+  color:#f0eee5;
+  font-family:var(--blackletter);
+  font-size:clamp(3rem, 8vw, 6.7rem);
+  font-weight:400;
+  line-height:.88;
+  letter-spacing:.015em;
+  text-shadow:0 1px 0 #000;
+}
+
+.subtitle{
+  margin:15px 0 0;
+  color:#aeb3a9;
+  font-size:clamp(.95rem, 1.6vw, 1.2rem);
+  font-style:italic;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.header-rule{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  margin:18px auto 0;
+  color:#9ea69d;
+  opacity:.72;
+}
+
+.header-rule span{
+  width:115px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--line));
+}
+
+.header-rule span:last-child{
+  transform:scaleX(-1);
+}
+
+.header-rule b{
+  font-weight:400;
+  font-size:15px;
+}
+
+/* =========================
+   LIBRO / MESES
+   ========================= */
+
 .months{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1.1rem;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:18px;
+  margin-top:34px;
 }
-@media(max-width:880px){.months{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:520px){.months{grid-template-columns:1fr;}}
 
 .month{
-  background:linear-gradient(160deg,var(--surface),var(--surface2));
-  border:1px solid rgba(195,165,101,.28);
-  border-radius:6px;
-  padding:1rem .8rem 1.1rem;
   position:relative;
+  min-height:100%;
+  padding:19px 16px 21px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent 30%),
+    linear-gradient(160deg, var(--panel-2), var(--panel));
+  border:1px solid var(--line-soft);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.45),
+    0 12px 30px rgba(0,0,0,.18);
 }
+
 .month::before{
-  content:'';position:absolute;inset:5px;border:1px solid rgba(195,165,101,.13);border-radius:3px;pointer-events:none;
+  content:"";
+  position:absolute;
+  inset:7px;
+  border:1px solid rgba(210,210,192,.09);
+  pointer-events:none;
 }
+
+.month::after{
+  content:"❦";
+  position:absolute;
+  left:50%;
+  top:-12px;
+  transform:translateX(-50%);
+  padding:0 9px;
+  color:#8e978d;
+  background:var(--bg);
+  font-size:18px;
+  opacity:.8;
+}
+
+.month-head{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:0 4px 17px;
+  border-bottom:1px solid var(--line-soft);
+}
+
+.month-number{
+  display:block;
+  color:#778078;
+  font-size:.72rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
 .month h2{
-  font-family:'Cinzel Decorative',serif;font-size:1.05rem;color:var(--gold);
-  text-align:center;margin:.1rem 0 .9rem;font-weight:700;letter-spacing:.06em;
+  margin:0;
+  color:#e2e1d8;
+  font-family:var(--blackletter);
+  font-size:clamp(1.65rem, 2.4vw, 2.15rem);
+  font-weight:400;
+  line-height:1;
 }
-.rows{display:flex;flex-direction:column;gap:.55rem;}
+
+.rows{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding-top:15px;
+}
+
+/* =========================
+   EVENTOS
+   ========================= */
 
 .plaque{
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(195,165,101,.22);
-  border-left:3px solid var(--h-color,var(--slyt));
-  border-radius:3px;
-  padding:.55rem .7rem;
+  position:relative;
+  display:grid;
+  grid-template-columns:54px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:72px;
+  padding:9px 10px 9px 7px;
+  color:var(--ink);
+  background:
+    linear-gradient(90deg, rgba(36,67,49,.13), transparent 55%),
+    rgba(0,0,0,.14);
+  border:1px solid transparent;
+  border-left:1px solid rgba(105,134,114,.30);
   cursor:pointer;
-  transition:transform .25s ease, background .25s ease, border-color .25s ease;
+  transition:
+    transform .22s ease,
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
 }
-.plaque:hover, .plaque:focus-visible{
-  background:rgba(195,165,101,.08);
+
+.plaque::before{
+  content:"";
+  position:absolute;
+  top:7px;
+  bottom:7px;
+  left:0;
+  width:2px;
+  background:var(--event-color, var(--green));
+  opacity:.72;
+}
+
+.plaque:hover,
+.plaque:focus-visible{
   transform:translateX(3px);
-  border-color:rgba(195,165,101,.5);
+  background:
+    linear-gradient(90deg, rgba(49,93,69,.24), transparent 70%),
+    rgba(255,255,255,.025);
+  border-color:rgba(177,186,177,.18);
+  box-shadow:0 6px 18px rgba(0,0,0,.20);
   outline:none;
 }
-.plaque .day{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--gold-dim);letter-spacing:.08em;}
-.plaque .title{display:block;font-size:1.08rem;line-height:1.15;color:#e7dfc8;margin-top:.1rem;}
 
-/* ---- modal ---- */
+.event-date{
+  position:relative;
+  text-align:center;
+  color:#b7b9ae;
+  line-height:1;
+  border-right:1px solid var(--line-soft);
+  padding-right:10px;
+}
+
+.event-date .roman{
+  display:block;
+  color:#737c74;
+  font-size:.64rem;
+  letter-spacing:.1em;
+  margin-bottom:4px;
+}
+
+.event-date strong{
+  display:block;
+  color:#e1e1d7;
+  font-size:1.55rem;
+  font-weight:600;
+}
+
+.event-copy{min-width:0}
+
+.event-copy .label{
+  display:block;
+  color:#79837a;
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.event-copy .title{
+  display:block;
+  color:#deded5;
+  font-size:1.04rem;
+  line-height:1.08;
+}
+
+/* =========================
+   MODAL / PÁGINA DE CÓDICE
+   ========================= */
+
 .overlay{
-  position:fixed;inset:0;background:rgba(3,6,4,.82);backdrop-filter:blur(3px);
-  display:flex;align-items:center;justify-content:center;padding:1.2rem;
-  opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:50;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(3,6,5,.90);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease, visibility .25s ease;
 }
-.overlay.open{opacity:1;pointer-events:auto;}
+
+.overlay.open{
+  opacity:1;
+  visibility:visible;
+}
+
 .modal{
-  width:min(520px,100%);background:linear-gradient(165deg,#141f18,#0c1410);
-  border:1px solid rgba(195,165,101,.4);border-radius:8px;
-  padding:1.8rem 1.7rem 1.6rem;position:relative;
-  transform:scale(.85) translateY(18px);opacity:0;
-  transition:transform .38s cubic-bezier(.2,.9,.25,1.1), opacity .3s ease;
-  max-height:86vh;overflow-y:auto;
+  position:relative;
+  width:min(920px, 100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:14px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(78,109,88,.10), transparent 40%),
+    #111813;
+  border:1px solid rgba(207,207,192,.27);
+  box-shadow:0 28px 80px rgba(0,0,0,.55);
+  transform:translateY(16px) scale(.985);
+  transition:transform .32s cubic-bezier(.2,.8,.2,1);
 }
-.overlay.open .modal{transform:scale(1) translateY(0);opacity:1;}
-.seal{
-  width:46px;height:46px;border-radius:50%;background:var(--h-color,var(--slyt));
-  display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;
-  box-shadow:0 0 22px var(--h-color,var(--slyt));font-family:'Cinzel Decorative',serif;
-  color:#e7dfc8;font-size:.9rem;
+
+.overlay.open .modal{
+  transform:translateY(0) scale(1);
 }
-.modal .mdate{text-align:center;color:var(--gold-dim);font-family:'Cinzel Decorative',serif;font-size:.75rem;letter-spacing:.1em;}
-.modal h3{font-family:'Cinzel Decorative',serif;color:var(--gold);text-align:center;font-size:1.4rem;margin:.4rem 0 .8rem;}
-.modal p{font-size:1.12rem;line-height:1.55;color:#d9d2bd;}
+
+.modal-page{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(260px, .85fr) minmax(280px, 1.15fr);
+  min-height:500px;
+  border:1px solid rgba(210,210,194,.13);
+  overflow:hidden;
+}
+
+.modal-page::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid rgba(210,210,194,.08);
+  pointer-events:none;
+}
+
+.modal-image{
+  position:relative;
+  min-height:500px;
+  background:
+    linear-gradient(180deg, rgba(15,31,22,.18), rgba(4,8,6,.70)),
+    radial-gradient(circle at 50% 45%, rgba(73,116,88,.18), transparent 52%),
+    #0a100c;
+  overflow:hidden;
+}
+
+.modal-image img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:500px;
+  object-fit:cover;
+  filter:saturate(.78) contrast(1.04) brightness(.82);
+}
+
+.modal-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(7,13,10,.06), rgba(7,13,10,.48)),
+    linear-gradient(0deg, rgba(7,13,10,.30), transparent 35%);
+}
+
+.image-placeholder{
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:35px;
+  text-align:center;
+  color:#858f87;
+  background:
+    radial-gradient(circle, rgba(69,108,83,.16), transparent 48%),
+    #0a100c;
+}
+
+.image-placeholder.visible{display:flex}
+
+.image-placeholder .orn{
+  font-size:45px;
+  color:#718074;
+  margin-bottom:12px;
+}
+
+.image-placeholder p{
+  max-width:240px;
+  margin:0;
+  font-size:1rem;
+  font-style:italic;
+  line-height:1.4;
+}
+
+.modal-content{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:54px 50px 46px;
+  background:
+    linear-gradient(90deg, rgba(215,212,196,.025), transparent 18%),
+    #121a15;
+}
+
 .close-btn{
-  position:absolute;top:.6rem;right:.7rem;background:none;border:none;color:var(--mist);
-  font-size:1.3rem;cursor:pointer;line-height:1;padding:.3rem .5rem;
+  position:absolute;
+  top:15px;
+  right:17px;
+  z-index:3;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid rgba(200,200,186,.16);
+  color:#aeb4ab;
+  background:transparent;
+  cursor:pointer;
+  font-size:1rem;
+  transition:background .2s ease, color .2s ease;
 }
-.close-btn:hover{color:var(--gold)}
+
+.close-btn:hover{
+  color:#eee;
+  background:rgba(255,255,255,.05);
+}
+
+.modal-date{
+  color:#778178;
+  font-size:.73rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.modal-title{
+  margin:0;
+  color:#eeece2;
+  font-family:var(--blackletter);
+  font-size:clamp(2.2rem, 5vw, 3.65rem);
+  font-weight:400;
+  line-height:.95;
+}
+
+.modal-rule{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:20px 0 22px;
+  color:#778177;
+}
+
+.modal-rule span{
+  width:54px;
+  height:1px;
+  background:var(--line);
+}
+
+.modal-rule b{font-weight:400}
+
+.modal-desc{
+  margin:0;
+  color:#c2c4ba;
+  font-size:1.16rem;
+  line-height:1.62;
+}
+
+.modal-footer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:27px;
+  color:#758078;
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.house-mark{
+  width:9px;
+  height:9px;
+  border:1px solid currentColor;
+  transform:rotate(45deg);
+  background:var(--event-color, var(--green));
+  box-shadow:0 0 10px rgba(95,140,110,.12);
+}
+
+/* =========================
+   DECORACIÓN
+   ========================= */
+
+.corner{
+  position:absolute;
+  width:42px;
+  height:42px;
+  color:#6f796f;
+  opacity:.48;
+  pointer-events:none;
+}
+
+.corner::before,
+.corner::after{
+  content:"";
+  position:absolute;
+  background:currentColor;
+}
+
+.corner.tl{top:16px;left:16px}
+.corner.tr{top:16px;right:16px;transform:scaleX(-1)}
+.corner.bl{bottom:16px;left:16px;transform:scaleY(-1)}
+.corner.br{bottom:16px;right:16px;transform:scale(-1)}
+
+.corner::before{
+  top:0;left:0;width:1px;height:34px;
+}
+
+.corner::after{
+  top:0;left:0;width:34px;height:1px;
+}
+
+.modal-symbol{
+  position:absolute;
+  top:25px;
+  left:25px;
+  color:#7a867c;
+  font-size:13px;
+  letter-spacing:.1em;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width:1050px){
+  .months{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+
+@media (max-width:720px){
+  .page{
+    width:min(100% - 20px, 600px);
+    padding-top:25px;
+  }
+
+  .months{grid-template-columns:1fr}
+
+  .modal{
+    padding:8px;
+    max-height:94vh;
+  }
+
+  .modal-page{
+    grid-template-columns:1fr;
+  }
+
+  .modal-image{
+    min-height:270px;
+    max-height:40vh;
+  }
+
+  .modal-image img{min-height:270px}
+
+  .modal-content{
+    padding:42px 28px 30px;
+  }
+
+  .modal-title{font-size:2.6rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    transition:none !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="wrap">
-  <div class="crest-row">
-    <span class="crest g" title="Gryffindor"></span>
-    <span class="crest r" title="Ravenclaw"></span>
-    <span class="crest s" title="Slytherin"></span>
-    <span class="crest h" title="Hufflepuff"></span>
-  </div>
-  <header>
-    <h1>HOGWARTS</h1>
-    <p>Draco Dormiens Nunquam Titillandus</p>
-    <svg class="divider" viewBox="0 0 420 14"><path d="M0 7 Q60 0 120 7 T240 7 T360 7 Q400 7 420 4" stroke="#c3a565" stroke-width="1.4" fill="none" opacity="0.7"/></svg>
+<main class="page">
+
+  <header class="header">
+    <div class="header-ornament">✦ ❦ ✦</div>
+    <h1>Hogwarts</h1>
+    <p class="subtitle">Crónica de los días y ceremonias del castillo</p>
+
+    <div class="header-rule">
+      <span></span>
+      <b>❦</b>
+      <span></span>
+    </div>
   </header>
 
-  <div class="months" id="months"></div>
-</div>
+  <section class="months" id="months" aria-label="Calendario"></section>
 
-<div class="overlay" id="overlay">
-  <div class="modal" id="modal">
+</main>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
     <button class="close-btn" id="closeBtn" aria-label="Cerrar">✕</button>
-    <div class="seal" id="seal">✦</div>
-    <div class="mdate" id="mdate"></div>
-    <h3 id="mtitle"></h3>
-    <p id="mdesc"></p>
-  </div>
+
+    <div class="modal-page">
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
+
+      <div class="modal-image">
+        <img id="modalImage" src="" alt="" hidden>
+
+        <div class="image-placeholder" id="imagePlaceholder">
+          <div class="orn">❦</div>
+          <p id="placeholderText">
+            Aquí aparecerá la ilustración, bandera o motivo que asignes a esta fecha.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-content">
+        <div class="modal-symbol">✦</div>
+
+        <div class="modal-date" id="modalDate"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+
+        <div class="modal-rule">
+          <span></span>
+          <b>❦</b>
+          <span></span>
+        </div>
+
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <div class="modal-footer">
+          <span class="house-mark" id="houseMark"></span>
+          <span id="modalHouse"></span>
+        </div>
+      </div>
+    </div>
+  </article>
 </div>
 
 <script>
-const HOUSE = {slyt:'--slyt', gryf:'--gryf', huff:'--huff', raven:'--raven'};
+/*
+  ==========================================
+  DATOS
+  ==========================================
+
+  Para añadir una imagen a una fecha:
+
+  image: 'images/octubre/03.jpg'
+
+  Para una bandera, escudo, ilustración, etc.,
+  simplemente usa la ruta que quieras.
+
+  Si dejas image vacío (''), aparecerá el
+  espacio de ilustración medieval en su lugar.
+*/
+
+const HOUSE = {
+  slyt: {
+    name: 'Slytherin',
+    color: '#3f7655'
+  },
+  gryf: {
+    name: 'Gryffindor',
+    color: '#6e3732'
+  },
+  huff: {
+    name: 'Hufflepuff',
+    color: '#807047'
+  },
+  raven: {
+    name: 'Ravenclaw',
+    color: '#465d70'
+  }
+};
 
 const data = {
   Octubre: [
-    {day:'3', title:'Ceremonia de las Lamparas Verdes', house:'slyt', desc:'Al caer la noche, los pasillos de piedra se iluminan con farolillos de fuego esmeralda. Se dice que quien camine bajo ellos en silencio recibira un presagio susurrado por las paredes.'},
-    {day:'12', title:'El Duelo de los Retratos', house:'raven', desc:'Los cuadros del ala este despiertan una vez al ano para medir ingenio, no fuerza. Los estudiantes forman parejas para resolver acertijos antes de que las velas se consuman.'},
-    {day:'21', title:'Vigilia de la Serpiente de Cristal', house:'slyt', desc:'Una serpiente tallada en vidrio recorre las mazmorras revelando secretos ocultos tras los muros. Nadie sabe quien la esculpio, ni por que solo aparece con luna nueva.'},
-    {day:'29', title:'Banquete de las Calabazas Negras', house:'huff', desc:'La cocina prepara un festin donde cada plato guarda un pequeno hechizo de buena fortuna, herencia de las cocineras mas antiguas de la casa amarilla.'}
+    {
+      day:'3',
+      title:'Ceremonia de las Lámparas Verdes',
+      house:'slyt',
+      image:'',
+      desc:'Al caer la noche, los pasillos de piedra se iluminan con farolillos de fuego esmeralda. Se dice que quien camine bajo ellos en silencio recibirá un presagio susurrado por las paredes.'
+    },
+    {
+      day:'12',
+      title:'El Duelo de los Retratos',
+      house:'raven',
+      image:'',
+      desc:'Los cuadros del ala este despiertan una vez al año para medir ingenio, no fuerza. Los estudiantes forman parejas para resolver acertijos antes de que las velas se consuman.'
+    },
+    {
+      day:'21',
+      title:'Vigilia de la Serpiente de Cristal',
+      house:'slyt',
+      image:'',
+      desc:'Una serpiente tallada en vidrio recorre las mazmorras revelando secretos ocultos tras los muros. Nadie sabe quién la esculpió, ni por qué solo aparece con luna nueva.'
+    },
+    {
+      day:'29',
+      title:'Banquete de las Calabazas Negras',
+      house:'huff',
+      image:'',
+      desc:'La cocina prepara un festín donde cada plato guarda un pequeño hechizo de buena fortuna, herencia de las cocineras más antiguas de la casa amarilla.'
+    }
   ],
+
   Noviembre: [
-    {day:'2', title:'Noche de los Espejos Quietos', house:'slyt', desc:'Los espejos del castillo dejan de reflejar por una hora completa. Quienes se atreven a mirarlos de todas formas aseguran ver el reflejo de quien seran, no de quien son.'},
-    {day:'11', title:'Torneo del Guante de Plata', house:'gryf', desc:'Un desafio de valentia disfrazado de deporte: cruzar el puente colgante mientras las gárgolas lanzan hechizos inofensivos pero ruidosos.'},
-    {day:'18', title:'El Susurro de las Mazmorras', house:'slyt', desc:'Cada estudiante de la casa recibe, en privado, una frase escrita por sus mayores anos atras. Nadie sabe quien las escribio primero.'},
-    {day:'27', title:'Feria de Pergaminos Perdidos', house:'raven', desc:'La biblioteca abre su ala prohibida por una tarde. Los libros, dicen, eligen a quien los lee y no al reves.'}
+    {
+      day:'2',
+      title:'Noche de los Espejos Quietos',
+      house:'slyt',
+      image:'',
+      desc:'Los espejos del castillo dejan de reflejar por una hora completa. Quienes se atreven a mirarlos de todas formas aseguran ver el reflejo de quien serán, no de quien son.'
+    },
+    {
+      day:'11',
+      title:'Torneo del Guante de Plata',
+      house:'gryf',
+      image:'',
+      desc:'Un desafío de valentía disfrazado de deporte: cruzar el puente colgante mientras las gárgolas lanzan hechizos inofensivos pero ruidosos.'
+    },
+    {
+      day:'18',
+      title:'El Susurro de las Mazmorras',
+      house:'slyt',
+      image:'',
+      desc:'Cada estudiante de la casa recibe, en privado, una frase escrita por sus mayores años atrás. Nadie sabe quién las escribió primero.'
+    },
+    {
+      day:'27',
+      title:'Feria de Pergaminos Perdidos',
+      house:'raven',
+      image:'',
+      desc:'La biblioteca abre su ala prohibida por una tarde. Los libros, dicen, eligen a quien los lee y no al revés.'
+    }
   ],
+
   Diciembre: [
-    {day:'5', title:'El Encendido del Candil de Escamas', house:'slyt', desc:'Una antigua lampara con forma de serpiente enroscada se enciende para marcar el inicio del invierno. Su luz cambia de tono segun el humor de quien la observa.'},
-    {day:'14', title:'Baile bajo el Techo de Hielo', house:'raven', desc:'El gran salon se cubre de escarcha artificial mientras las parejas bailan al ritmo de un vals compuesto siglos atras por un fantasma melomano.'},
-    {day:'24', title:'Vispera de las Velas Verdes', house:'slyt', desc:'Cada mesa de la casa enciende una vela con cera mezclada de menta y ceniza. Se cree que protege los suenos de quienes duermen esa noche.'},
-    {day:'31', title:'El Ultimo Sello del Ano', house:'huff', desc:'Los elfos domesticos preparan un chocolate especiado que, segun la tradicion, borra un pequeno mal recuerdo del ano que termina.'}
+    {
+      day:'5',
+      title:'El Encendido del Candil de Escamas',
+      house:'slyt',
+      image:'',
+      desc:'Una antigua lámpara con forma de serpiente enroscada se enciende para marcar el inicio del invierno. Su luz cambia de tono según el humor de quien la observa.'
+    },
+    {
+      day:'14',
+      title:'Baile bajo el Techo de Hielo',
+      house:'raven',
+      image:'',
+      desc:'El gran salón se cubre de escarcha artificial mientras las parejas bailan al ritmo de un vals compuesto siglos atrás por un fantasma melómano.'
+    },
+    {
+      day:'24',
+      title:'Víspera de las Velas Verdes',
+      house:'slyt',
+      image:'',
+      desc:'Cada mesa de la casa enciende una vela con cera mezclada de menta y ceniza. Se cree que protege los sueños de quienes duermen esa noche.'
+    },
+    {
+      day:'31',
+      title:'El Último Sello del Año',
+      house:'huff',
+      image:'',
+      desc:'Los elfos domésticos preparan un chocolate especiado que, según la tradición, borra un pequeño mal recuerdo del año que termina.'
+    }
   ],
+
   Enero: [
-    {day:'6', title:'Dia de las Coronas de Escarcha', house:'raven', desc:'Los alumnos de todas las casas intercambian pequenas coronas talladas en hielo permanente, un gesto antiguo de tregua entre rivalidades.'},
-    {day:'15', title:'El Regreso del Basilisco de Papel', house:'slyt', desc:'Una criatura de origami gigante recorre los pasillos de la mazmorra guiada por hilos invisibles, recordando a los novatos que el silencio tambien es un arma.'},
-    {day:'22', title:'Examenes bajo la Luna Verde', house:'slyt', desc:'La luna llena de enero tine las ventanas de un verde palido. Se dice que estudiar bajo esa luz mejora la memoria, aunque nadie lo ha demostrado.'},
-    {day:'30', title:'Cierre del Sotano de Piedra', house:'gryf', desc:'Una ceremonia conjunta entre casas marca el fin del semestre de invierno, con antorchas cruzadas de verde y escarlata en el patio central.'}
+    {
+      day:'6',
+      title:'Día de las Coronas de Escarcha',
+      house:'raven',
+      image:'',
+      desc:'Los alumnos de todas las casas intercambian pequeñas coronas talladas en hielo permanente, un gesto antiguo de tregua entre rivalidades.'
+    },
+    {
+      day:'15',
+      title:'El Regreso del Basilisco de Papel',
+      house:'slyt',
+      image:'',
+      desc:'Una criatura de origami gigante recorre los pasillos de la mazmorra guiada por hilos invisibles, recordando a los novatos que el silencio también es un arma.'
+    },
+    {
+      day:'22',
+      title:'Exámenes bajo la Luna Verde',
+      house:'slyt',
+      image:'',
+      desc:'La luna llena de enero tiñe las ventanas de un verde pálido. Se dice que estudiar bajo esa luz mejora la memoria, aunque nadie lo ha demostrado.'
+    },
+    {
+      day:'30',
+      title:'Cierre del Sótano de Piedra',
+      house:'gryf',
+      image:'',
+      desc:'Una ceremonia conjunta entre casas marca el fin del semestre de invierno, con antorchas cruzadas de verde y escarlata en el patio central.'
+    }
   ]
 };
 
 const monthsEl = document.getElementById('months');
-Object.entries(data).forEach(([month, events])=>{
-  const col = document.createElement('div');
-  col.className='month';
-  col.innerHTML = `<h2>${month}</h2><div class="rows"></div>`;
+
+const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+Object.entries(data).forEach(([month, events], monthIndex) => {
+
+  const col = document.createElement('section');
+  col.className = 'month';
+
+  col.innerHTML = `
+    <div class="month-head">
+      <span class="month-number">Libro ${roman[monthIndex]}</span>
+      <h2>${month}</h2>
+    </div>
+    <div class="rows"></div>
+  `;
+
   const rows = col.querySelector('.rows');
-  events.forEach(ev=>{
-    const p=document.createElement('div');
-    p.className='plaque';
-    p.tabIndex=0;
-    p.style.setProperty('--h-color', `var(${HOUSE[ev.house]})`);
-    p.innerHTML=`<span class="day">${ev.day} de ${month}</span><span class="title">${ev.title}</span>`;
-    p.addEventListener('click', ()=>openModal(ev, month));
-    p.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(ev,month);}});
+
+  events.forEach(ev => {
+
+    const p = document.createElement('button');
+    p.type = 'button';
+    p.className = 'plaque';
+    p.style.setProperty('--event-color', HOUSE[ev.house].color);
+
+    p.innerHTML = `
+      <span class="event-date">
+        <span class="roman">${toRoman(Number(ev.day))}</span>
+        <strong>${ev.day}</strong>
+      </span>
+      <span class="event-copy">
+        <span class="label">${month}</span>
+        <span class="title">${ev.title}</span>
+      </span>
+    `;
+
+    p.addEventListener('click', () => openModal(ev, month));
     rows.appendChild(p);
   });
+
   monthsEl.appendChild(col);
 });
 
-const overlay=document.getElementById('overlay');
-const modal=document.getElementById('modal');
-function openModal(ev, month){
-  document.getElementById('seal').style.background=`var(${HOUSE[ev.house]})`;
-  document.getElementById('seal').style.boxShadow=`0 0 22px var(${HOUSE[ev.house]})`;
-  document.getElementById('mdate').textContent=`${ev.day} de ${month}`;
-  document.getElementById('mtitle').textContent=ev.title;
-  document.getElementById('mdesc').textContent=ev.desc;
-  overlay.classList.add('open');
+function toRoman(num){
+  const values = [
+    [1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],
+    [100,'C'],[90,'XC'],[50,'L'],[40,'XL'],
+    [10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']
+  ];
+
+  let result = '';
+
+  for(const [value, symbol] of values){
+    while(num >= value){
+      result += symbol;
+      num -= value;
+    }
+  }
+
+  return result;
 }
-function closeModal(){overlay.classList.remove('open');}
-document.getElementById('closeBtn').addEventListener('click', closeModal);
-overlay.addEventListener('click', e=>{if(e.target===overlay)closeModal();});
-document.addEventListener('keydown', e=>{if(e.key==='Escape')closeModal();});
+
+const overlay = document.getElementById('overlay');
+const modalImage = document.getElementById('modalImage');
+const imagePlaceholder = document.getElementById('imagePlaceholder');
+
+function openModal(ev, month){
+
+  const house = HOUSE[ev.house];
+
+  document.getElementById('modalDate').textContent =
+    `${ev.day} de ${month}`;
+
+  document.getElementById('modalTitle').textContent =
+    ev.title;
+
+  document.getElementById('modalDesc').textContent =
+    ev.desc;
+
+  document.getElementById('modalHouse').textContent =
+    house.name;
+
+  document.getElementById('houseMark').style.setProperty(
+    '--event-color',
+    house.color
+  );
+
+  /*
+    Imagen:
+    - si existe, aparece
+    - si no existe, aparece el espacio reservado
+      para tu futura ilustración.
+  */
+  modalImage.onload = () => {
+    modalImage.hidden = false;
+    imagePlaceholder.classList.remove('visible');
+  };
+
+  modalImage.onerror = () => {
+    modalImage.hidden = true;
+    imagePlaceholder.classList.add('visible');
+  };
+
+  if(ev.image){
+    modalImage.alt = `${ev.title} — ilustración`;
+    modalImage.src = ev.image;
+  }else{
+    modalImage.hidden = true;
+    imagePlaceholder.classList.add('visible');
+  }
+
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('closeBtn')
+  .addEventListener('click', closeModal);
+
+overlay.addEventListener('click', e => {
+  if(e.target === overlay) closeModal();
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeModal();
+});
 </script>
+
 </body>
 </html>
