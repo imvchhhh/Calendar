@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendario del Sotano — Almanaque de la Serpiente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070c09; --surface:#101c16; --surface2:#152418;
+  --gold:#c3a565; --gold-dim:#8a7642; --mist:#8fa495;
+  --gryf:#7f2626; --huff:#a8802a; --raven:#28466b; --slyt:#2f6b45;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:#d9d2bd;font-family:'Cormorant Garamond',serif;min-height:100%;}
+body{
+  background:
+    radial-gradient(ellipse at top, #0e1a12 0%, var(--bg) 60%);
+  padding:2.2rem 1rem 3rem;
+  overflow-x:hidden;
+}
+.wrap{max-width:1180px;margin:0 auto;}
+
+/* ---- header ---- */
+.crest-row{display:flex;justify-content:center;gap:.9rem;margin-bottom:.6rem;}
+.crest{width:9px;height:9px;border-radius:50%;opacity:.85;box-shadow:0 0 8px currentColor;}
+.crest.g{background:var(--gryf);color:var(--gryf)}
+.crest.h{background:var(--huff);color:var(--huff)}
+.crest.r{background:var(--raven);color:var(--raven)}
+.crest.s{background:var(--slyt);color:var(--slyt);width:11px;height:11px}
+
+header{text-align:center;margin-bottom:2.4rem;position:relative;}
+h1{
+  font-family:'Cinzel Decorative',serif;
+  font-weight:900;
+  font-size:clamp(1.7rem,4.6vw,2.9rem);
+  color:var(--gold);
+  letter-spacing:.03em;
+  margin:.2rem 0 .3rem;
+  text-shadow:0 0 18px rgba(195,165,101,.25);
+}
+header p{color:var(--mist);font-style:italic;font-size:1.05rem;margin:0;letter-spacing:.02em;}
+.divider{width:min(420px,80%);height:14px;margin:1.1rem auto 0;opacity:.75;}
+
+/* ---- grid ---- */
+.months{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.1rem;
+}
+@media(max-width:880px){.months{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.months{grid-template-columns:1fr;}}
+
+.month{
+  background:linear-gradient(160deg,var(--surface),var(--surface2));
+  border:1px solid rgba(195,165,101,.28);
+  border-radius:6px;
+  padding:1rem .8rem 1.1rem;
+  position:relative;
+}
+.month::before{
+  content:'';position:absolute;inset:5px;border:1px solid rgba(195,165,101,.13);border-radius:3px;pointer-events:none;
+}
+.month h2{
+  font-family:'Cinzel Decorative',serif;font-size:1.05rem;color:var(--gold);
+  text-align:center;margin:.1rem 0 .9rem;font-weight:700;letter-spacing:.06em;
+}
+.rows{display:flex;flex-direction:column;gap:.55rem;}
+
+.plaque{
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(195,165,101,.22);
+  border-left:3px solid var(--h-color,var(--slyt));
+  border-radius:3px;
+  padding:.55rem .7rem;
+  cursor:pointer;
+  transition:transform .25s ease, background .25s ease, border-color .25s ease;
+}
+.plaque:hover, .plaque:focus-visible{
+  background:rgba(195,165,101,.08);
+  transform:translateX(3px);
+  border-color:rgba(195,165,101,.5);
+  outline:none;
+}
+.plaque .day{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--gold-dim);letter-spacing:.08em;}
+.plaque .title{display:block;font-size:1.08rem;line-height:1.15;color:#e7dfc8;margin-top:.1rem;}
+
+/* ---- modal ---- */
+.overlay{
+  position:fixed;inset:0;background:rgba(3,6,4,.82);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:1.2rem;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:50;
+}
+.overlay.open{opacity:1;pointer-events:auto;}
+.modal{
+  width:min(520px,100%);background:linear-gradient(165deg,#141f18,#0c1410);
+  border:1px solid rgba(195,165,101,.4);border-radius:8px;
+  padding:1.8rem 1.7rem 1.6rem;position:relative;
+  transform:scale(.85) translateY(18px);opacity:0;
+  transition:transform .38s cubic-bezier(.2,.9,.25,1.1), opacity .3s ease;
+  max-height:86vh;overflow-y:auto;
+}
+.overlay.open .modal{transform:scale(1) translateY(0);opacity:1;}
+.seal{
+  width:46px;height:46px;border-radius:50%;background:var(--h-color,var(--slyt));
+  display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;
+  box-shadow:0 0 22px var(--h-color,var(--slyt));font-family:'Cinzel Decorative',serif;
+  color:#e7dfc8;font-size:.9rem;
+}
+.modal .mdate{text-align:center;color:var(--gold-dim);font-family:'Cinzel Decorative',serif;font-size:.75rem;letter-spacing:.1em;}
+.modal h3{font-family:'Cinzel Decorative',serif;color:var(--gold);text-align:center;font-size:1.4rem;margin:.4rem 0 .8rem;}
+.modal p{font-size:1.12rem;line-height:1.55;color:#d9d2bd;}
+.close-btn{
+  position:absolute;top:.6rem;right:.7rem;background:none;border:none;color:var(--mist);
+  font-size:1.3rem;cursor:pointer;line-height:1;padding:.3rem .5rem;
+}
+.close-btn:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crest-row">
+    <span class="crest g" title="Gryffindor"></span>
+    <span class="crest r" title="Ravenclaw"></span>
+    <span class="crest s" title="Slytherin"></span>
+    <span class="crest h" title="Hufflepuff"></span>
+  </div>
+  <header>
+    <h1>Almanaque del Sotano de Piedra</h1>
+    <p>Cuatro lunas, dieciseis presagios</p>
+    <svg class="divider" viewBox="0 0 420 14"><path d="M0 7 Q60 0 120 7 T240 7 T360 7 Q400 7 420 4" stroke="#c3a565" stroke-width="1.4" fill="none" opacity="0.7"/></svg>
+  </header>
+
+  <div class="months" id="months"></div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="close-btn" id="closeBtn" aria-label="Cerrar">✕</button>
+    <div class="seal" id="seal">✦</div>
+    <div class="mdate" id="mdate"></div>
+    <h3 id="mtitle"></h3>
+    <p id="mdesc"></p>
+  </div>
+</div>
+
+<script>
+const HOUSE = {slyt:'--slyt', gryf:'--gryf', huff:'--huff', raven:'--raven'};
+
+const data = {
+  Octubre: [
+    {day:'3', title:'Ceremonia de las Lamparas Verdes', house:'slyt', desc:'Al caer la noche, los pasillos de piedra se iluminan con farolillos de fuego esmeralda. Se dice que quien camine bajo ellos en silencio recibira un presagio susurrado por las paredes.'},
+    {day:'12', title:'El Duelo de los Retratos', house:'raven', desc:'Los cuadros del ala este despiertan una vez al ano para medir ingenio, no fuerza. Los estudiantes forman parejas para resolver acertijos antes de que las velas se consuman.'},
+    {day:'21', title:'Vigilia de la Serpiente de Cristal', house:'slyt', desc:'Una serpiente tallada en vidrio recorre las mazmorras revelando secretos ocultos tras los muros. Nadie sabe quien la esculpio, ni por que solo aparece con luna nueva.'},
+    {day:'29', title:'Banquete de las Calabazas Negras', house:'huff', desc:'La cocina prepara un festin donde cada plato guarda un pequeno hechizo de buena fortuna, herencia de las cocineras mas antiguas de la casa amarilla.'}
+  ],
+  Noviembre: [
+    {day:'2', title:'Noche de los Espejos Quietos', house:'slyt', desc:'Los espejos del castillo dejan de reflejar por una hora completa. Quienes se atreven a mirarlos de todas formas aseguran ver el reflejo de quien seran, no de quien son.'},
+    {day:'11', title:'Torneo del Guante de Plata', house:'gryf', desc:'Un desafio de valentia disfrazado de deporte: cruzar el puente colgante mientras las gárgolas lanzan hechizos inofensivos pero ruidosos.'},
+    {day:'18', title:'El Susurro de las Mazmorras', house:'slyt', desc:'Cada estudiante de la casa recibe, en privado, una frase escrita por sus mayores anos atras. Nadie sabe quien las escribio primero.'},
+    {day:'27', title:'Feria de Pergaminos Perdidos', house:'raven', desc:'La biblioteca abre su ala prohibida por una tarde. Los libros, dicen, eligen a quien los lee y no al reves.'}
+  ],
+  Diciembre: [
+    {day:'5', title:'El Encendido del Candil de Escamas', house:'slyt', desc:'Una antigua lampara con forma de serpiente enroscada se enciende para marcar el inicio del invierno. Su luz cambia de tono segun el humor de quien la observa.'},
+    {day:'14', title:'Baile bajo el Techo de Hielo', house:'raven', desc:'El gran salon se cubre de escarcha artificial mientras las parejas bailan al ritmo de un vals compuesto siglos atras por un fantasma melomano.'},
+    {day:'24', title:'Vispera de las Velas Verdes', house:'slyt', desc:'Cada mesa de la casa enciende una vela con cera mezclada de menta y ceniza. Se cree que protege los suenos de quienes duermen esa noche.'},
+    {day:'31', title:'El Ultimo Sello del Ano', house:'huff', desc:'Los elfos domesticos preparan un chocolate especiado que, segun la tradicion, borra un pequeno mal recuerdo del ano que termina.'}
+  ],
+  Enero: [
+    {day:'6', title:'Dia de las Coronas de Escarcha', house:'raven', desc:'Los alumnos de todas las casas intercambian pequenas coronas talladas en hielo permanente, un gesto antiguo de tregua entre rivalidades.'},
+    {day:'15', title:'El Regreso del Basilisco de Papel', house:'slyt', desc:'Una criatura de origami gigante recorre los pasillos de la mazmorra guiada por hilos invisibles, recordando a los novatos que el silencio tambien es un arma.'},
+    {day:'22', title:'Examenes bajo la Luna Verde', house:'slyt', desc:'La luna llena de enero tine las ventanas de un verde palido. Se dice que estudiar bajo esa luz mejora la memoria, aunque nadie lo ha demostrado.'},
+    {day:'30', title:'Cierre del Sotano de Piedra', house:'gryf', desc:'Una ceremonia conjunta entre casas marca el fin del semestre de invierno, con antorchas cruzadas de verde y escarlata en el patio central.'}
+  ]
+};
+
+const monthsEl = document.getElementById('months');
+Object.entries(data).forEach(([month, events])=>{
+  const col = document.createElement('div');
+  col.className='month';
+  col.innerHTML = `<h2>${month}</h2><div class="rows"></div>`;
+  const rows = col.querySelector('.rows');
+  events.forEach(ev=>{
+    const p=document.createElement('div');
+    p.className='plaque';
+    p.tabIndex=0;
+    p.style.setProperty('--h-color', `var(${HOUSE[ev.house]})`);
+    p.innerHTML=`<span class="day">${ev.day} de ${month}</span><span class="title">${ev.title}</span>`;
+    p.addEventListener('click', ()=>openModal(ev, month));
+    p.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(ev,month);}});
+    rows.appendChild(p);
+  });
+  monthsEl.appendChild(col);
+});
+
+const overlay=document.getElementById('overlay');
+const modal=document.getElementById('modal');
+function openModal(ev, month){
+  document.getElementById('seal').style.background=`var(${HOUSE[ev.house]})`;
+  document.getElementById('seal').style.boxShadow=`0 0 22px var(${HOUSE[ev.house]})`;
+  document.getElementById('mdate').textContent=`${ev.day} de ${month}`;
+  document.getElementById('mtitle').textContent=ev.title;
+  document.getElementById('mdesc').textContent=ev.desc;
+  overlay.classList.add('open');
+}
+function closeModal(){overlay.classList.remove('open');}
+document.getElementById('closeBtn').addEventListener('click', closeModal);
+overlay.addEventListener('click', e=>{if(e.target===overlay)closeModal();});
+document.addEventListener('keydown', e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
