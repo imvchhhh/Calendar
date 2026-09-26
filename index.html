@@ -3,119 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Calendario del Sotano — Almanaque de la Serpiente</title>
+<title>Calendario del Sótano — Almanaque de la Serpiente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
+<!-- Cargamos tipografías góticas y de manuscrito medieval -->
+<link href="https://googleapis.com" rel="stylesheet">
 <style>
 :root{
-  --bg:#070c09; --surface:#101c16; --surface2:#152418;
-  --gold:#c3a565; --gold-dim:#8a7642; --mist:#8fa495;
-  --gryf:#7f2626; --huff:#a8802a; --raven:#28466b; --slyt:#2f6b45;
+  /* Colores base adaptados a tus imágenes: tonos oscuros de piedra y oro viejo */
+  --bg:#0b0e11; 
+  --surface:#15191e; 
+  --surface2:#0f1216;
+  --gold:#c5a880; 
+  --gold-dim:#8e7658; 
+  --mist:#a2b1a6;
+  
+  /* Identificadores de las casas */
+  --gryf:#8c2929; 
+  --huff:#c2932b; 
+  --raven:#2e527d; 
+  --slyt:#265c3a;
+  
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   box-sizing:border-box;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:#d9d2bd;font-family:'Cormorant Garamond',serif;min-height:100%;}
+html,body{margin:0;background:var(--bg);color:#d1c9b7;font-family:'Cormorant Garamond',serif;min-height:100%;}
 body{
-  background:
-    radial-gradient(ellipse at top, #0e1a12 0%, var(--bg) 60%);
-  padding:2.2rem 1rem 3rem;
+  /* Fondo con degradado radial simulando iluminación de antorcha en una mazmorra */
+  background: radial-gradient(circle at top, #1c222a 0%, var(--bg) 70%);
+  padding:2.5rem 1rem 4rem;
   overflow-x:hidden;
 }
-.wrap{max-width:1180px;margin:0 auto;}
+.wrap{max-width:1200px;margin:0 auto;}
 
 /* ---- header ---- */
-.crest-row{display:flex;justify-content:center;gap:.9rem;margin-bottom:.6rem;}
-.crest{width:9px;height:9px;border-radius:50%;opacity:.85;box-shadow:0 0 8px currentColor;}
+.crest-row{display:flex;justify-content:center;gap:1rem;margin-bottom:0.8rem;}
+.crest{width:11px;height:11px;border-radius:50%;opacity:.85;box-shadow:0 0 10px currentColor;}
 .crest.g{background:var(--gryf);color:var(--gryf)}
 .crest.h{background:var(--huff);color:var(--huff)}
 .crest.r{background:var(--raven);color:var(--raven)}
-.crest.s{background:var(--slyt);color:var(--slyt);width:11px;height:11px}
+.crest.s{background:var(--slyt);color:var(--slyt);width:13px;height:13px;box-shadow:0 0 14px var(--slyt);}
 
-header{text-align:center;margin-bottom:2.4rem;position:relative;}
+header{text-align:center;margin-bottom:3.5rem;position:relative;}
 h1{
   font-family:'Cinzel Decorative',serif;
   font-weight:900;
-  font-size:clamp(1.7rem,4.6vw,2.9rem);
+  font-size:clamp(2rem,5vw,3.5rem);
   color:var(--gold);
-  letter-spacing:.03em;
+  letter-spacing:.08em;
   margin:.2rem 0 .3rem;
-  text-shadow:0 0 18px rgba(195,165,101,.25);
+  text-transform: uppercase;
+  text-shadow:0 0 25px rgba(197,168,128,.35);
 }
-header p{color:var(--mist);font-style:italic;font-size:1.05rem;margin:0;letter-spacing:.02em;}
-.divider{width:min(420px,80%);height:14px;margin:1.1rem auto 0;opacity:.75;}
+header p{
+  color:var(--gold-dim);
+  font-family:'Cinzel', serif;
+  font-style:normal;
+  font-size:0.9rem;
+  margin:0;
+  letter-spacing:.25em;
+  text-transform: uppercase;
+}
+.divider{width:min(450px,80%);height:20px;margin:1.2rem auto 0;opacity:.8;}
 
 /* ---- grid ---- */
 .months{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:1.1rem;
+  gap:1.5rem;
+  align-items: start;
 }
-@media(max-width:880px){.months{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:520px){.months{grid-template-columns:1fr;}}
+@media(max-width:980px){.months{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.months{grid-template-columns:1fr;}}
 
+/* Estilo de Banderín/Estandarte Colgante para los Meses */
 .month{
-  background:linear-gradient(160deg,var(--surface),var(--surface2));
-  border:1px solid rgba(195,165,101,.28);
-  border-radius:6px;
-  padding:1rem .8rem 1.1rem;
+  background:linear-gradient(180deg, var(--surface), var(--surface2));
+  border:1px solid rgba(197, 168, 128, 0.25);
+  padding:1.5rem 1rem 3.5rem;
   position:relative;
+  /* El secreto del corte medieval inferior en punta */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 93%, 50% 100%, 0% 93%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: border-color 0.3s ease;
 }
+.month:hover {
+  border-color: rgba(197, 168, 128, 0.5);
+}
+/* Marco interno ornamental */
 .month::before{
-  content:'';position:absolute;inset:5px;border:1px solid rgba(195,165,101,.13);border-radius:3px;pointer-events:none;
+  content:'';
+  position:absolute;
+  inset:6px;
+  border:1px solid rgba(197, 168, 128, 0.08);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 93%, 50% 100%, 0% 93%);
+  pointer-events:none;
 }
 .month h2{
-  font-family:'Cinzel Decorative',serif;font-size:1.05rem;color:var(--gold);
-  text-align:center;margin:.1rem 0 .9rem;font-weight:700;letter-spacing:.06em;
+  font-family:'Cinzel',serif;
+  font-size:1.15rem;
+  color:var(--gold);
+  text-align:center;
+  margin:.1rem 0 1.5rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.rows{display:flex;flex-direction:column;gap:.55rem;}
+/* Detalle heráldico en los lados del título del mes */
+.month h2::before, .month h2::after {
+  content: '•';
+  font-size: 0.7rem;
+  margin: 0 0.5rem;
+  color: var(--gold-dim);
+}
+.rows{display:flex;flex-direction:column;gap:.7rem;}
 
+/* Eventos / Pergaminos del Calendario */
 .plaque{
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(195,165,101,.22);
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(197, 168, 128, 0.15);
   border-left:3px solid var(--h-color,var(--slyt));
-  border-radius:3px;
-  padding:.55rem .7rem;
+  border-radius:2px;
+  padding:.6rem .8rem;
   cursor:pointer;
-  transition:transform .25s ease, background .25s ease, border-color .25s ease;
+  transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 .plaque:hover, .plaque:focus-visible{
-  background:rgba(195,165,101,.08);
-  transform:translateX(3px);
-  border-color:rgba(195,165,101,.5);
+  background:rgba(197,168,128,.08);
+  transform: scale(1.02) translateX(2px);
+  border-color: rgba(197,168,128,.4);
+  border-left-width: 5px;
   outline:none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-.plaque .day{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--gold-dim);letter-spacing:.08em;}
-.plaque .title{display:block;font-size:1.08rem;line-height:1.15;color:#e7dfc8;margin-top:.1rem;}
+.plaque .day{
+  font-family:'Cinzel',serif;
+  font-size:.75rem;
+  color:var(--gold-dim);
+  letter-spacing:.08em;
+  font-weight: 700;
+}
+.plaque .title{
+  display:block;
+  font-size:1.1rem;
+  line-height:1.2;
+  color:#e0d8c3;
+  margin-top:.15rem;
+}
 
-/* ---- modal ---- */
+/* ---- modal misterioso ---- */
 .overlay{
-  position:fixed;inset:0;background:rgba(3,6,4,.82);backdrop-filter:blur(3px);
-  display:flex;align-items:center;justify-content:center;padding:1.2rem;
-  opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:50;
+  position:fixed;inset:0;
+  background:rgba(5, 7, 10, 0.88);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  opacity:0;pointer-events:none;transition:opacity .4s ease;z-index:100;
 }
 .overlay.open{opacity:1;pointer-events:auto;}
+
+/* Estilo caja/tomo de hechizos antiguo */
 .modal{
-  width:min(520px,100%);background:linear-gradient(165deg,#141f18,#0c1410);
-  border:1px solid rgba(195,165,101,.4);border-radius:8px;
-  padding:1.8rem 1.7rem 1.6rem;position:relative;
-  transform:scale(.85) translateY(18px);opacity:0;
-  transition:transform .38s cubic-bezier(.2,.9,.25,1.1), opacity .3s ease;
-  max-height:86vh;overflow-y:auto;
+  width:min(460px,100%);
+  background:linear-gradient(135deg, #181d24, #0e1115);
+  /* Doble borde de libro medieval */
+  border: 3px double var(--gold);
+  border-radius: 4px;
+  padding:2.2rem 2rem 2rem;
+  position:relative;
+  transform:scale(.9) translateY(20px);opacity:0;
+  transition:transform .4s cubic-bezier(.16, 1, 0.3, 1), opacity .3s ease;
+  max-height:90vh;overflow-y:auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(197,168,128,0.1);
+  text-align: center;
 }
 .overlay.open .modal{transform:scale(1) translateY(0);opacity:1;}
-.seal{
-  width:46px;height:46px;border-radius:50%;background:var(--h-color,var(--slyt));
-  display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;
-  box-shadow:0 0 22px var(--h-color,var(--slyt));font-family:'Cinzel Decorative',serif;
-  color:#e7dfc8;font-size:.9rem;
+
+/* Contenedor dinámico del Estandarte */
+.banner-container {
+  width: 100%;
+  height: 180px;
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.modal .mdate{text-align:center;color:var(--gold-dim);font-family:'Cinzel Decorative',serif;font-size:.75rem;letter-spacing:.1em;}
-.modal h3{font-family:'Cinzel Decorative',serif;color:var(--gold);text-align:center;font-size:1.4rem;margin:.4rem 0 .8rem;}
-.modal p{font-size:1.12rem;line-height:1.55;color:#d9d2bd;}
+/* Imagen misteriosa que tú cambiarás */
+.banner-img {
+  max-height: 100%;
+  max-width: 130px;
+  object-fit: contain;
+  /* Sombra para que se despegue del fondo de forma realista */
+  filter: drop-shadow(0px 8px 15px rgba(0,0,0,0.7));
+  transition: transform 0.5s ease;
+}
+.modal:hover .banner-img {
+  transform: translateY(-3px);
+}
+
+.modal .mdate{
+  color:var(--gold-dim);
+  font-family:'Cinzel',serif;
+  font-size:.8rem;
+  letter-spacing:.15em;
+  text-transform: uppercase;
+}
+.modal h3{
+  font-family:'Cinzel Decorative',serif;
+  color:var(--gold);
+  font-size:1.45rem;
+  margin:.5rem 0 1rem;
+  line-height: 1.2;
+}
+/* Línea divisoria interna en el modal */
+.modal-sep {
+  width: 60px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin: 0 auto 1.2rem;
+  opacity: 0.4;
+}
+.modal p{
+  font-size:1.15rem;
+  line-height:1.6;
+  color:#c7bfae;
+  margin: 0;
+  text-align: justify;
+}
 .close-btn{
-  position:absolute;top:.6rem;right:.7rem;background:none;border:none;color:var(--mist);
-  font-size:1.3rem;cursor:pointer;line-height:1;padding:.3rem .5rem;
+  position:absolute;top:.6rem;right:.7rem;background:none;border:none;color:var(--gold-dim);
+  font-size:1.4rem;cursor:pointer;line-height:1;padding:.4rem;
+  transition: color 0.2s;
 }
 .close-btn:hover{color:var(--gold)}
 </style>
@@ -131,85 +251,45 @@ header p{color:var(--mist);font-style:italic;font-size:1.05rem;margin:0;letter-s
   <header>
     <h1>Calendario</h1>
     <p>Draco dormiens nunquam titillandus</p>
-    <svg class="divider" viewBox="0 0 420 14"><path d="M0 7 Q60 0 120 7 T240 7 T360 7 Q400 7 420 4" stroke="#c3a565" stroke-width="1.4" fill="none" opacity="0.7"/></svg>
+    <!-- Tu divisor SVG estilizado con el color de la paleta -->
+    <svg class="divider" viewBox="0 0 420 14"><path d="M0 7 Q60 0 120 7 T240 7 T360 7 Q400 7 420 4" stroke="#c5a880" stroke-width="1.4" fill="none" opacity="0.6"/></svg>
   </header>
 
   <div class="months" id="months"></div>
 </div>
 
+<!-- Modal que carga las imágenes y banderines ocultos -->
 <div class="overlay" id="overlay">
   <div class="modal" id="modal">
     <button class="close-btn" id="closeBtn" aria-label="Cerrar">✕</button>
-    <div class="seal" id="seal">✦</div>
+    <div class="banner-container">
+      <!-- Aquí se inyectará dinámicamente la imagen/banderín -->
+      <img src="" alt="Estandarte de la Casa" class="banner-img" id="mbanner">
+    </div>
     <div class="mdate" id="mdate"></div>
     <h3 id="mtitle"></h3>
+    <div class="modal-sep"></div>
     <p id="mdesc"></p>
   </div>
 </div>
 
 <script>
-const HOUSE = {slyt:'--slyt', gryf:'--gryf', huff:'--huff', raven:'--raven'};
+// Mapeo de colores y rutas de imágenes para los banderines de cada casa
+// NOTA: Reemplaza las rutas de "banner" por los archivos de imagen reales de tus banderines.
+const HOUSE_CONFIG = {
+  slyt: { color: 'var(--slyt)', banner: 'img/banderin_slytherin.png' },
+  gryf: { color: 'var(--gryf)', banner: 'img/banderin_gryffindor.png' },
+  huff: { color: 'var(--huff)', banner: 'img/banderin_hufflepuff.png' },
+  raven: { color: 'var(--raven)', banner: 'img/banderin_ravenclaw.png' }
+};
 
 const data = {
   Octubre: [
-    {day:'3', title:'Actividad de presentación', house:'slyt', desc:'No pienses escapar tan facilmente.'},
-    {day:'12', title:'El Duelo de los Retratos', house:'raven', desc:'Los cuadros del ala este despiertan una vez al ano para medir ingenio, no fuerza. Los estudiantes forman parejas para resolver acertijos antes de que las velas se consuman.'},
-    {day:'21', title:'Vigilia de la Serpiente de Cristal', house:'slyt', desc:'Una serpiente tallada en vidrio recorre las mazmorras revelando secretos ocultos tras los muros. Nadie sabe quien la esculpio, ni por que solo aparece con luna nueva.'},
-    {day:'29', title:'Banquete de las Calabazas Negras', house:'huff', desc:'La cocina prepara un festin donde cada plato guarda un pequeno hechizo de buena fortuna, herencia de las cocineras mas antiguas de la casa amarilla.'}
+    {day:'3', title:'Actividad de presentación', house:'slyt', desc:'No pienses escapar tan fácilmente de los calabozos subterráneos.'},
+    {day:'12', title:'El Duelo de los Retratos', house:'raven', desc:'Los cuadros del ala este despiertan una vez al año para medir ingenio, no fuerza. Los estudiantes forman parejas para resolver acertijos arcanos antes de que las velas se consuman.'},
+    {day:'21', title:'Vigilia de la Serpiente de Cristal', house:'slyt', desc:'Una serpiente tallada en vidrio recorre las mazmorras revelando secretos ocultos tras los muros de piedra antigua. Nadie sabe quién la esculpió, ni por qué solo aparece con luna nueva.'},
+    {day:'29', title:'Banquete de las Calabazas Negras', house:'huff', desc:'La cocina prepara un festín heráldico donde cada plato guarda un pequeño hechizo de buena fortuna, herencia directa de las cocineras más antiguas de la casa amarilla.'}
   ],
   Noviembre: [
-    {day:'2', title:'Noche de los Espejos Quietos', house:'slyt', desc:'Los espejos del castillo dejan de reflejar por una hora completa. Quienes se atreven a mirarlos de todas formas aseguran ver el reflejo de quien seran, no de quien son.'},
-    {day:'11', title:'Torneo del Guante de Plata', house:'gryf', desc:'Un desafio de valentia disfrazado de deporte: cruzar el puente colgante mientras las gárgolas lanzan hechizos inofensivos pero ruidosos.'},
-    {day:'18', title:'El Susurro de las Mazmorras', house:'slyt', desc:'Cada estudiante de la casa recibe, en privado, una frase escrita por sus mayores anos atras. Nadie sabe quien las escribio primero.'},
-    {day:'27', title:'Feria de Pergaminos Perdidos', house:'raven', desc:'La biblioteca abre su ala prohibida por una tarde. Los libros, dicen, eligen a quien los lee y no al reves.'}
-  ],
-  Diciembre: [
-    {day:'5', title:'El Encendido del Candil de Escamas', house:'slyt', desc:'Una antigua lampara con forma de serpiente enroscada se enciende para marcar el inicio del invierno. Su luz cambia de tono segun el humor de quien la observa.'},
-    {day:'14', title:'Baile bajo el Techo de Hielo', house:'raven', desc:'El gran salon se cubre de escarcha artificial mientras las parejas bailan al ritmo de un vals compuesto siglos atras por un fantasma melomano.'},
-    {day:'24', title:'Vispera de las Velas Verdes', house:'slyt', desc:'Cada mesa de la casa enciende una vela con cera mezclada de menta y ceniza. Se cree que protege los suenos de quienes duermen esa noche.'},
-    {day:'31', title:'El Ultimo Sello del Ano', house:'huff', desc:'Los elfos domesticos preparan un chocolate especiado que, segun la tradicion, borra un pequeno mal recuerdo del ano que termina.'}
-  ],
-  Enero: [
-    {day:'6', title:'Dia de las Coronas de Escarcha', house:'raven', desc:'Los alumnos de todas las casas intercambian pequenas coronas talladas en hielo permanente, un gesto antiguo de tregua entre rivalidades.'},
-    {day:'15', title:'El Regreso del Basilisco de Papel', house:'slyt', desc:'Una criatura de origami gigante recorre los pasillos de la mazmorra guiada por hilos invisibles, recordando a los novatos que el silencio tambien es un arma.'},
-    {day:'22', title:'Examenes bajo la Luna Verde', house:'slyt', desc:'La luna llena de enero tine las ventanas de un verde palido. Se dice que estudiar bajo esa luz mejora la memoria, aunque nadie lo ha demostrado.'},
-    {day:'30', title:'Cierre del Sotano de Piedra', house:'gryf', desc:'Una ceremonia conjunta entre casas marca el fin del semestre de invierno, con antorchas cruzadas de verde y escarlata en el patio central.'}
-  ]
-};
+    {day:'2', title:'Noche de los Espejos Quietos', house:'slyt', desc:'Los espejos del castillo dejan de reflejar por una hora completa. Quienes se atreven a mirarlos de todas formas aseguran ver el reflejo de la persona en la que se convertirán, no de quien son hoy.'},
 
-const monthsEl = document.getElementById('months');
-Object.entries(data).forEach(([month, events])=>{
-  const col = document.createElement('div');
-  col.className='month';
-  col.innerHTML = `<h2>${month}</h2><div class="rows"></div>`;
-  const rows = col.querySelector('.rows');
-  events.forEach(ev=>{
-    const p=document.createElement('div');
-    p.className='plaque';
-    p.tabIndex=0;
-    p.style.setProperty('--h-color', `var(${HOUSE[ev.house]})`);
-    p.innerHTML=`<span class="day">${ev.day} de ${month}</span><span class="title">${ev.title}</span>`;
-    p.addEventListener('click', ()=>openModal(ev, month));
-    p.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(ev,month);}});
-    rows.appendChild(p);
-  });
-  monthsEl.appendChild(col);
-});
-
-const overlay=document.getElementById('overlay');
-const modal=document.getElementById('modal');
-function openModal(ev, month){
-  document.getElementById('seal').style.background=`var(${HOUSE[ev.house]})`;
-  document.getElementById('seal').style.boxShadow=`0 0 22px var(${HOUSE[ev.house]})`;
-  document.getElementById('mdate').textContent=`${ev.day} de ${month}`;
-  document.getElementById('mtitle').textContent=ev.title;
-  document.getElementById('mdesc').textContent=ev.desc;
-  overlay.classList.add('open');
-}
-function closeModal(){overlay.classList.remove('open');}
-document.getElementById('closeBtn').addEventListener('click', closeModal);
-overlay.addEventListener('click', e=>{if(e.target===overlay)closeModal();});
-document.addEventListener('keydown', e=>{if(e.key==='Escape')closeModal();});
-</script>
-</body>
-</html>
