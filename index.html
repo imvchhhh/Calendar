@@ -789,7 +789,7 @@ h1{
       </div>
 
       <div class="modal-content">
-        <div class="modal-symbol">⏾</div>
+        <div class="modal-symbol">❍</div>
 
         <div class="modal-date" id="modalDate"></div>
         <h2 class="modal-title" id="modalTitle"></h2>
@@ -854,7 +854,7 @@ const data = {
       title:'Actividad de presentación',
       house:'slyt',
       image:'',
-      desc:'Texto JAJS.'
+      desc:'Nadie puede escapar de presentarse tal como es.'
     },
     {
       day:'10',
@@ -876,6 +876,14 @@ const data = {
       house:'gryf',
       image:'',
       desc:'Cosas coquetas.'
+    }
+    ,
+    {
+      day:'26',
+      title:'Luna llena',
+      house:'gryf',
+      image:'',
+      desc:'En luna del cazador, parece que algunos estudiantes no durmieron en sus camas.'
     }
   ],
 
@@ -991,7 +999,7 @@ Object.entries(data).forEach(([month, events], monthIndex) => {
 
   col.innerHTML = `
     <div class="month-head">
-      <span class="month-number">Libro ${roman[monthIndex]}</span>
+      <span class="month-number">Mes ${roman[monthIndex]}</span>
       <h2>${month}</h2>
     </div>
     <div class="rows"></div>
