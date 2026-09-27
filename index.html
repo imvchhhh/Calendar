@@ -187,13 +187,49 @@ h1{
    ESCUDO / CABECERA HERÁLDICA
    ================================= */
 
+/* Ajuste: cabecera heráldica más pequeña */
+
 .hogwarts-emblem{
-  position:relative;
-  width:min(620px, 94%);
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  width:min(430px, 78%);
+}
+
+.top-scroll{
+  width:84%;
+  min-height:62px;
+  padding:10px 38px 13px;
+}
+
+.top-scroll h1{
+  font-size:clamp(2.5rem, 6vw, 4.4rem);
+}
+
+.top-scroll .fold{
+  width:32px;
+  top:8px;
+  bottom:8px;
+}
+
+.crest-image{
+  width:58%;
+  margin-top:-2px;
+  margin-bottom:-2px;
+}
+
+.bottom-scroll{
+  width:84%;
+  min-height:52px;
+  padding:9px 34px 13px;
+}
+
+.bottom-scroll .fold{
+  width:34px;
+  top:8px;
+  bottom:8px;
+}
+
+.motto{
+  font-size:clamp(.55rem, 1.1vw, .75rem);
+  letter-spacing:.09em;
 }
 
 
