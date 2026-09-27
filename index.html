@@ -1,5 +1,59 @@
 <!DOCTYPE html>
+<!--
+  ================================================================
+  INSTRUCCIONES — LEE ESTO ANTES DE PUBLICAR / EDITAR EL ARCHIVO
+  ================================================================
 
+  Este archivo ya trae 5 cambios respecto al original (buscados con
+  "CAMBIO 1" ... "CAMBIO 5" dentro del CSS/JS):
+
+  1) FONDO: la fotografía de Hogwarts que subiste ya está incrustada
+     (comprimida a JPG y convertida a base64) como capa de fondo,
+     con el color oscuro original (--bg) debajo como respaldo.
+     → Para cambiarla por otra imagen: convierte tu nueva imagen a
+       base64 (p.ej. en https://www.base64-image.de/), y reemplaza
+       el contenido de la URL que empieza "data:image/jpeg;base64,"
+       dentro de la regla `body{ background-image: ... }`.
+
+  2) FUENTE DEL TÍTULO "Hogwarts" → Dumbledor
+  5) FUENTE DE LA INICIAL DE CADA MES → Ghosthey
+
+     Ninguna de las dos está en Google Fonts, así que hay que
+     descargarlas manualmente e incrustarlas. Pasos:
+
+     a) Entra a https://www.1001fonts.com/dumbledor-font.html y a
+        https://www.1001fonts.com/ghosthey-font.html y descarga el
+        .zip de cada una (botón "Download"). Revisa la licencia de
+        uso que indica la página (uso personal / comercial) antes
+        de usarla en tu proyecto.
+     b) Descomprime cada .zip y ubica el archivo .ttf u .otf
+        (normalmente "Dumbledor.ttf" y "GHOSTHEY.ttf" o similar).
+     c) Conviértelo a base64 con un conversor online, por ejemplo
+        https://www.base64encode.org/ (sube el .ttf, copia el
+        resultado como texto).
+     d) En este HTML, busca los dos bloques @font-face (justo
+        después de las variables :root, marcados como "CAMBIO 2 y 5")
+        y reemplaza "PEGAR-BASE64-DUMBLEDOR-AQUI" y
+        "PEGAR-BASE64-GHOSTHEY-AQUI" por el texto base64 de cada
+        fuente respectivamente.
+     e) Alternativa más sencilla si vas a alojar el HTML en tu propio
+        servidor (no como artefacto autónomo): en vez de base64,
+        sube los archivos "Dumbledor.ttf" y "Ghosthey.ttf" en la
+        misma carpeta que el HTML y cambia el `src` del @font-face a:
+        src:url("Dumbledor.ttf") format('truetype');
+     Mientras no rellenes el base64 (o el archivo), el título y las
+     iniciales de mes se ven con la fuente gótica original —no se
+     rompe nada, solo no cambia visualmente hasta que la agregues.
+
+  3) TARJETAS DEL MODAL: ahora usan azul Ravenclaw (#0E1A40 /
+     #1B3A6B) con ~0.75 de opacidad (vía rgba, para no afectar la
+     lectura del texto).
+
+  4) CURSOR: estrella mágica sutil (SVG incrustado), aplicada a
+     todo el documento.
+
+  ================================================================
+-->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -42,7 +96,16 @@
   box-sizing:border-box;
 }
 
-
+/* =========================================================
+   CAMBIO 2 y 5 — FUENTES DESCARGABLES (Dumbledor y Ghosthey)
+   =========================================================
+   Estas dos fuentes NO son de Google Fonts, así que no se pueden
+   enlazar por URL: hay que descargarlas de 1001fonts e incrustarlas
+   como base64 (o alojar el .ttf junto al HTML). Ver instrucciones
+   completas en el comentario grande al INICIO del <head>.
+   Debajo dejamos el @font-face ya listo: solo falta pegar tu base64
+   donde dice "PEGAR-BASE64-AQUI". Si no lo rellenas, el navegador
+   usa automáticamente el fallback (--blackletter) y nada se rompe. */
 @font-face{
   font-family:'Dumbledor';
   src:url("data:font/truetype;base64,PEGAR-BASE64-DUMBLEDOR-AQUI") format('truetype');
@@ -64,7 +127,12 @@
 
 html{scroll-behavior:smooth}
 
-
+/* CAMBIO 4 — Cursor personalizado tipo "estrella mágica".
+   Es un SVG pequeño incrustado directamente (sin descargas): una
+   estrella de 4 puntas sutil, dorada, con el punto de clic (hotspot)
+   en su centro (12 12). `auto` al final es el respaldo si el
+   navegador no soporta cursores SVG. Se aplica a todo el documento;
+   los elementos con cursor:pointer (como .plaque) lo conservan. */
 *{
   cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z' fill='%23d7d4c4' fill-opacity='0.85' stroke='%23315d45' stroke-width='0.6'/></svg>") 12 12, auto;
 }
@@ -74,7 +142,12 @@ body{
   min-height:100vh;
   color:var(--ink);
   font-family:var(--serif);
-
+  /* CAMBIO 1 — Fondo: color original como respaldo (background-color) +
+     imagen de Hogwarts (embebida en base64 para que el archivo quede autónomo).
+     Si por cualquier razón la imagen no decodifica, el color de --bg sigue
+     visible debajo de todas las capas. Para usar OTRA imagen: reemplaza el
+     texto largo que empieza con "data:image/jpeg;base64," (ver comentario
+     "REEMPLAZAR IMAGEN" al final del <style>) por el de tu nuevo archivo. */
   background-color:var(--bg);
   background-image:
     radial-gradient(ellipse at 50% -15%, rgba(48,88,65,.18), transparent 48%),
@@ -87,7 +160,13 @@ body{
   background-attachment:fixed, fixed, fixed, fixed;
   overflow-x:hidden;
 }
+/* REEMPLAZAR IMAGEN: la cadena base64 anterior corresponde a la fotografía
+   de Hogwarts que subiste (comprimida a JPG para que el archivo pese poco).
+   Para cambiarla: convierte tu nueva imagen a base64 (por ejemplo con
+   https://www.base64-image.de/) y sustituye todo el contenido entre
+   comillas de la última línea de "background-image" arriba. */
 
+/* Textura muy leve: evita el aspecto de "gradiente de IA" */
 body::before{
   content:"";
   position:fixed;
@@ -708,7 +787,7 @@ h1{
       <div class="modal-image">
         <img id="modalImage" src="" alt="" hidden>
         <!-- CAMBIO 8: elemento de video para archivos .mp4 (el <img> no reproduce video) -->
-        <video id="modalVideo" muted playsinline preload="metadata" hidden></video>
+        <video id="modalVideo" playsinline preload="auto" hidden></video>
 
         <div class="image-placeholder" id="imagePlaceholder">
           <div class="orn">❦</div>
@@ -1055,22 +1134,13 @@ function openModal(ev, month){
     modalVideo.hidden = false;
     imagePlaceholder.classList.remove('visible');
 
-    modalVideo.onloadedmetadata = () => {
-      videoPlayCount = 1;
-      modalVideo.currentTime = 0;
-      modalVideo.play().catch(() => {
-        /* Si el navegador bloquea el autoplay, el usuario puede darle play. */
-      });
-    };
+    // Se reproduce con sonido y queda en bucle hasta cerrar la tarjeta.
+    modalVideo.loop = true;
+    modalVideo.muted = false;
+    modalVideo.volume = 1;
 
-    modalVideo.onended = () => {
-      if(videoPlayCount < MAX_VIDEO_PLAYS){
-        videoPlayCount += 1;
-        modalVideo.currentTime = 0;
-        modalVideo.play().catch(() => {});
-      }else{
-        modalVideo.pause();
-      }
+    modalVideo.onloadedmetadata = () => {
+      modalVideo.currentTime = 0;
     };
 
     modalVideo.onerror = () => {
@@ -1081,6 +1151,12 @@ function openModal(ev, month){
 
     modalVideo.src = ev.image;
     modalVideo.load();
+
+    // La tarjeta se abrió mediante un clic del usuario; intentamos iniciar
+    // el video con audio inmediatamente.
+    modalVideo.play().catch(() => {
+      console.warn('El navegador bloqueó la reproducción con sonido. Haz clic una vez sobre el video.');
+    });
   }else if(ev.image){
     modalImage.alt = `${ev.title} — ilustración`;
     modalImage.src = ev.image;
