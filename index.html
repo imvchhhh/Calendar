@@ -183,6 +183,311 @@ h1{
   opacity:.72;
 }
 
+/* =================================
+   ESCUDO / CABECERA HERÁLDICA
+   ================================= */
+
+.hogwarts-emblem{
+  position:relative;
+  width:min(620px, 94%);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+
+/* ================================
+   ESTANDARTE SUPERIOR
+   ================================ */
+
+.top-scroll{
+  position:relative;
+  z-index:3;
+
+  width:88%;
+  min-height:92px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:16px 55px 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #111c15 0%,
+      #263b2b 45%,
+      #1a2b20 100%
+    );
+
+  border:1px solid rgba(215,212,196,.42);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.35),
+    0 8px 18px rgba(0,0,0,.28);
+
+  clip-path:polygon(
+    7% 0,
+    93% 0,
+    100% 17%,
+    94% 50%,
+    100% 83%,
+    93% 100%,
+    7% 100%,
+    0 83%,
+    6% 50%,
+    0 17%
+  );
+}
+
+
+.top-scroll h1{
+  position:relative;
+  z-index:2;
+
+  margin:0;
+
+  color:#f0eee5;
+  font-family:var(--blackletter);
+  font-size:clamp(3.4rem, 8vw, 6rem);
+  font-weight:400;
+  line-height:.85;
+
+  text-shadow:
+    0 2px 0 #080d0b,
+    1px 0 0 rgba(255,255,255,.08);
+}
+
+
+/* Pliegues de los extremos */
+
+.top-scroll .fold{
+  position:absolute;
+  top:12px;
+  bottom:12px;
+  width:46px;
+
+  background:#0c1710;
+  opacity:.8;
+}
+
+.top-scroll .fold-left{
+  left:0;
+
+  clip-path:polygon(
+    100% 0,
+    35% 15%,
+    0 50%,
+    35% 85%,
+    100% 100%
+  );
+
+  box-shadow:inset -8px 0 10px rgba(0,0,0,.35);
+}
+
+.top-scroll .fold-right{
+  right:0;
+
+  clip-path:polygon(
+    0 0,
+    65% 15%,
+    100% 50%,
+    65% 85%,
+    0 100%
+  );
+
+  box-shadow:inset 8px 0 10px rgba(0,0,0,.35);
+}
+
+
+/* ================================
+   IMAGEN CENTRAL
+   ================================ */
+
+.crest-image{
+  position:relative;
+  z-index:2;
+
+  margin-top:-4px;
+  margin-bottom:-4px;
+
+  width:72%;
+  aspect-ratio:1 / 1;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+.image-frame{
+  position:relative;
+
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(49,93,69,.18),
+      transparent 68%
+    );
+}
+
+
+/* Aquí aparecerá tu futura imagen */
+
+.image-frame img{
+  position:relative;
+  z-index:2;
+
+  display:block;
+
+  width:88%;
+  height:88%;
+
+  object-fit:contain;
+
+  filter:
+    saturate(.72)
+    contrast(1.04);
+}
+
+
+/* Mientras no haya imagen */
+
+.image-placeholder{
+  position:absolute;
+  inset:12%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#69766c;
+  font-size:3rem;
+
+  border:1px solid rgba(210,210,194,.13);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(49,93,69,.14),
+      transparent 65%
+    );
+}
+
+
+/* ================================
+   ESTANDARTE INFERIOR
+   ================================ */
+
+.bottom-scroll{
+  position:relative;
+  z-index:3;
+
+  width:88%;
+  min-height:76px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:13px 52px 19px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #101b14,
+      #263b2b 48%,
+      #101b14
+    );
+
+  border:1px solid rgba(215,212,196,.38);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.32),
+    0 7px 16px rgba(0,0,0,.25);
+
+  clip-path:polygon(
+    7% 0,
+    93% 0,
+    100% 18%,
+    94% 50%,
+    100% 82%,
+    91% 100%,
+    77% 78%,
+    63% 100%,
+    50% 78%,
+    37% 100%,
+    23% 78%,
+    9% 100%,
+    0 82%,
+    6% 50%,
+    0 18%
+  );
+}
+
+
+.motto{
+  position:relative;
+  z-index:2;
+
+  color:#d9d8ce;
+
+  font-family:var(--serif);
+  font-size:clamp(.65rem, 1.35vw, .9rem);
+
+  font-weight:600;
+  letter-spacing:.11em;
+
+  text-transform:uppercase;
+  text-align:center;
+}
+
+
+/* Pliegues inferiores */
+
+.bottom-scroll .fold{
+  position:absolute;
+  top:12px;
+  bottom:12px;
+  width:48px;
+
+  background:#0b160f;
+  opacity:.82;
+}
+
+.bottom-scroll .fold-left{
+  left:0;
+
+  clip-path:polygon(
+    100% 0,
+    35% 15%,
+    0 50%,
+    35% 85%,
+    100% 100%
+  );
+}
+
+.bottom-scroll .fold-right{
+  right:0;
+
+  clip-path:polygon(
+    0 0,
+    65% 15%,
+    100% 50%,
+    65% 85%,
+    0 100%
+  );
+}
+
 .header-rule span{
   width:115px;
   height:1px;
@@ -673,16 +978,49 @@ h1{
 <main class="page">
 
   <header class="header">
-    <div class="header-ornament">✦ ❦ ✦</div>
-    <h1>Hogwarts</h1>
-    <div class="banner"><span>Draco Dormiens Nunquam Titillandus</span></div>
 
-    <div class="header-rule">
-      <span></span>
-      <b>❦</b>
-      <span></span>
+  <div class="hogwarts-emblem">
+
+    <!-- ESTANDARTE SUPERIOR -->
+    <div class="top-scroll">
+      <span class="fold fold-left"></span>
+
+      <h1>Hogwarts</h1>
+
+      <span class="fold fold-right"></span>
     </div>
-  </header>
+
+    <!-- IMAGEN CENTRAL -->
+    <div class="crest-image">
+      <div class="image-frame">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <!-- Cuando tengas la imagen, ponla aquí -->
+        <img src="" alt="Escudo de Hogwarts" id="hogwartsImage">
+
+        <div class="image-placeholder">
+          ✦
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTANDARTE INFERIOR -->
+    <div class="bottom-scroll">
+      <span class="fold fold-left"></span>
+
+      <span class="motto">
+        Draco Dormiens Nunquam Titillandus
+      </span>
+
+      <span class="fold fold-right"></span>
+    </div>
+
+  </div>
+
+</header>
 
   <section class="months" id="months" aria-label="Calendario"></section>
 
