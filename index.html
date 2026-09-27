@@ -512,7 +512,8 @@ h1{
   overflow:hidden;
 }
 
-.modal-image img{
+.modal-image img,
+.modal-image video{
   display:block;
   width:100%;
   height:100%;
@@ -779,6 +780,8 @@ h1{
 
       <div class="modal-image">
         <img id="modalImage" src="" alt="" hidden>
+        <!-- CAMBIO 8: elemento de video para archivos .mp4 (el <img> no reproduce video) -->
+        <video id="modalVideo" muted loop playsinline hidden></video>
 
         <div class="image-placeholder" id="imagePlaceholder">
           <div class="orn">❦</div>
@@ -1054,6 +1057,7 @@ function toRoman(num){
 const overlay = document.getElementById('overlay');
 const modalEl = document.querySelector('.modal');
 const modalImage = document.getElementById('modalImage');
+const modalVideo = document.getElementById('modalVideo'); /* CAMBIO 8 */
 const imagePlaceholder = document.getElementById('imagePlaceholder');
 
 /* CAMBIO 7: convierte un color hex (#3f7655) a "rgba(r,g,b,alpha)"
@@ -1099,6 +1103,12 @@ function openModal(ev, month){
     - si no existe, aparece el espacio reservado
       para tu futura ilustración.
   */
+
+  modalVideo.pause();
+  modalVideo.removeAttribute('src');
+  modalVideo.hidden = true;
+  modalImage.hidden = true;
+
   modalImage.onload = () => {
     modalImage.hidden = false;
     imagePlaceholder.classList.remove('visible');
@@ -1109,11 +1119,23 @@ function openModal(ev, month){
     imagePlaceholder.classList.add('visible');
   };
 
-  if(ev.image){
+
+
+  if(ev.image && ev.image.toLowerCase().endsWith('.mp4')){
+    modalVideo.onloadeddata = () => {
+      modalVideo.hidden = false;
+      imagePlaceholder.classList.remove('visible');
+      modalVideo.play().catch(() => {}); /* autoplay puede requerir interacción en algunos navegadores */
+    };
+    modalVideo.onerror = () => {
+      modalVideo.hidden = true;
+      imagePlaceholder.classList.add('visible');
+    };
+    modalVideo.src = ev.image;
+  }else if(ev.image){
     modalImage.alt = `${ev.title} — ilustración`;
     modalImage.src = ev.image;
   }else{
-    modalImage.hidden = true;
     imagePlaceholder.classList.add('visible');
   }
 
@@ -1126,6 +1148,7 @@ function closeModal(){
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
+  modalVideo.pause(); /* CAMBIO 8: no seguir reproduciendo de fondo */
 }
 
 document.getElementById('closeBtn')
