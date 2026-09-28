@@ -1,59 +1,5 @@
 <!DOCTYPE html>
-<!--
-  ================================================================
-  INSTRUCCIONES — LEE ESTO ANTES DE PUBLICAR / EDITAR EL ARCHIVO
-  ================================================================
 
-  Este archivo ya trae 5 cambios respecto al original (buscados con
-  "CAMBIO 1" ... "CAMBIO 5" dentro del CSS/JS):
-
-  1) FONDO: la fotografía de Hogwarts que subiste ya está incrustada
-     (comprimida a JPG y convertida a base64) como capa de fondo,
-     con el color oscuro original (--bg) debajo como respaldo.
-     → Para cambiarla por otra imagen: convierte tu nueva imagen a
-       base64 (p.ej. en https://www.base64-image.de/), y reemplaza
-       el contenido de la URL que empieza "data:image/jpeg;base64,"
-       dentro de la regla `body{ background-image: ... }`.
-
-  2) FUENTE DEL TÍTULO "Hogwarts" → Dumbledor
-  5) FUENTE DE LA INICIAL DE CADA MES → Ghosthey
-
-     Ninguna de las dos está en Google Fonts, así que hay que
-     descargarlas manualmente e incrustarlas. Pasos:
-
-     a) Entra a https://www.1001fonts.com/dumbledor-font.html y a
-        https://www.1001fonts.com/ghosthey-font.html y descarga el
-        .zip de cada una (botón "Download"). Revisa la licencia de
-        uso que indica la página (uso personal / comercial) antes
-        de usarla en tu proyecto.
-     b) Descomprime cada .zip y ubica el archivo .ttf u .otf
-        (normalmente "Dumbledor.ttf" y "GHOSTHEY.ttf" o similar).
-     c) Conviértelo a base64 con un conversor online, por ejemplo
-        https://www.base64encode.org/ (sube el .ttf, copia el
-        resultado como texto).
-     d) En este HTML, busca los dos bloques @font-face (justo
-        después de las variables :root, marcados como "CAMBIO 2 y 5")
-        y reemplaza "PEGAR-BASE64-DUMBLEDOR-AQUI" y
-        "PEGAR-BASE64-GHOSTHEY-AQUI" por el texto base64 de cada
-        fuente respectivamente.
-     e) Alternativa más sencilla si vas a alojar el HTML en tu propio
-        servidor (no como artefacto autónomo): en vez de base64,
-        sube los archivos "Dumbledor.ttf" y "Ghosthey.ttf" en la
-        misma carpeta que el HTML y cambia el `src` del @font-face a:
-        src:url("Dumbledor.ttf") format('truetype');
-     Mientras no rellenes el base64 (o el archivo), el título y las
-     iniciales de mes se ven con la fuente gótica original —no se
-     rompe nada, solo no cambia visualmente hasta que la agregues.
-
-  3) TARJETAS DEL MODAL: ahora usan azul Ravenclaw (#0E1A40 /
-     #1B3A6B) con ~0.75 de opacidad (vía rgba, para no afectar la
-     lectura del texto).
-
-  4) CURSOR: estrella mágica sutil (SVG incrustado), aplicada a
-     todo el documento.
-
-  ================================================================
--->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -74,8 +20,7 @@
 
   --bg:#080d0b;
   --bg-2:#0b120e;
-  /* CAMBIO 6: paneles de las tarjetas de mes, antes verdes (#101713 / #141d17),
-     ahora en azul manteniendo la misma luminosidad y estructura de degradado. */
+
   --panel:#0e1420;
   --panel-2:#152136;
 
@@ -90,36 +35,12 @@
 
   --serif:'Cormorant Garamond', Georgia, serif;
   --blackletter:'UnifrakturMaguntia', 'Times New Roman', serif;
-  --dumbledore:'Dumbledor', var(--blackletter); /* CAMBIO 2: ver instrucciones @font-face abajo */
-  --ghosthey:'Ghosthey', var(--blackletter);    /* CAMBIO 5: ver instrucciones @font-face abajo */
+  --dumbledore:'Dumbledor', var(--blackletter); 
+  --ghosthey:'Ghosthey', var(--blackletter);    
 
   box-sizing:border-box;
 }
 
-/* =========================================================
-   CAMBIO 2 y 5 — FUENTES DESCARGABLES (Dumbledor y Ghosthey)
-   =========================================================
-   Estas dos fuentes NO son de Google Fonts, así que no se pueden
-   enlazar por URL: hay que descargarlas de 1001fonts e incrustarlas
-   como base64 (o alojar el .ttf junto al HTML). Ver instrucciones
-   completas en el comentario grande al INICIO del <head>.
-   Debajo dejamos el @font-face ya listo: solo falta pegar tu base64
-   donde dice "PEGAR-BASE64-AQUI". Si no lo rellenas, el navegador
-   usa automáticamente el fallback (--blackletter) y nada se rompe. */
-@font-face{
-  font-family:'Dumbledor';
-  src:url("data:font/truetype;base64,PEGAR-BASE64-DUMBLEDOR-AQUI") format('truetype');
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:'Ghosthey';
-  src:url("data:font/truetype;base64,PEGAR-BASE64-GHOSTHEY-AQUI") format('truetype');
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
-}
 
 *,
 *::before,
@@ -127,12 +48,7 @@
 
 html{scroll-behavior:smooth}
 
-/* CAMBIO 4 — Cursor personalizado tipo "estrella mágica".
-   Es un SVG pequeño incrustado directamente (sin descargas): una
-   estrella de 4 puntas sutil, dorada, con el punto de clic (hotspot)
-   en su centro (12 12). `auto` al final es el respaldo si el
-   navegador no soporta cursores SVG. Se aplica a todo el documento;
-   los elementos con cursor:pointer (como .plaque) lo conservan. */
+
 *{
   cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z' fill='%23d7d4c4' fill-opacity='0.85' stroke='%23315d45' stroke-width='0.6'/></svg>") 12 12, auto;
 }
@@ -142,12 +58,7 @@ body{
   min-height:100vh;
   color:var(--ink);
   font-family:var(--serif);
-  /* CAMBIO 1 — Fondo: color original como respaldo (background-color) +
-     imagen de Hogwarts (embebida en base64 para que el archivo quede autónomo).
-     Si por cualquier razón la imagen no decodifica, el color de --bg sigue
-     visible debajo de todas las capas. Para usar OTRA imagen: reemplaza el
-     texto largo que empieza con "data:image/jpeg;base64," (ver comentario
-     "REEMPLAZAR IMAGEN" al final del <style>) por el de tu nuevo archivo. */
+
   background-color:var(--bg);
   background-image:
     radial-gradient(ellipse at 50% -15%, rgba(48,88,65,.18), transparent 48%),
@@ -160,13 +71,7 @@ body{
   background-attachment:fixed, fixed, fixed, fixed;
   overflow-x:hidden;
 }
-/* REEMPLAZAR IMAGEN: la cadena base64 anterior corresponde a la fotografía
-   de Hogwarts que subiste (comprimida a JPG para que el archivo pese poco).
-   Para cambiarla: convierte tu nueva imagen a base64 (por ejemplo con
-   https://www.base64-image.de/) y sustituye todo el contenido entre
-   comillas de la última línea de "background-image" arriba. */
 
-/* Textura muy leve: evita el aspecto de "gradiente de IA" */
 body::before{
   content:"";
   position:fixed;
@@ -265,7 +170,7 @@ h1{
 }
 
 /* =========================
-   LIBRO / MESES
+   MESES
    ========================= */
 
 .months{
@@ -335,8 +240,7 @@ h1{
   line-height:1;
 }
 
-/* CAMBIO 5: solo la letra inicial del mes usa Ghosthey; el resto de
-   la palabra conserva var(--blackletter) tal como estaba. */
+
 .month h2::first-letter{
   font-family:var(--ghosthey);
   font-size:1.25em;
@@ -469,9 +373,7 @@ h1{
   max-height:90vh;
   overflow:auto;
   padding:14px;
-  /* CAMBIO 7: el fondo del modal ya NO es un azul fijo — usa el color de
-     la casa del evento (--modal-bg), fijado por JS al abrir la tarjeta.
-     El valor tras la coma es el respaldo (Ravenclaw) por si JS no corrió. */
+
   background:
     radial-gradient(ellipse at 50% 0%, rgba(78,109,88,.10), transparent 40%),
     var(--modal-bg, rgba(14,26,64,.78));
@@ -786,7 +688,7 @@ h1{
 
       <div class="modal-image">
         <img id="modalImage" src="" alt="" hidden>
-        <!-- CAMBIO 8: elemento de video para archivos .mp4 (el <img> no reproduce video) -->
+
         <video id="modalVideo" playsinline preload="auto" hidden></video>
 
         <div class="image-placeholder" id="imagePlaceholder">
@@ -821,21 +723,7 @@ h1{
 </div>
 
 <script>
-/*
-  ==========================================
-  DATOS
-  ==========================================
 
-  Para añadir una imagen a una fecha:
-
-  image: 'images/octubre/03.jpg'
-
-  Para una bandera, escudo, ilustración, etc.,
-  simplemente usa la ruta que quieras.
-
-  Si dejas image vacío (''), aparecerá el
-  espacio de ilustración medieval en su lugar.
-*/
 
 const HOUSE = {
   slyt: {
@@ -1105,12 +993,6 @@ function openModal(ev, month){
     house.color
   );
 
-  /*
-    Imagen:
-    - si existe, aparece
-    - si no existe, aparece el espacio reservado
-      para tu futura ilustración.
-  */
 
   modalVideo.pause();
   modalVideo.removeAttribute('src');
@@ -1152,8 +1034,6 @@ function openModal(ev, month){
     modalVideo.src = ev.image;
     modalVideo.load();
 
-    // La tarjeta se abrió mediante un clic del usuario; intentamos iniciar
-    // el video con audio inmediatamente.
     modalVideo.play().catch(() => {
       console.warn('El navegador bloqueó la reproducción con sonido. Haz clic una vez sobre el video.');
     });
@@ -1173,7 +1053,7 @@ function closeModal(){
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
-  modalVideo.pause(); /* CAMBIO 8: no seguir reproduciendo de fondo */
+  modalVideo.pause(); 
   videoPlayCount = 0;
 }
 
