@@ -424,7 +424,6 @@ h1{
   filter:saturate(.78) contrast(1.04) brightness(.82);
 }
 
-/* El atributo hidden debe ganar frente al display:block de arriba. */
 .modal-image img[hidden],
 .modal-image video[hidden]{
   display:none !important;
@@ -477,7 +476,6 @@ h1{
   flex-direction:column;
   justify-content:center;
   padding:54px 50px 46px;
-  /* CAMBIO 7: mismo criterio — color de casa dinámico, respaldo Ravenclaw */
   background:
     linear-gradient(90deg, rgba(215,212,196,.04), transparent 18%),
     var(--modal-content-bg, rgba(27,58,107,.68));
@@ -666,7 +664,7 @@ h1{
 
     <div class="header-rule">
       <span></span>
-      <b>𓆗</b>
+      <b>𓆗𖤝</b>
       <span></span>
     </div>
   </header>
@@ -678,7 +676,7 @@ h1{
 <div class="overlay" id="overlay" aria-hidden="true">
   <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
-    <button class="close-btn" id="closeBtn" aria-label="Cerrar">✕</button>
+    <button class="close-btn" id="closeBtn" aria-label="Cerrar">⛌</button>
 
     <div class="modal-page">
       <span class="corner tl"></span>
@@ -692,9 +690,9 @@ h1{
         <video id="modalVideo" playsinline preload="auto" hidden></video>
 
         <div class="image-placeholder" id="imagePlaceholder">
-          <div class="orn">❦</div>
+          <div class="orn">⚔︎</div>
           <p id="placeholderText">
-            Aquí aparecerá la ilustración, bandera o motivo que asignada a la fecha.
+            Proximamente...
           </p>
         </div>
       </div>
@@ -956,8 +954,7 @@ const imagePlaceholder = document.getElementById('imagePlaceholder');
 let videoPlayCount = 0;
 const MAX_VIDEO_PLAYS = 4;
 
-/* CAMBIO 7: convierte un color hex (#3f7655) a "rgba(r,g,b,alpha)"
-   para poder aplicar el color de cada casa con transparencia al modal. */
+
 function hexToRgba(hex, alpha){
   const clean = hex.replace('#','');
   const r = parseInt(clean.substring(0,2), 16);
@@ -970,9 +967,7 @@ function openModal(ev, month){
 
   const house = HOUSE[ev.house];
 
-  /* CAMBIO 7: la tarjeta del modal toma el color de la casa del evento
-     (translúcido) en vez de un azul fijo. El panel de contenido usa
-     una alpha un poco menor para dar sensación de profundidad. */
+
   modalEl.style.setProperty('--modal-bg', hexToRgba(house.color, 0.78));
   modalEl.style.setProperty('--modal-content-bg', hexToRgba(house.color, 0.66));
 
@@ -1016,7 +1011,6 @@ function openModal(ev, month){
     modalVideo.hidden = false;
     imagePlaceholder.classList.remove('visible');
 
-    // Se reproduce con sonido y queda en bucle hasta cerrar la tarjeta.
     modalVideo.loop = true;
     modalVideo.muted = false;
     modalVideo.volume = 1;
