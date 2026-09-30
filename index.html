@@ -424,6 +424,11 @@ h1{
   filter:saturate(.78) contrast(1.04) brightness(.82);
 }
 
+.modal-image video.portrait-video{
+  object-fit:contain;
+  background:#080d0b;
+}
+
 .modal-image img[hidden],
 .modal-image video[hidden]{
   display:none !important;
@@ -692,7 +697,7 @@ h1{
         <div class="image-placeholder" id="imagePlaceholder">
           <div class="orn">𖤝</div>
           <p id="placeholderText">
-            Ni con un Aparecium haras que se revele lo que está oculto.
+            Ni con un Aparecium harás que se revele lo que está oculto.
           </p>
         </div>
       </div>
@@ -788,6 +793,7 @@ const data = {
       title:'Un mes, una canción',
       house:'gryf',
       image:'images/Stairway to Heaven.mp4',
+      videoStyle:'portrait',
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (verdad o reto, gifs) en la casa Gryffindor.'
     },
     {
@@ -885,7 +891,7 @@ const data = {
       title:'Luna llena',
       house:'gryf',
       image:'images/moon-wolf.gif',
-      desc:'Luna de lobo, ¿Será esa la razón de los fuertes audillos esta noche? Una superluna deja a cuatro muchachos en alerta. Algo malo está a punto de pasar.'
+      desc:'Luna de lobo, ¿Será esa la razón de los fuertes aullidos esta noche? Una superluna deja a cuatro muchachos en alerta. Algo malo está a punto de pasar.'
     }, 
     {
       day:'31',
@@ -965,8 +971,6 @@ const modalEl = document.querySelector('.modal');
 const modalImage = document.getElementById('modalImage');
 const modalVideo = document.getElementById('modalVideo'); /* CAMBIO 8 */
 const imagePlaceholder = document.getElementById('imagePlaceholder');
-let videoPlayCount = 0;
-const MAX_VIDEO_PLAYS = 4;
 
 
 function hexToRgba(hex, alpha){
@@ -1018,10 +1022,15 @@ function openModal(ev, month){
     imagePlaceholder.classList.add('visible');
   };
 
+  modalVideo.classList.remove('portrait-video');
+
+if(ev.videoStyle === 'portrait'){
+  modalVideo.classList.add('portrait-video');
+}
+
 
 
   if(ev.image && /\.mp4(?:$|[?#])/i.test(ev.image)){
-    videoPlayCount = 0;
     modalVideo.hidden = false;
     imagePlaceholder.classList.remove('visible');
 
@@ -1062,7 +1071,6 @@ function closeModal(){
   overlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
   modalVideo.pause(); 
-  videoPlayCount = 0;
 }
 
 document.getElementById('closeBtn')
