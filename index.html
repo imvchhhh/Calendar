@@ -67,7 +67,6 @@ body{
   overflow-x:hidden;
 }
 
-
 button{font:inherit}
 
 /* =========================================================
@@ -729,6 +728,614 @@ h1 .t-sub{
     transition:none !important;
   }
 }
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+[hidden]{display:none !important}
+
+:root{
+  --bronze:#b08d57;
+  --stars:
+    radial-gradient(1px 1px at 12% 18%,#fff,transparent 60%),
+    radial-gradient(1px 1px at 28% 62%,#dfe8ff,transparent 60%),
+    radial-gradient(1.5px 1.5px at 46% 12%,#fff,transparent 60%),
+    radial-gradient(1px 1px at 63% 44%,#fff,transparent 60%),
+    radial-gradient(1.5px 1.5px at 81% 22%,#e8eeff,transparent 60%),
+    radial-gradient(1px 1px at 90% 70%,#fff,transparent 60%),
+    radial-gradient(1px 1px at 18% 86%,#fff,transparent 60%),
+    radial-gradient(1.5px 1.5px at 70% 88%,#dfe8ff,transparent 60%);
+}
+
+/* =========================================================
+   MÚSICA — "UN MES, UNA CANCIÓN"
+   El video vive en el centro de un disco de vinilo que gira
+   ========================================================= */
+
+.vinyl,.tonearm,.candle-sky{display:none}
+
+.music-modal .modal-image{
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255,255,255,.06), transparent 58%),
+    #070a09;
+}
+
+.music-modal .modal-image::after{
+  background:conic-gradient(from 30deg at 50% 50%, transparent 0 14%, rgba(255,255,255,.07) 20%, transparent 27% 64%, rgba(255,255,255,.06) 70%, transparent 77%);
+  z-index:3;
+}
+
+.music-modal .modal-image::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:14px;
+  height:14px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#0a100c;
+  border:1px solid var(--accent);
+  z-index:4;
+  pointer-events:none;
+}
+
+.music-modal .vinyl{
+  display:block;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:92%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  z-index:1;
+  background:
+    radial-gradient(circle, transparent 0 34%, rgba(255,255,255,.05) 34.5%, transparent 36%),
+    repeating-radial-gradient(circle, #0a0c0b 0 2px, #171b19 2px 3px);
+  box-shadow:0 0 0 2px rgba(255,255,255,.05), 0 18px 40px rgba(0,0,0,.65);
+  animation:vinylSpin 7s linear infinite;
+  animation-play-state:paused;
+}
+
+.music-modal .vinyl::after{
+  content:"";
+  position:absolute;
+  inset:20.5%;
+  border-radius:50%;
+  border:3px solid var(--accent);
+  opacity:.85;
+}
+
+.music-modal.is-playing .vinyl{animation-play-state:running}
+
+.music-modal .modal-image{cursor:pointer}
+
+.music-modal .modal-image video{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:52%;
+  height:auto;
+  min-height:0;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  object-fit:cover;
+  filter:none;
+  z-index:2;
+  box-shadow:0 0 0 4px rgba(0,0,0,.55);
+}
+
+.music-modal .tonearm{
+  display:block;
+  position:absolute;
+  top:5%;
+  right:9%;
+  width:5px;
+  height:min(200px, 40%);
+  z-index:5;
+  border-radius:3px;
+  background:linear-gradient(90deg,#6f7770,#d5d8d0 50%,#6f7770);
+  transform-origin:50% 0;
+  transform:rotate(-16deg);
+  transition:transform .9s cubic-bezier(.3,.7,.2,1);
+  pointer-events:none;
+}
+
+.music-modal .tonearm::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-8px;
+  width:16px;
+  height:16px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#9da49c;
+  box-shadow:0 0 0 3px rgba(0,0,0,.4);
+}
+
+.music-modal .tonearm::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-10px;
+  width:11px;
+  height:18px;
+  transform:translateX(-50%) rotate(8deg);
+  border-radius:2px;
+  background:#c9ccc3;
+}
+
+.music-modal.is-playing .tonearm{transform:rotate(20deg)}
+
+.now-playing{
+  display:none;
+  align-items:center;
+  gap:9px;
+  margin-bottom:16px;
+  color:var(--accent, #9da49c);
+  font-size:.66rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.music-modal .now-playing{display:flex}
+
+.now-playing::after{
+  content:"";
+  width:30px;
+  height:1px;
+  background:var(--line);
+}
+
+.eq{
+  display:inline-flex;
+  align-items:flex-end;
+  gap:2px;
+  height:13px;
+}
+
+.eq i{
+  width:2px;
+  height:30%;
+  background:var(--accent, #9da49c);
+  animation:eqBar 1s ease-in-out infinite;
+  animation-play-state:paused;
+}
+
+.eq i:nth-child(2){animation-duration:.75s;animation-delay:-.3s}
+.eq i:nth-child(3){animation-duration:1.15s;animation-delay:-.6s}
+.eq i:nth-child(4){animation-duration:.9s;animation-delay:-.15s}
+
+.music-modal.is-playing .eq i{animation-play-state:running}
+
+.track{
+  display:none;
+  margin:0 0 16px;
+  line-height:1.2;
+}
+
+.music-modal .track{display:block}
+
+.track .song{
+  display:block;
+  color:#f0eee5;
+  font-size:1.55rem;
+  font-style:italic;
+}
+
+.track .artist{
+  display:block;
+  margin-top:4px;
+  color:var(--accent, #9da49c);
+  font-size:.78rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+/* Pentagrama decorativo al pie del modal */
+.music-modal .modal-content::before{
+  content:"♪";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:12px;
+  height:37px;
+  padding-right:34px;
+  text-align:right;
+  line-height:30px;
+  font-size:1.3rem;
+  color:var(--accent);
+  opacity:.45;
+  pointer-events:none;
+  background:repeating-linear-gradient(180deg, rgba(231,228,216,.13) 0 1px, transparent 1px 9px);
+}
+
+@keyframes vinylSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes eqBar{0%,100%{height:25%}50%{height:100%}}
+
+/* =========================================================
+   NOCHE DE VELAS — cielo con velas flotantes
+   ========================================================= */
+
+.candle-modal .image-placeholder{display:none !important}
+
+.candle-modal .modal-image{
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(70,93,112,.6), transparent 62%),
+    linear-gradient(180deg,#050a14,#0b1426 60%,#16233a);
+}
+
+.candle-modal .candle-sky{
+  display:block;
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:var(--stars);
+  animation:twinkle 5s ease-in-out infinite alternate;
+}
+
+.fcandle{
+  position:absolute;
+  width:9px;
+  height:var(--h, 30px);
+  border-radius:2px 2px 1px 1px;
+  background:linear-gradient(90deg,#d8d0b4,#f4eed8 45%,#b9b196);
+  animation:bob 5s ease-in-out infinite;
+}
+
+.fcandle::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-13px;
+  width:7px;
+  height:13px;
+  transform:translateX(-50%);
+  border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+  background:radial-gradient(ellipse at 50% 75%, #fff6c8 0 25%, #ffb84a 60%, rgba(255,140,30,0) 100%);
+  box-shadow:0 0 14px 5px rgba(255,180,70,.35);
+  animation:flicker 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes bob{50%{transform:translateY(-9px)}}
+@keyframes flicker{to{transform:translateX(-50%) scale(1.12,.92);opacity:.85}}
+@keyframes twinkle{from{opacity:.5}to{opacity:1}}
+
+/* =========================================================
+   EASTER EGG — PUERTA DE RAVENCLAW
+   ========================================================= */
+
+.knocker{
+  display:none;
+  position:absolute;
+  right:20px;
+  bottom:18px;
+  z-index:2;
+  width:32px;
+  height:40px;
+  padding:0;
+  border:0;
+  background:none;
+  cursor:pointer;
+  opacity:.26;
+  transition:opacity .3s ease, transform .3s ease;
+}
+
+.candle-modal .knocker{display:block}
+
+.knocker:hover,
+.knocker:focus-visible{
+  opacity:.95;
+  transform:rotate(-8deg);
+  outline:none;
+}
+
+.knocker svg{width:100%;height:100%}
+
+.riddle{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:6;
+  flex-direction:column;
+  justify-content:center;
+  padding:46px 40px 30px;
+  overflow:auto;
+  background:
+    var(--stars),
+    radial-gradient(ellipse at 50% 120%, rgba(176,141,87,.24), transparent 60%),
+    linear-gradient(180deg,#0a1530,#13284a);
+  animation:riddleIn .6s ease both;
+}
+
+.riddle.open{display:flex}
+
+@keyframes riddleIn{from{opacity:0}to{opacity:1}}
+
+.riddle-back{
+  position:absolute;
+  top:12px;
+  left:14px;
+  width:32px;
+  height:32px;
+  border:1px solid rgba(176,141,87,.35);
+  background:transparent;
+  color:var(--bronze);
+  cursor:pointer;
+}
+
+.riddle-kicker{
+  margin:0 0 10px;
+  color:var(--bronze);
+  font-size:.72rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+}
+
+.riddle-voice{
+  margin:0 0 12px;
+  color:#aeb9cc;
+  font-style:italic;
+}
+
+.riddle-q{
+  margin:0 0 22px;
+  color:#f0eee5;
+  font-size:1.3rem;
+  line-height:1.5;
+}
+
+.riddle-form{display:flex;gap:10px;flex-wrap:wrap}
+
+.riddle-form input{
+  flex:1 1 160px;
+  min-width:0;
+  padding:8px 2px;
+  border:0;
+  border-bottom:1px solid var(--bronze);
+  background:transparent;
+  color:#f0eee5;
+  font:inherit;
+  font-size:1.1rem;
+  outline:none;
+}
+
+.riddle-form button{
+  padding:8px 18px;
+  border:1px solid var(--bronze);
+  background:transparent;
+  color:var(--bronze);
+  cursor:pointer;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-size:.75rem;
+  transition:background .2s ease, color .2s ease;
+}
+
+.riddle-form button:hover{background:var(--bronze);color:#0a1530}
+
+.riddle-msg{
+  min-height:1.4em;
+  margin:14px 0 0;
+  color:#aeb9cc;
+  font-style:italic;
+}
+
+.riddle.shake .riddle-q{animation:shake .4s}
+
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+.riddle-title{
+  margin:0 0 18px;
+  color:#f0eee5;
+  font-family:var(--blackletter);
+  font-size:clamp(1.8rem, 4vw, 2.4rem);
+  font-weight:400;
+  line-height:1;
+}
+
+.riddle.won .riddle-title{text-shadow:0 0 18px rgba(176,141,87,.5)}
+
+.sym{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px 20px;
+  margin:0 0 20px;
+  padding:0;
+  list-style:none;
+  font-size:.95rem;
+  line-height:1.3;
+  color:#aeb9cc;
+}
+
+.sym span{
+  display:inline-block;
+  width:1.7em;
+  color:var(--bronze);
+}
+
+.sym b{color:#f0eee5;font-weight:600}
+
+.riddle-motto{
+  margin:0 0 8px;
+  color:#f0eee5;
+  font-style:italic;
+  font-size:1.05rem;
+}
+
+.riddle-points{
+  margin:0;
+  color:var(--bronze);
+  font-size:.72rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   MÚSICA — alternar disco / video
+   ========================================================= */
+
+.view-toggle{
+  display:none;
+  position:absolute;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  z-index:6;
+  padding:7px 16px;
+  border:1px solid rgba(231,228,216,.35);
+  background:rgba(5,8,7,.65);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
+  color:#e7e4d8;
+  font:inherit;
+  font-size:.72rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+
+.music-modal .view-toggle{display:block}
+
+.view-toggle:hover,
+.view-toggle:focus-visible{
+  background:rgba(231,228,216,.14);
+  border-color:var(--accent, #e7e4d8);
+  outline:none;
+}
+
+.music-modal.video-view .vinyl,
+.music-modal.video-view .tonearm,
+.music-modal.video-view .modal-image::before{display:none}
+
+.music-modal.video-view .modal-image::after{
+  background:
+    linear-gradient(90deg, rgba(7,13,10,.06), rgba(7,13,10,.48)),
+    linear-gradient(0deg, rgba(7,13,10,.30), transparent 35%);
+}
+
+.music-modal.video-view .modal-image video{
+  position:static;
+  width:100%;
+  height:100%;
+  min-height:500px;
+  aspect-ratio:auto;
+  transform:none;
+  border-radius:0;
+  box-shadow:none;
+  filter:saturate(.78) contrast(1.04) brightness(.82);
+}
+
+/* =========================================================
+   QUIDDITCH — votación del rival
+   ========================================================= */
+
+.vote{display:none;margin-top:24px}
+
+.quidditch-modal .vote{display:block}
+
+.vs{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:6px;
+  color:#eeece2;
+  font-family:var(--blackletter);
+  font-size:1.6rem;
+  line-height:1;
+}
+
+.vs b{
+  color:#b7a66a;
+  font-family:var(--serif);
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+
+.vote-title{
+  margin:0 0 4px;
+  color:#c2c4ba;
+  font-size:1.02rem;
+  font-style:italic;
+}
+
+.vote-opt{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  margin-top:8px;
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.18);
+  border-left:3px solid var(--c);
+  background:rgba(0,0,0,.24);
+  color:#eeece2;
+  font:inherit;
+  font-size:1.05rem;
+  text-align:left;
+  cursor:pointer;
+  overflow:hidden;
+  transition:background .2s ease, transform .2s ease;
+}
+
+.vote-opt:hover:not(:disabled),
+.vote-opt:focus-visible{
+  background:rgba(255,255,255,.08);
+  transform:translateX(3px);
+  outline:none;
+}
+
+.vote-opt:disabled{cursor:default;opacity:.72}
+
+.vote-opt.mine{
+  opacity:1;
+  border-color:rgba(230,217,168,.65);
+  border-left-color:var(--c);
+  background:rgba(230,217,168,.10);
+}
+
+.vote-pct{color:#b9b9aa;font-size:.85rem}
+
+.vote-bar{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:3px;
+  background:#e6d9a8;
+  opacity:.7;
+}
+
+.vote-msg{
+  min-height:1.3em;
+  margin:12px 0 0;
+  color:#9ea79e;
+  font-size:.9rem;
+  font-style:italic;
+}
+
+/* =========================================================
+   AJUSTES MÓVIL Y MOVIMIENTO REDUCIDO (música / velas)
+   ========================================================= */
+
+@media (max-width:720px){
+  .music-modal .vinyl{width:auto;height:90%}
+  .music-modal .modal-image video{width:auto;height:50%}
+  .music-modal.video-view .modal-image video{min-height:270px}
+  .sym{grid-template-columns:1fr}
+  .riddle{padding:46px 26px 26px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .vinyl,.eq i,.fcandle,.fcandle::before,.candle-sky,.riddle{animation:none !important}
+}
 </style>
 </head>
 
@@ -772,6 +1379,16 @@ h1 .t-sub{
           </p>
         </div>
 
+        <!-- MÚSICA: disco y aguja -->
+        <div class="vinyl" aria-hidden="true"></div>
+        <div class="tonearm" aria-hidden="true"></div>
+
+        <!-- NOCHE DE VELAS: cielo con velas flotantes -->
+        <div class="candle-sky" id="candleSky" aria-hidden="true"></div>
+
+        <!-- MÚSICA: alternar disco / video -->
+        <button class="view-toggle" id="viewToggle" type="button">Ver video</button>
+
       </div>
 
       <div class="modal-content">
@@ -791,15 +1408,72 @@ h1 .t-sub{
           <span>Fase Lunar</span>
         </div>
 
+        <div class="now-playing" id="nowPlaying">
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span id="npLabel">Sonando ahora</span>
+        </div>
+
         <h2 class="modal-title" id="modalTitle"></h2>
 
         <div class="modal-rule">
           <span></span>
-          <b>⚔︎</b>
+          <b id="ruleIcon">⚔︎</b>
           <span></span>
         </div>
 
+        <p class="track" id="track">
+          <span class="song" id="trackSong"></span>
+          <span class="artist" id="trackArtist"></span>
+        </p>
+
         <p class="modal-desc" id="modalDesc"></p>
+
+        <!-- QUIDDITCH: votación -->
+        <div class="vote" id="vote">
+          <div class="vs"><span>Hufflepuff</span><b>vs</b><span id="vsTarget">¿?</span></div>
+          <p class="vote-title">¿Contra quién debe jugar Hufflepuff?</p>
+          <div id="voteOptions"></div>
+          <p class="vote-msg" id="voteMsg" aria-live="polite"></p>
+        </div>
+
+        <!-- EASTER EGG: aldaba de Ravenclaw -->
+        <button class="knocker" id="knocker" type="button" aria-label="Llamar a la puerta" title="Toc, toc">
+          <svg viewBox="0 0 40 48" aria-hidden="true">
+            <circle cx="20" cy="9" r="7" fill="#b08d57"/>
+            <path d="M20 5 L24 11 L20 14 L16 11 Z" fill="#0c1830"/>
+            <circle cx="20" cy="31" r="12" fill="none" stroke="#b08d57" stroke-width="3.2"/>
+          </svg>
+        </button>
+
+        <div class="riddle" id="riddle" role="dialog" aria-label="Enigma de la puerta de Ravenclaw">
+          <button class="riddle-back" id="riddleBack" type="button" aria-label="Volver">←</button>
+
+          <div id="riddleAsk">
+            <p class="riddle-kicker">Toc, toc…</p>
+            <p class="riddle-voice">Una voz de bronce despierta en la puerta de la torre:</p>
+            <p class="riddle-q">«Nazco alta y muero pequeña; me gasto para que otros vean. Sin aire me apago, y con demasiado, también. ¿Qué soy?»</p>
+            <div class="riddle-form">
+              <input id="riddleInput" type="text" autocomplete="off" placeholder="Tu respuesta…" aria-label="Respuesta">
+              <button type="button" id="riddleGo">Responder</button>
+            </div>
+            <p class="riddle-msg" id="riddleMsg" aria-live="polite"></p>
+          </div>
+
+          <div id="riddleWin" hidden>
+            <p class="riddle-kicker">La puerta se abre</p>
+            <h3 class="riddle-title">Bienvenido a la torre de Ravenclaw</h3>
+            <ul class="sym">
+              <li><span>🦅</span><b>Águila</b>, emblema de la casa</li>
+              <li><span>✦</span><b>Diadema</b> de Rowena, la fundadora</li>
+              <li><span>◈</span><b>Azul y bronce</b>, sus colores</li>
+              <li><span>🌬</span><b>Aire</b>, su elemento</li>
+              <li><span>☽</span><b>Estrellas</b> en la cúpula de la sala común</li>
+              <li><span>🕯</span><b>Dama Gris</b>, el fantasma de la casa</li>
+            </ul>
+            <p class="riddle-motto">«La inteligencia sin medida es el mayor tesoro del hombre.»</p>
+            <p class="riddle-points">+10 puntos para Ravenclaw</p>
+          </div>
+        </div>
 
         <div class="modal-footer">
           <span class="house-mark" id="houseMark"></span>
@@ -842,6 +1516,7 @@ const data = {
       title:'Un mes, una canción',
       house:'raven',
       image:'images/Fleetwood Mac - Dreams.mp4',
+      type:'music', song:'Dreams', artist:'Fleetwood Mac', accent:'#b9a3d6',
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (Verdad o reto, gifs) en la casa Ravenclaw.'
     },
     {
@@ -875,6 +1550,7 @@ const data = {
       title:'Un mes, una canción',
       house:'gryf',
       image:'images/Stairway to Heaven.mp4',
+      type:'music', song:'Stairway to Heaven', artist:'Led Zeppelin', accent:'#d9a441',
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (verdad o reto, gifs) en la casa Gryffindor.'
     },
     {
@@ -915,11 +1591,13 @@ const data = {
       title:'Un mes, una canción',
       house:'huff',
       image:'images/A Horse With No Name - America.mp4',
+      type:'music', song:'A Horse with No Name', artist:'America', accent:'#e0965a',
       desc:'Ya saben lo que significa... Aunque las lechuzas han traído una nueva noticia ¡parece que la fiesta será en el comedor, y es de pijamas! Att; 𐦉 '
     },
     {
       day:'12',
       title:'Noche de velas',
+      type:'candles',
       house:'raven',
       image:'',
       desc:'✧₊⁺🕯 Esta noche, cada estudiante escribirá un deseo de corazón que será guardado hasta el día de su graduación. ⋆.˚'
@@ -962,6 +1640,7 @@ const data = {
       title:'Un mes, una canción န',
       house:'slyt',
       image:'images/Children of the Revolution.mp4',
+      type:'music', song:'Children of the Revolution', artist:'T. Rex', accent:'#e06fa8',
       desc:'Los estudiantes elegirán una canción que les recuerde a alguien y se la dedicarán. Es el cumpleaños de Snape, lo que significa una fiesta en Slytherin, donde más de uno será reclutado finalmente para la guerra...'
     },
     {
@@ -983,6 +1662,7 @@ const data = {
     {
       day:'31',
       title:'Partido de Quidditch',
+      type:'quidditch',
       house:'huff',
       image:'images/enero-5.jpg',
       desc:'Proximamente...'
@@ -1023,7 +1703,7 @@ Object.entries(data).forEach(([month, events], monthIndex) => {
         <strong>${ev.day}</strong>
       </span>
       <span class="event-copy">
-        <span class="label">${month}</span>
+        <span class="label">${month}${ev.type === 'music' ? ' ♪' : ''}</span>
         <span class="title">${ev.title}</span>
       </span>
     `;
@@ -1079,6 +1759,19 @@ function openModal(ev, month){
 
   /* CLASE LUNAR */
   modalEl.classList.toggle('moon-modal', ev.type === 'moon');
+  modalEl.classList.toggle('music-modal', ev.type === 'music');
+  modalEl.classList.toggle('candle-modal', ev.type === 'candles');
+  modalEl.classList.toggle('quidditch-modal', ev.type === 'quidditch');
+  modalEl.classList.remove('video-view');
+  viewToggle.textContent = 'Ver video';
+  if(ev.type === 'quidditch') renderVote();
+  modalEl.classList.remove('is-playing');
+  modalEl.style.setProperty('--accent', ev.accent || house.color);
+  document.getElementById('trackSong').textContent = ev.song || '';
+  document.getElementById('trackArtist').textContent = ev.artist || '';
+  npLabel.textContent = 'En pausa · toca el disco';
+  ruleIcon.textContent = ev.type === 'music' ? '♫' : RULE_DEFAULT;
+  resetRiddle();
 
   /* COLORES DEL MODAL */
   modalEl.style.setProperty('--modal-bg', hexToRgba(house.color, 0.78));
@@ -1102,7 +1795,7 @@ function openModal(ev, month){
   moonOrbit.hidden = ev.type !== 'moon';
 
   /* SÍMBOLO DEL MODAL */
-  modalSymbol.textContent = ev.type === 'moon' ? '☾' : '❍';
+  modalSymbol.textContent = ({ moon:'☾', music:'♪', candles:'🕯', quidditch:'🧹' })[ev.type] || '❍';
 
   /* REINICIAR MULTIMEDIA */
   modalVideo.pause();
@@ -1177,7 +1870,8 @@ function closeModal(){
   /* Limpiar elementos lunares al cerrar */
   moonPhase.hidden = true;
   moonOrbit.hidden = true;
-  modalEl.classList.remove('moon-modal');
+  modalEl.classList.remove('moon-modal', 'music-modal', 'candle-modal', 'quidditch-modal', 'video-view', 'is-playing');
+  resetRiddle();
 }
 
 document.getElementById('closeBtn').addEventListener('click', closeModal);
@@ -1189,6 +1883,187 @@ overlay.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') closeModal();
 });
+
+/* =========================================================
+   MÚSICA: disco, aguja y reproducción
+   ========================================================= */
+
+const ruleIcon = document.getElementById('ruleIcon');
+const RULE_DEFAULT = ruleIcon.textContent;
+const npLabel = document.getElementById('npLabel');
+
+function syncPlaying(){
+  const on = !modalVideo.paused && !!modalVideo.getAttribute('src');
+  modalEl.classList.toggle('is-playing', on);
+  npLabel.textContent = on ? 'Sonando ahora' : `En pausa · toca el ${modalEl.classList.contains('video-view') ? 'video' : 'disco'}`;
+}
+
+['play','pause','ended'].forEach(n => modalVideo.addEventListener(n, syncPlaying));
+
+/* Tocar el disco = pausar / reanudar */
+document.querySelector('.modal-image').addEventListener('click', () => {
+  if(!modalEl.classList.contains('music-modal') || !modalVideo.getAttribute('src')) return;
+  if(modalVideo.paused){
+    modalVideo.play().catch(() => {});
+  }else{
+    modalVideo.pause();
+  }
+});
+
+/* =========================================================
+   NOCHE DE VELAS: velas flotantes
+   ========================================================= */
+
+const candleSky = document.getElementById('candleSky');
+
+[[12,18],[30,8],[52,22],[74,12],[88,30],[20,48],[46,56],[70,50],[34,74],[62,78],[84,68]]
+  .forEach(([x, y], i) => {
+    const c = document.createElement('i');
+    c.className = 'fcandle';
+    c.style.cssText = `left:${x}%;top:${y}%;animation-delay:${-i * 0.7}s;--h:${26 + (i % 3) * 8}px`;
+    candleSky.appendChild(c);
+  });
+
+/* =========================================================
+   EASTER EGG: la puerta de Ravenclaw
+   ========================================================= */
+
+const riddle = document.getElementById('riddle');
+const riddleAsk = document.getElementById('riddleAsk');
+const riddleWin = document.getElementById('riddleWin');
+const riddleInput = document.getElementById('riddleInput');
+const riddleMsg = document.getElementById('riddleMsg');
+let riddleTries = 0;
+
+const norm = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
+function resetRiddle(){
+  riddle.classList.remove('open', 'won', 'shake');
+  riddleAsk.hidden = false;
+  riddleWin.hidden = true;
+  riddleInput.value = '';
+  riddleMsg.textContent = '';
+  riddleTries = 0;
+}
+
+function checkRiddle(){
+  const answer = norm(riddleInput.value);
+  if(!answer) return;
+
+  if(/\b(vela|velas|candela|cirio)\b/.test(answer)){
+    riddleAsk.hidden = true;
+    riddleWin.hidden = false;
+    riddle.classList.add('won');
+    return;
+  }
+
+  riddleTries++;
+  riddleMsg.textContent = riddleTries >= 2
+    ? 'La puerta no se mueve. Pista: vive de lo que la consume.'
+    : 'La puerta no se mueve. Piensa otra vez…';
+
+  riddle.classList.remove('shake');
+  void riddle.offsetWidth;
+  riddle.classList.add('shake');
+}
+
+document.getElementById('knocker').addEventListener('click', () => {
+  riddle.classList.add('open');
+  setTimeout(() => riddleInput.focus(), 350);
+});
+
+document.getElementById('riddleBack').addEventListener('click', () => riddle.classList.remove('open'));
+document.getElementById('riddleGo').addEventListener('click', checkRiddle);
+riddleInput.addEventListener('keydown', e => { if(e.key === 'Enter') checkRiddle(); });
+
+/* =========================================================
+   MÚSICA: cambiar entre disco y video
+   ========================================================= */
+
+const viewToggle = document.getElementById('viewToggle');
+
+viewToggle.addEventListener('click', e => {
+  e.stopPropagation();
+  const isVideo = modalEl.classList.toggle('video-view');
+  viewToggle.textContent = isVideo ? 'Ver disco' : 'Ver video';
+  syncPlaying();
+});
+
+/* =========================================================
+   QUIDDITCH: votación del rival de Hufflepuff
+   ========================================================= */
+
+/* Pega aquí la URL de tu Apps Script para contar los votos de todos.
+   Si la dejas vacía, el voto solo se guarda en este navegador. */
+const VOTE_URL = '';
+
+const VOTE_KEY = 'quidditchVote';
+const OPPONENTS = ['slyt','gryf','raven'];
+
+const voteOptions = document.getElementById('voteOptions');
+const voteMsg = document.getElementById('voteMsg');
+const vsTarget = document.getElementById('vsTarget');
+
+function savedVote(){
+  try{ return localStorage.getItem(VOTE_KEY); }catch(e){ return null; }
+}
+
+async function loadCounts(){
+  if(!VOTE_URL) return null;
+  try{
+    const r = await fetch(VOTE_URL);
+    return await r.json();
+  }catch(e){ return null; }
+}
+
+async function renderVote(){
+  const mine = savedVote();
+  const counts = await loadCounts();
+  const total = counts ? OPPONENTS.reduce((a, k) => a + (Number(counts[k]) || 0), 0) : 0;
+
+  voteOptions.innerHTML = '';
+
+  OPPONENTS.forEach(k => {
+    const h = HOUSE[k];
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'vote-opt' + (mine === k ? ' mine' : '');
+    b.style.setProperty('--c', h.color);
+    b.disabled = !!mine;
+
+    let extra = '';
+    if(counts){
+      const pct = total ? Math.round(((Number(counts[k]) || 0) * 100) / total) : 0;
+      extra = `<span class="vote-pct">${pct}%</span><span class="vote-bar" style="width:${pct}%"></span>`;
+    }
+
+    b.innerHTML = `<span>${h.name}</span>${extra}`;
+    b.addEventListener('click', () => castVote(k));
+    voteOptions.appendChild(b);
+  });
+
+  vsTarget.textContent = mine ? HOUSE[mine].name : '¿?';
+  voteMsg.textContent = mine
+    ? `Tu voto: Hufflepuff vs ${HOUSE[mine].name}`
+    : 'Elige a su rival. Solo puedes votar una vez.';
+}
+
+async function castVote(k){
+  try{ localStorage.setItem(VOTE_KEY, k); }catch(e){}
+
+  if(VOTE_URL){
+    try{
+      await fetch(VOTE_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{ 'Content-Type':'text/plain' },
+        body:JSON.stringify({ vote:k })
+      });
+    }catch(e){}
+  }
+
+  renderVote();
+}
 
 </script>
 
