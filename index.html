@@ -424,11 +424,6 @@ h1{
   filter:saturate(.78) contrast(1.04) brightness(.82);
 }
 
-.modal-image video.portrait-video{
-  object-fit:contain;
-  background:#080d0b;
-}
-
 .modal-image img[hidden],
 .modal-image video[hidden]{
   display:none !important;
@@ -556,119 +551,6 @@ h1{
   font-size:.7rem;
   letter-spacing:.12em;
   text-transform:uppercase;
-}
-
-.moon-modal{
-  --moon-color:#9da49c;
-}
-
-.moon-modal .modal-content{
-  background:
-    radial-gradient(circle at 80% 50%, rgba(255,255,255,.025), transparent 32%),
-    linear-gradient(90deg, rgba(215,212,196,.035), transparent 22%),
-    var(--modal-content-bg);
-}
-
-.moon-modal .modal-image{
-  background:
-    radial-gradient(circle at 50% 42%, var(--moon-glow, rgba(157,164,156,.16)), transparent 38%),
-    radial-gradient(circle at 50% 42%, rgba(225,225,210,.10), transparent 18%),
-    #050807;
-}
-
-.moon-modal .modal-image img,
-.moon-modal .modal-image video{
-  filter:saturate(.65) contrast(1.08) brightness(.90);
-}
-
-
-/* Decoración lunar */
-.moon-orbit{
-  position:absolute;
-  width:260px;
-  height:260px;
-  right:-105px;
-  top:50%;
-  transform:translateY(-50%);
-  pointer-events:none;
-  opacity:.12;
-  z-index:0;
-}
-
-.moon-orbit[hidden],
-.moon-phase[hidden]{
-  display:none !important;
-}
-
-.moon-orbit-line{
-  position:absolute;
-  inset:0;
-  border:1px solid var(--moon-color);
-  border-radius:50%;
-}
-
-.moon-disc{
-  position:absolute;
-  width:118px;
-  height:118px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      rgba(255,255,245,.98),
-      rgba(190,193,180,.88) 48%,
-      rgba(110,116,108,.90) 100%
-    );
-  box-shadow:0 0 25px var(--moon-glow, rgba(157,164,156,.35));
-}
-
-.moon-disc::before{
-  content:"";
-  position:absolute;
-  inset:12px;
-  border-radius:50%;
-  opacity:.22;
-  background:
-    radial-gradient(circle at 25% 35%, #555 0 4%, transparent 5%),
-    radial-gradient(circle at 65% 25%, #555 0 7%, transparent 8%),
-    radial-gradient(circle at 55% 70%, #555 0 5%, transparent 6%),
-    radial-gradient(circle at 30% 72%, #555 0 8%, transparent 9%);
-}
-
-.moon-phase{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:16px;
-  color:#778177;
-  font-size:.66rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.moon-phase::before,
-.moon-phase::after{
-  content:"";
-  width:30px;
-  height:1px;
-  background:var(--line);
-}
-
-.moon-phase-icon{
-  width:15px;
-  height:15px;
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      #fffef2,
-      #b8b9af 65%,
-      #676b65 100%
-    );
-  box-shadow:0 0 9px var(--moon-glow, rgba(157,164,156,.3));
 }
 
 .house-mark{
@@ -810,7 +692,7 @@ h1{
         <div class="image-placeholder" id="imagePlaceholder">
           <div class="orn">𖤝</div>
           <p id="placeholderText">
-            Ni con un Aparecium harás que se revele lo que está oculto.
+            Ni con un Aparecium haras que se revele lo que está oculto.
           </p>
         </div>
       </div>
@@ -893,7 +775,6 @@ const data = {
     ,
     {
       day:'26',
-      type:'moon',
       title:'Luna llena',
       house:'slyt',
       image:'images/october - luna.jpg',
@@ -907,7 +788,6 @@ const data = {
       title:'Un mes, una canción',
       house:'gryf',
       image:'images/Stairway to Heaven.mp4',
-      videoStyle:'portrait',
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (verdad o reto, gifs) en la casa Gryffindor.'
     },
     {
@@ -926,7 +806,6 @@ const data = {
     },
     {
       day:'24',
-      type:'moon',
       title:'Luna llena',
       house:'huff',
       image:'images/luna-castor.jpg',
@@ -965,7 +844,6 @@ const data = {
     },
     {
       day:'23',
-      type:'moon',
       title:'Luna llena',
       house:'raven',
       image:'images/Luna-fria.mp4',
@@ -1004,11 +882,10 @@ const data = {
     },
     {
       day:'22',
-      type:'moon',
       title:'Luna llena',
       house:'gryf',
       image:'images/moon-wolf.gif',
-      desc:'Luna de lobo, ¿Será esa la razón de los fuertes aullidos esta noche? Una superluna deja a cuatro muchachos en alerta. Algo malo está a punto de pasar.'
+      desc:'Luna de lobo, ¿Será esa la razón de los fuertes audillos esta noche? Una superluna deja a cuatro muchachos en alerta. Algo malo está a punto de pasar.'
     }, 
     {
       day:'31',
@@ -1088,6 +965,8 @@ const modalEl = document.querySelector('.modal');
 const modalImage = document.getElementById('modalImage');
 const modalVideo = document.getElementById('modalVideo'); /* CAMBIO 8 */
 const imagePlaceholder = document.getElementById('imagePlaceholder');
+let videoPlayCount = 0;
+const MAX_VIDEO_PLAYS = 4;
 
 
 function hexToRgba(hex, alpha){
@@ -1099,277 +978,6 @@ function hexToRgba(hex, alpha){
 }
 
 function openModal(ev, month){
-
-  const house = HOUSE[ev.house];
-
-  /*
-    SOLO los eventos type:'moon' reciben
-    la personalización lunar.
-
-    Los eventos de música NO reciben ningún
-    tratamiento lunar.
-  */
-  const isMoon = ev.type === 'moon';
-
-
-  /* =========================
-     CLASES DEL MODAL
-     ========================= */
-
-  modalEl.classList.toggle('moon-modal', isMoon);
-
-  // No usamos song-modal.
-  modalEl.classList.remove('song-modal');
-
-
-  /* =========================
-     COLORES DE LA CASA
-     ========================= */
-
-  modalEl.style.setProperty(
-    '--modal-bg',
-    hexToRgba(house.color, .78)
-  );
-
-  modalEl.style.setProperty(
-    '--modal-content-bg',
-    hexToRgba(house.color, .66)
-  );
-
-  modalEl.style.setProperty(
-    '--moon-color',
-    house.color
-  );
-
-  modalEl.style.setProperty(
-    '--moon-glow',
-    house.moonGlow
-  );
-
-
-  /* =========================
-     FECHA
-     ========================= */
-
-  if(isMoon){
-
-    modalDate.textContent =
-      `${ev.day} de ${month} · ${ev.moonName || 'Luna llena'}`;
-
-  }else{
-
-    modalDate.textContent =
-      `${ev.day} de ${month}`;
-
-  }
-
-
-  /* =========================
-     INFORMACIÓN
-     ========================= */
-
-  modalTitle.textContent = ev.title;
-  modalDesc.textContent = ev.desc;
-  modalHouse.textContent = house.name;
-
-  houseMark.style.setProperty(
-    '--event-color',
-    house.color
-  );
-
-
-  /* =========================
-     ELEMENTOS LUNARES
-     ========================= */
-
-  moonPhase.hidden = !isMoon;
-  moonOrbit.hidden = !isMoon;
-
-
-  if(isMoon){
-
-    modalSymbol.textContent = '☾';
-
-  }else{
-
-    modalSymbol.textContent = '❍';
-
-  }
-
-
-  /* =========================
-     LIMPIAR MEDIA ANTERIOR
-     ========================= */
-
-  modalVideo.pause();
-
-  modalVideo.removeAttribute('src');
-
-  modalVideo.load();
-
-  modalVideo.hidden = true;
-
-  modalVideo.classList.remove('portrait-video');
-
-  modalImage.hidden = true;
-
-  modalImage.removeAttribute('src');
-
-  imagePlaceholder.classList.remove('visible');
-
-
-  /* =========================
-     VIDEO
-     ========================= */
-
-  if(ev.image && isVideo(ev.image)){
-
-    modalVideo.hidden = false;
-
-    modalVideo.loop = true;
-
-    /*
-      IMPORTANTE:
-      todos los MP4 se reproducen con sonido.
-    */
-    modalVideo.muted = false;
-    modalVideo.volume = 1;
-
-    modalVideo.removeAttribute('muted');
-
-    /*
-      Mantener formato vertical solamente
-      cuando el evento lo necesita.
-    */
-    modalVideo.classList.toggle(
-      'portrait-video',
-      ev.videoStyle === 'portrait'
-    );
-
-
-    modalVideo.onerror = () => {
-
-      modalVideo.hidden = true;
-
-      imagePlaceholder.classList.add('visible');
-
-      console.error(
-        'No se pudo cargar el vídeo:',
-        ev.image
-      );
-
-    };
-
-
-    /*
-      Cargamos el vídeo.
-    */
-    modalVideo.src = ev.image;
-
-    modalVideo.load();
-
-
-    /*
-      Intentamos reproducirlo inmediatamente
-      con sonido.
-
-      Como el usuario acaba de hacer clic
-      sobre el evento, algunos navegadores
-      permitirán el autoplay con sonido.
-    */
-    const playPromise = modalVideo.play();
-
-    if(playPromise){
-
-      playPromise.catch(() => {
-
-        /*
-          Algunos navegadores bloquean
-          autoplay con sonido.
-
-          En ese caso el vídeo queda visible
-          y el usuario puede pulsar Play.
-        */
-        console.warn(
-          'El navegador bloqueó el autoplay con sonido. Pulsa Play en el vídeo.'
-        );
-
-      });
-
-    }
-
-  }
-
-
-  /* =========================
-     IMAGEN
-     ========================= */
-
-  else if(ev.image){
-
-    modalImage.alt =
-      `${ev.title} — ilustración`;
-
-
-    modalImage.onload = () => {
-
-      modalImage.hidden = false;
-
-      imagePlaceholder.classList.remove(
-        'visible'
-      );
-
-    };
-
-
-    modalImage.onerror = () => {
-
-      modalImage.hidden = true;
-
-      imagePlaceholder.classList.add(
-        'visible'
-      );
-
-      console.error(
-        'No se pudo cargar la imagen:',
-        ev.image
-      );
-
-    };
-
-
-    modalImage.src = ev.image;
-
-  }
-
-
-  /* =========================
-     SIN IMAGEN
-     ========================= */
-
-  else{
-
-    imagePlaceholder.classList.add(
-      'visible'
-    );
-
-  }
-
-
-  /* =========================
-     ABRIR MODAL
-     ========================= */
-
-  overlay.classList.add('open');
-
-  overlay.setAttribute(
-    'aria-hidden',
-    'false'
-  );
-
-  document.body.style.overflow = 'hidden';
-
-}
 
   const house = HOUSE[ev.house];
 
@@ -1410,15 +1018,10 @@ function openModal(ev, month){
     imagePlaceholder.classList.add('visible');
   };
 
-  modalVideo.classList.remove('portrait-video');
-
-if(ev.videoStyle === 'portrait'){
-  modalVideo.classList.add('portrait-video');
-}
-
 
 
   if(ev.image && /\.mp4(?:$|[?#])/i.test(ev.image)){
+    videoPlayCount = 0;
     modalVideo.hidden = false;
     imagePlaceholder.classList.remove('visible');
 
@@ -1452,12 +1055,14 @@ if(ev.videoStyle === 'portrait'){
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
+}
 
 function closeModal(){
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
   modalVideo.pause(); 
+  videoPlayCount = 0;
 }
 
 document.getElementById('closeBtn')
