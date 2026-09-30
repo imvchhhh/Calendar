@@ -891,6 +891,8 @@ h1 .t-sub{
   background:var(--line);
 }
 
+.music-modal .modal-rule{display:none}
+
 .eq{
   display:inline-flex;
   align-items:flex-end;
@@ -1386,8 +1388,6 @@ h1 .t-sub{
         <!-- NOCHE DE VELAS: cielo con velas flotantes -->
         <div class="candle-sky" id="candleSky" aria-hidden="true"></div>
 
-        <!-- MÚSICA: alternar disco / video -->
-        <button class="view-toggle" id="viewToggle" type="button">Ver video</button>
 
       </div>
 
@@ -1449,8 +1449,6 @@ h1 .t-sub{
           <button class="riddle-back" id="riddleBack" type="button" aria-label="Volver">←</button>
 
           <div id="riddleAsk">
-            <p class="riddle-kicker">Toc, toc…</p>
-            <p class="riddle-voice">Una voz de bronce despierta en la puerta de la torre:</p>
             <p class="riddle-q">«Nazco alta y muero pequeña; me gasto para que otros vean. Sin aire me apago, y con demasiado, también. ¿Qué soy?»</p>
             <div class="riddle-form">
               <input id="riddleInput" type="text" autocomplete="off" placeholder="Tu respuesta…" aria-label="Respuesta">
@@ -1460,19 +1458,7 @@ h1 .t-sub{
           </div>
 
           <div id="riddleWin" hidden>
-            <p class="riddle-kicker">La puerta se abre</p>
-            <h3 class="riddle-title">Bienvenido a la torre de Ravenclaw</h3>
-            <ul class="sym">
-              <li><span>🦅</span><b>Águila</b>, emblema de la casa</li>
-              <li><span>✦</span><b>Diadema</b> de Rowena, la fundadora</li>
-              <li><span>◈</span><b>Azul y bronce</b>, sus colores</li>
-              <li><span>🌬</span><b>Aire</b>, su elemento</li>
-              <li><span>☽</span><b>Estrellas</b> en la cúpula de la sala común</li>
-              <li><span>🕯</span><b>Dama Gris</b>, el fantasma de la casa</li>
-            </ul>
-            <p class="riddle-motto">«La inteligencia sin medida es el mayor tesoro del hombre.»</p>
-            <p class="riddle-points">+10 puntos para Ravenclaw</p>
-          </div>
+            <p class="riddle-points">+20 puntos para Ravenclaw</p>
         </div>
 
         <div class="modal-footer">
@@ -1762,15 +1748,12 @@ function openModal(ev, month){
   modalEl.classList.toggle('music-modal', ev.type === 'music');
   modalEl.classList.toggle('candle-modal', ev.type === 'candles');
   modalEl.classList.toggle('quidditch-modal', ev.type === 'quidditch');
-  modalEl.classList.remove('video-view');
-  viewToggle.textContent = 'Ver video';
   if(ev.type === 'quidditch') renderVote();
   modalEl.classList.remove('is-playing');
   modalEl.style.setProperty('--accent', ev.accent || house.color);
   document.getElementById('trackSong').textContent = ev.song || '';
   document.getElementById('trackArtist').textContent = ev.artist || '';
   npLabel.textContent = 'En pausa · toca el disco';
-  ruleIcon.textContent = ev.type === 'music' ? '♫' : RULE_DEFAULT;
   resetRiddle();
 
   /* COLORES DEL MODAL */
@@ -1895,7 +1878,7 @@ const npLabel = document.getElementById('npLabel');
 function syncPlaying(){
   const on = !modalVideo.paused && !!modalVideo.getAttribute('src');
   modalEl.classList.toggle('is-playing', on);
-  npLabel.textContent = on ? 'Sonando ahora' : `En pausa · toca el ${modalEl.classList.contains('video-view') ? 'video' : 'disco'}`;
+  npLabel.textContent = on ? 'Sonando ahora' : 'En pausa · toca el disco';
 }
 
 ['play','pause','ended'].forEach(n => modalVideo.addEventListener(n, syncPlaying));
@@ -1976,18 +1959,6 @@ document.getElementById('riddleBack').addEventListener('click', () => riddle.cla
 document.getElementById('riddleGo').addEventListener('click', checkRiddle);
 riddleInput.addEventListener('keydown', e => { if(e.key === 'Enter') checkRiddle(); });
 
-/* =========================================================
-   MÚSICA: cambiar entre disco y video
-   ========================================================= */
-
-const viewToggle = document.getElementById('viewToggle');
-
-viewToggle.addEventListener('click', e => {
-  e.stopPropagation();
-  const isVideo = modalEl.classList.toggle('video-view');
-  viewToggle.textContent = isVideo ? 'Ver disco' : 'Ver video';
-  syncPlaying();
-});
 
 /* =========================================================
    QUIDDITCH: votación del rival de Hufflepuff
