@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hogwarts — Pureblood Syndicate </title>
+
+<title>Hogwarts — Pureblood Syndicate</title>
 
 <!-- Tipografías: gótica para títulos y serif editorial para el contenido -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Grenze+Gotisch:wght@600;800&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
+
   --ink:#e7e4d8;
   --ink-soft:#b9b9aa;
   --paper:#d7d4c4;
@@ -27,293 +36,437 @@
   --green:#315d45;
   --green-light:#5f8c6e;
   --green-deep:#183526;
+
   --silver:#9da49c;
 
   --line:rgba(214,211,192,.30);
   --line-soft:rgba(214,211,192,.13);
+
   --glow:rgba(95,140,110,.18);
 
   --serif:'Cormorant Garamond', Georgia, serif;
   --blackletter:'UnifrakturMaguntia', 'Times New Roman', serif;
-  --dumbledore:'Dumbledor', var(--blackletter); 
-  --ghosthey:'Ghosthey', var(--blackletter);    
+
+  --dumbledore:'Dumbledor', var(--blackletter);
+  --ghosthey:'Ghosthey', var(--blackletter);
 
   box-sizing:border-box;
 }
 
-
 *,
 *::before,
-*::after{box-sizing:border-box}
+*::after{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
-
+html{
+  scroll-behavior:smooth;
+}
 
 *{
   cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z' fill='%23d7d4c4' fill-opacity='0.85' stroke='%23315d45' stroke-width='0.6'/></svg>") 12 12, auto;
 }
 
 body{
+
   margin:0;
   min-height:100vh;
+
   color:var(--ink);
   font-family:var(--serif);
 
   background-color:var(--bg);
+
   background-image:
+    radial-gradient(ellipse at 50% -15%, rgba(48,88,65,.18), transparent 48%),
+    radial-gradient(ellipse at 50% 110%, rgba(20,42,30,.20), transparent 42%),
+    linear-gradient(rgba(6,10,8,.62), rgba(6,10,8,.80)),
     url("fondo.jpg");
-  background-repeat:no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position:center, center, center, center;
-  background-size:cover, cover, cover, cover;
-  background-attachment:fixed, fixed, fixed, fixed;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+
+  background-position:
+    center,
+    center,
+    center,
+    center;
+
+  background-size:
+    cover,
+    cover,
+    cover,
+    cover;
+
+  background-attachment:
+    fixed,
+    fixed,
+    fixed,
+    fixed;
+
   overflow-x:hidden;
 }
 
 body::before{
+
   content:"";
+
   position:fixed;
   inset:0;
+
   pointer-events:none;
+
   opacity:.035;
+
   background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 1px, transparent 1px 5px);
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.5) 0 1px,
+      transparent 1px 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,.5) 0 1px,
+      transparent 1px 5px
+    );
+
   mix-blend-mode:soft-light;
 }
 
-button{font:inherit}
+button{
+  font:inherit;
+}
+
+
+/* =========================================================
+   PÁGINA
+   ========================================================= */
 
 .page{
+
   width:min(1280px, calc(100% - 34px));
+
   margin:0 auto;
+
   padding:38px 0 70px;
 }
 
-/* =========================
-   CABECERA (estandarte)
-   ========================= */
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
 
 .header{
+
   position:relative;
-  overflow:hidden;
-  margin-top:6px;
-  padding:clamp(34px, 6vw, 62px) clamp(20px, 5vw, 60px);
-  border:1px solid var(--line);
-  outline:1px solid rgba(214,211,192,.16);
-  outline-offset:-8px;
-  background:
-    radial-gradient(ellipse at 30% 50%, rgba(49,93,69,.30), transparent 60%),
-    linear-gradient(180deg, rgba(5,12,9,.45), rgba(5,12,9,.82));
-  -webkit-backdrop-filter:blur(3px);
-  backdrop-filter:blur(3px);
-  box-shadow:0 24px 60px rgba(0,0,0,.5), inset 0 0 80px rgba(0,0,0,.45);
+
+  text-align:center;
+
+  padding:8px 0 30px;
 }
 
-/* Las dos rayas plateadas diagonales del estandarte */
 .header::before,
 .header::after{
+
   content:"";
+
   position:absolute;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:min(700px, 90%);
+
+  height:1px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--line),
+    transparent
+  );
+}
+
+.header::before{
   top:0;
+}
+
+.header::after{
   bottom:0;
-  width:150px;
-  pointer-events:none;
-  background:linear-gradient(115deg,
-    transparent 0 44%,
-    rgba(190,196,188,.50) 44% 48%,
-    transparent 48% 58%,
-    rgba(190,196,188,.30) 58% 60.5%,
-    transparent 60.5%);
-}
-.header::before{left:0}
-.header::after{right:0;transform:scaleX(-1)}
-
-.header-inner{
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:clamp(18px, 4vw, 52px);
 }
 
-.serpent{
-  flex:none;
-  height:clamp(120px, 17vw, 200px);
-  width:auto;
-  color:#cfd3c9;
-  filter:drop-shadow(0 0 14px rgba(95,140,110,.45));
-}
+.header-ornament{
 
-.header-text{min-width:0}
+  color:var(--silver);
+
+  font-size:18px;
+
+  letter-spacing:.55em;
+
+  opacity:.72;
+
+  margin-bottom:8px;
+}
 
 h1{
+
   margin:0;
-  font-family:'Grenze Gotisch','UnifrakturMaguntia',serif;
-  font-weight:800;
-  font-size:clamp(3.2rem, 9vw, 7rem);
-  line-height:.86;
-  letter-spacing:.01em;
-  /* efecto metal plateado */
-  color:transparent;
-  background:linear-gradient(180deg,#f6f5ee 0%,#c7cbc2 36%,#858d85 54%,#dcded4 70%,#98a097 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(95,140,110,.35));
-}
 
-h1 .cap{
-  font-family:'UnifrakturCook','UnifrakturMaguntia',serif;
-  font-weight:700;
-  font-size:1.3em;
-  line-height:.7;
-  margin-right:.03em;
-}
+  color:#f0eee5;
 
-h1 .t-sub{
-  display:block;
-  margin-top:.5em;
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:.27em;
-  letter-spacing:.62em;
-  text-transform:uppercase;
-}
+  font-family:var(--dumbledore);
 
-.title-rule{
-  height:1px;
-  margin:20px 0 14px;
-  background:linear-gradient(90deg, rgba(214,211,192,.7), rgba(214,211,192,.05));
+  font-size:clamp(3rem, 8vw, 6.7rem);
+
+  font-weight:400;
+
+  line-height:.88;
+
+  letter-spacing:.015em;
+
+  text-shadow:0 1px 0 #000;
 }
 
 .subtitle{
-  margin:0;
-  color:#b4b9ae;
-  font-size:clamp(.95rem, 1.5vw, 1.15rem);
-  font-style:italic;
-  letter-spacing:.08em;
-}
 
-.traits{
-  margin:12px 0 0;
-  color:#7f897f;
-  font-size:.72rem;
-  letter-spacing:.3em;
+  margin:15px 0 0;
+
+  color:#aeb3a9;
+
+  font-size:clamp(.95rem, 1.6vw, 1.2rem);
+
+  font-style:italic;
+
+  letter-spacing:.16em;
+
   text-transform:uppercase;
 }
 
-@media (max-width:720px){
-  .header-inner{flex-direction:column;text-align:center}
-  .serpent{height:108px}
-  .title-rule{background:linear-gradient(90deg, transparent, rgba(214,211,192,.6), transparent)}
-  .header::before,
-  .header::after{width:90px}
+.header-rule{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:13px;
+
+  margin:18px auto 0;
+
+  color:#9ea69d;
+
+  opacity:.72;
 }
 
-/* =========================
+.header-rule span{
+
+  width:115px;
+
+  height:1px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--line)
+  );
+}
+
+.header-rule span:last-child{
+  transform:scaleX(-1);
+}
+
+.header-rule b{
+
+  font-weight:400;
+
+  font-size:15px;
+}
+
+
+/* =========================================================
    MESES
-   ========================= */
+   ========================================================= */
 
 .months{
+
   display:grid;
-  grid-template-columns:repeat(4, minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(4, minmax(0,1fr));
+
   gap:18px;
+
   margin-top:34px;
 }
 
 .month{
+
   position:relative;
+
   min-height:100%;
+
   padding:19px 16px 21px;
+
   background:
-    linear-gradient(180deg, rgba(255,255,255,.018), transparent 30%),
-    linear-gradient(160deg, var(--panel-2), var(--panel));
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.018),
+      transparent 30%
+    ),
+    linear-gradient(
+      160deg,
+      var(--panel-2),
+      var(--panel)
+    );
+
   border:1px solid var(--line-soft);
+
   box-shadow:
     inset 0 0 0 1px rgba(0,0,0,.45),
     0 12px 30px rgba(0,0,0,.18);
 }
 
 .month::before{
+
   content:"";
+
   position:absolute;
+
   inset:7px;
+
   border:1px solid rgba(210,210,192,.09);
+
   pointer-events:none;
 }
 
 .month::after{
+
   content:"𖤝";
+
   position:absolute;
+
   left:50%;
+
   top:-12px;
+
   transform:translateX(-50%);
+
   padding:0 9px;
+
   color:#8e978d;
+
   background:var(--bg);
+
   font-size:18px;
+
   opacity:.8;
 }
 
 .month-head{
+
   position:relative;
+
   z-index:1;
+
   text-align:center;
+
   padding:0 4px 17px;
+
   border-bottom:1px solid var(--line-soft);
 }
 
 .month-number{
+
   display:block;
+
   color:#778078;
+
   font-size:.72rem;
+
   letter-spacing:.24em;
+
   text-transform:uppercase;
+
   margin-bottom:3px;
 }
 
 .month h2{
+
   margin:0;
+
   color:#e2e1d8;
+
   font-family:var(--blackletter);
+
   font-size:clamp(1.65rem, 2.4vw, 2.15rem);
+
   font-weight:400;
+
   line-height:1;
 }
 
-
 .month h2::first-letter{
+
   font-family:var(--ghosthey);
+
   font-size:1.25em;
+
   color:#efeee6;
 }
 
 .rows{
+
   display:flex;
+
   flex-direction:column;
+
   gap:8px;
+
   padding-top:15px;
 }
 
-/* =========================
+
+/* =========================================================
    EVENTOS
-   ========================= */
+   ========================================================= */
 
 .plaque{
+
   position:relative;
+
   display:grid;
+
   grid-template-columns:54px 1fr;
+
   align-items:center;
+
   gap:10px;
+
   min-height:72px;
+
   padding:9px 10px 9px 7px;
+
   color:var(--ink);
+
   background:
-    linear-gradient(90deg, rgba(36,67,49,.13), transparent 55%),
+    linear-gradient(
+      90deg,
+      rgba(36,67,49,.13),
+      transparent 55%
+    ),
     rgba(0,0,0,.14);
+
   border:1px solid transparent;
+
   border-left:1px solid rgba(105,134,114,.30);
+
   cursor:pointer;
+
   transition:
     transform .22s ease,
     background .22s ease,
@@ -322,347 +475,846 @@ h1 .t-sub{
 }
 
 .plaque::before{
+
   content:"";
+
   position:absolute;
+
   top:7px;
   bottom:7px;
   left:0;
+
   width:2px;
+
   background:var(--event-color, var(--green));
+
   opacity:.72;
 }
 
 .plaque:hover,
 .plaque:focus-visible{
+
   transform:translateX(3px);
+
   background:
-    linear-gradient(90deg, rgba(49,93,69,.24), transparent 70%),
+    linear-gradient(
+      90deg,
+      rgba(49,93,69,.24),
+      transparent 70%
+    ),
     rgba(255,255,255,.025);
+
   border-color:rgba(177,186,177,.18);
-  box-shadow:0 6px 18px rgba(0,0,0,.20);
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.20);
+
   outline:none;
 }
 
 .event-date{
+
   position:relative;
+
   text-align:center;
+
   color:#b7b9ae;
+
   line-height:1;
+
   border-right:1px solid var(--line-soft);
+
   padding-right:10px;
 }
 
 .event-date .roman{
+
   display:block;
+
   color:#737c74;
+
   font-size:.64rem;
+
   letter-spacing:.1em;
+
   margin-bottom:4px;
 }
 
 .event-date strong{
+
   display:block;
+
   color:#e1e1d7;
+
   font-size:1.55rem;
+
   font-weight:600;
 }
 
-.event-copy{min-width:0}
+.event-copy{
+  min-width:0;
+}
 
 .event-copy .label{
+
   display:block;
+
   color:#79837a;
+
   font-size:.65rem;
+
   letter-spacing:.12em;
+
   text-transform:uppercase;
+
   margin-bottom:3px;
 }
 
 .event-copy .title{
+
   display:block;
+
   color:#deded5;
+
   font-size:1.04rem;
+
   line-height:1.08;
 }
 
-/* =========================
+
+/* =========================================================
    MODAL / PÁGINA DE CÓDICE
-   ========================= */
+   ========================================================= */
 
 .overlay{
+
   position:fixed;
+
   inset:0;
+
   z-index:100;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   padding:22px;
+
   background:rgba(3,6,5,.90);
+
   opacity:0;
+
   visibility:hidden;
-  transition:opacity .25s ease, visibility .25s ease;
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
 }
 
 .overlay.open{
+
   opacity:1;
+
   visibility:visible;
 }
 
 .modal{
+
   position:relative;
+
   width:min(920px, 100%);
+
   max-height:90vh;
+
   overflow:auto;
+
   padding:14px;
 
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(78,109,88,.10), transparent 40%),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(78,109,88,.10),
+      transparent 40%
+    ),
     var(--modal-bg, rgba(14,26,64,.78));
+
   border:1px solid rgba(207,207,192,.27);
-  box-shadow:0 28px 80px rgba(0,0,0,.55);
-  transform:translateY(16px) scale(.985);
-  transition:transform .32s cubic-bezier(.2,.8,.2,1);
+
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.55);
+
+  transform:
+    translateY(16px)
+    scale(.985);
+
+  transition:
+    transform .32s cubic-bezier(.2,.8,.2,1);
 }
 
 .overlay.open .modal{
-  transform:translateY(0) scale(1);
+
+  transform:
+    translateY(0)
+    scale(1);
 }
 
 .modal-page{
+
   position:relative;
+
   display:grid;
-  grid-template-columns:minmax(260px, .85fr) minmax(280px, 1.15fr);
+
+  grid-template-columns:
+    minmax(260px,.85fr)
+    minmax(280px,1.15fr);
+
   min-height:500px;
+
   border:1px solid rgba(210,210,194,.13);
+
   overflow:hidden;
 }
 
 .modal-page::before{
+
   content:"";
+
   position:absolute;
+
   inset:8px;
+
   border:1px solid rgba(210,210,194,.08);
+
   pointer-events:none;
 }
 
+
+/* =========================================================
+   IMAGEN / VIDEO
+   ========================================================= */
+
 .modal-image{
+
   position:relative;
+
   min-height:500px;
+
   background:
-    linear-gradient(180deg, rgba(15,31,22,.18), rgba(4,8,6,.70)),
-    radial-gradient(circle at 50% 45%, rgba(73,116,88,.18), transparent 52%),
+    linear-gradient(
+      180deg,
+      rgba(15,31,22,.18),
+      rgba(4,8,6,.70)
+    ),
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(73,116,88,.18),
+      transparent 52%
+    ),
     #0a100c;
+
   overflow:hidden;
 }
 
 .modal-image img,
 .modal-image video{
+
   display:block;
+
   width:100%;
+
   height:100%;
+
   min-height:500px;
+
   object-fit:cover;
-  filter:saturate(.78) contrast(1.04) brightness(.82);
+
+  filter:
+    saturate(.78)
+    contrast(1.04)
+    brightness(.82);
 }
 
 .modal-image img[hidden],
 .modal-image video[hidden]{
+
   display:none !important;
 }
 
 .modal-image::after{
+
   content:"";
+
   position:absolute;
+
   inset:0;
+
   pointer-events:none;
+
   background:
-    linear-gradient(90deg, rgba(7,13,10,.06), rgba(7,13,10,.48)),
-    linear-gradient(0deg, rgba(7,13,10,.30), transparent 35%);
+    linear-gradient(
+      90deg,
+      rgba(7,13,10,.06),
+      rgba(7,13,10,.48)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(7,13,10,.30),
+      transparent 35%
+    );
 }
 
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
 .image-placeholder{
+
   position:absolute;
+
   inset:0;
+
   display:none;
+
   align-items:center;
+
   justify-content:center;
+
   flex-direction:column;
+
   padding:35px;
+
   text-align:center;
+
   color:#858f87;
+
   background:
-    radial-gradient(circle, rgba(69,108,83,.16), transparent 48%),
+    radial-gradient(
+      circle,
+      rgba(69,108,83,.16),
+      transparent 48%
+    ),
     #0a100c;
 }
 
-.image-placeholder.visible{display:flex}
+.image-placeholder.visible{
+  display:flex;
+}
 
 .image-placeholder .orn{
+
   font-size:45px;
+
   color:#718074;
+
   margin-bottom:12px;
 }
 
 .image-placeholder p{
+
   max-width:240px;
+
   margin:0;
+
   font-size:1rem;
+
   font-style:italic;
+
   line-height:1.4;
 }
 
+
+/* =========================================================
+   CONTENIDO DEL MODAL
+   ========================================================= */
+
 .modal-content{
+
   position:relative;
+
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
+
   padding:54px 50px 46px;
+
   background:
-    linear-gradient(90deg, rgba(215,212,196,.04), transparent 18%),
+    linear-gradient(
+      90deg,
+      rgba(215,212,196,.04),
+      transparent 18%
+    ),
     var(--modal-content-bg, rgba(27,58,107,.68));
 }
 
 .close-btn{
+
   position:absolute;
+
   top:15px;
+
   right:17px;
+
   z-index:3;
+
   width:34px;
+
   height:34px;
+
   padding:0;
+
   border:1px solid rgba(200,200,186,.16);
+
   color:#aeb4ab;
+
   background:transparent;
+
   cursor:pointer;
+
   font-size:1rem;
-  transition:background .2s ease, color .2s ease;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
 }
 
 .close-btn:hover{
+
   color:#eee;
+
   background:rgba(255,255,255,.05);
 }
 
 .modal-date{
+
   color:#778178;
+
   font-size:.73rem;
+
   letter-spacing:.22em;
+
   text-transform:uppercase;
+
   margin-bottom:8px;
 }
 
 .modal-title{
+
   margin:0;
+
   color:#eeece2;
+
   font-family:var(--blackletter);
+
   font-size:clamp(2.2rem, 5vw, 3.65rem);
+
   font-weight:400;
+
   line-height:.95;
 }
 
 .modal-rule{
+
   display:flex;
+
   align-items:center;
+
   gap:9px;
+
   margin:20px 0 22px;
+
   color:#778177;
 }
 
 .modal-rule span{
+
   width:54px;
+
   height:1px;
+
   background:var(--line);
 }
 
-.modal-rule b{font-weight:400}
+.modal-rule b{
+  font-weight:400;
+}
 
 .modal-desc{
+
   margin:0;
+
   color:#c2c4ba;
+
   font-size:1.16rem;
+
   line-height:1.62;
 }
 
 .modal-footer{
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
   margin-top:27px;
+
   color:#758078;
+
   font-size:.7rem;
+
   letter-spacing:.12em;
+
   text-transform:uppercase;
 }
 
 .house-mark{
+
   width:9px;
+
   height:9px;
+
   border:1px solid currentColor;
+
   transform:rotate(45deg);
+
   background:var(--event-color, var(--green));
-  box-shadow:0 0 10px rgba(95,140,110,.12);
+
+  box-shadow:
+    0 0 10px rgba(95,140,110,.12);
 }
 
-/* =========================
+
+/* =========================================================
    DECORACIÓN
-   ========================= */
+   ========================================================= */
 
 .corner{
+
   position:absolute;
+
   width:42px;
+
   height:42px;
+
   color:#6f796f;
+
   opacity:.48;
+
   pointer-events:none;
 }
 
 .corner::before,
 .corner::after{
+
   content:"";
+
   position:absolute;
+
   background:currentColor;
 }
 
-.corner.tl{top:16px;left:16px}
-.corner.tr{top:16px;right:16px;transform:scaleX(-1)}
-.corner.bl{bottom:16px;left:16px;transform:scaleY(-1)}
-.corner.br{bottom:16px;right:16px;transform:scale(-1)}
+.corner.tl{
+  top:16px;
+  left:16px;
+}
+
+.corner.tr{
+  top:16px;
+  right:16px;
+
+  transform:scaleX(-1);
+}
+
+.corner.bl{
+  bottom:16px;
+  left:16px;
+
+  transform:scaleY(-1);
+}
+
+.corner.br{
+  bottom:16px;
+  right:16px;
+
+  transform:scale(-1);
+}
 
 .corner::before{
-  top:0;left:0;width:1px;height:34px;
+
+  top:0;
+  left:0;
+
+  width:1px;
+  height:34px;
 }
 
 .corner::after{
-  top:0;left:0;width:34px;height:1px;
+
+  top:0;
+  left:0;
+
+  width:34px;
+  height:1px;
 }
 
 .modal-symbol{
+
   position:absolute;
+
   top:25px;
   left:25px;
+
   color:#7a867c;
+
   font-size:13px;
+
   letter-spacing:.1em;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
 
-@media (max-width:1050px){
-  .months{grid-template-columns:repeat(2, minmax(0,1fr))}
+/* =========================================================
+   PERSONALIZACIÓN — LUNA
+   ========================================================= */
+
+.moon-modal{
+
+  --moon-color:#9da49c;
 }
 
+.moon-modal .modal-content{
+
+  background:
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(255,255,255,.025),
+      transparent 32%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(215,212,196,.035),
+      transparent 22%
+    ),
+    var(--modal-content-bg);
+}
+
+.moon-modal .modal-image{
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      var(--moon-glow, rgba(157,164,156,.16)),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(225,225,210,.10),
+      transparent 18%
+    ),
+    #050807;
+}
+
+.moon-modal .modal-image img,
+.moon-modal .modal-image video{
+
+  filter:
+    saturate(.65)
+    contrast(1.08)
+    brightness(.90);
+}
+
+
+/* =========================================================
+   LUNA DECORATIVA
+   ========================================================= */
+
+.moon-orbit{
+
+  position:absolute;
+
+  width:260px;
+
+  height:260px;
+
+  right:-105px;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  pointer-events:none;
+
+  opacity:.12;
+
+  z-index:0;
+}
+
+.moon-orbit-line{
+
+  position:absolute;
+
+  inset:0;
+
+  border:1px solid var(--moon-color);
+
+  border-radius:50%;
+}
+
+.moon-disc{
+
+  position:absolute;
+
+  width:118px;
+
+  height:118px;
+
+  left:50%;
+
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255,255,245,.98),
+      rgba(190,193,180,.88) 48%,
+      rgba(110,116,108,.90) 100%
+    );
+
+  box-shadow:
+    0 0 25px var(--moon-glow, rgba(157,164,156,.35));
+}
+
+.moon-disc::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:12px;
+
+  border-radius:50%;
+
+  opacity:.22;
+
+  background:
+    radial-gradient(
+      circle at 25% 35%,
+      #555 0 4%,
+      transparent 5%
+    ),
+    radial-gradient(
+      circle at 65% 25%,
+      #555 0 7%,
+      transparent 8%
+    ),
+    radial-gradient(
+      circle at 55% 70%,
+      #555 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 30% 72%,
+      #555 0 8%,
+      transparent 9%
+    );
+}
+
+
+/* =========================================================
+   LUNA — PEQUEÑO CICLO DECORATIVO
+   ========================================================= */
+
+.moon-phase{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin-bottom:16px;
+
+  color:#778177;
+
+  font-size:.66rem;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+}
+
+.moon-phase::before,
+.moon-phase::after{
+
+  content:"";
+
+  width:30px;
+
+  height:1px;
+
+  background:var(--line);
+}
+
+.moon-phase-icon{
+
+  width:15px;
+
+  height:15px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fffef2,
+      #b8b9af 65%,
+      #676b65 100%
+    );
+
+  box-shadow:
+    0 0 9px var(--moon-glow, rgba(157,164,156,.3));
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:1050px){
+
+  .months{
+    grid-template-columns:
+      repeat(2, minmax(0,1fr));
+  }
+}
+
+
 @media (max-width:720px){
+
   .page{
+
     width:min(100% - 20px, 600px);
+
     padding-top:25px;
   }
 
-  .months{grid-template-columns:1fr}
+  .months{
+    grid-template-columns:1fr;
+  }
 
   .modal{
+
     padding:8px;
+
     max-height:94vh;
   }
 
@@ -671,394 +1323,870 @@ h1 .t-sub{
   }
 
   .modal-image{
+
     min-height:270px;
+
     max-height:40vh;
   }
 
-  .modal-image img{min-height:270px}
+  .modal-image img,
+  .modal-image video{
+
+    min-height:270px;
+  }
 
   .modal-content{
+
     padding:42px 28px 30px;
   }
 
-  .modal-title{font-size:2.6rem}
+  .modal-title{
+    font-size:2.6rem;
+  }
+
+  .moon-orbit{
+
+    width:190px;
+
+    height:190px;
+
+    right:-80px;
+
+    opacity:.08;
+  }
+
+  .moon-disc{
+
+    width:90px;
+
+    height:90px;
+  }
 }
 
+
 @media (prefers-reduced-motion:reduce){
+
   *,
   *::before,
   *::after{
+
     scroll-behavior:auto !important;
+
     transition:none !important;
   }
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 <main class="page">
 
   <header class="header">
-    <div class="header-inner">
 
-      <!-- Serpiente (reemplaza al emoji de la daga) -->
-      <svg class="serpent" viewBox="0 0 120 170" role="img" aria-label="Serpiente de Slytherin">
-        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
-              fill="none" stroke="#0a1a12" stroke-width="11" stroke-linecap="round"/>
-        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
-              fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-        <!-- escamas -->
-        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
-              fill="none" stroke="rgba(10,26,18,.55)" stroke-width="8" stroke-dasharray="1.2 5"/>
-        <!-- cabeza -->
-        <path d="M46 31 C 42 17, 58 9, 71 13 C 78 16, 77 25, 68 28 C 62 31, 53 36, 46 31 Z"
-              fill="currentColor" stroke="#0a1a12" stroke-width="1.5"/>
-        <circle cx="64" cy="19" r="1.8" fill="#0a1a12"/>
-        <!-- lengua -->
-        <path d="M76 20 L90 17 M84 18.4 L92 23 M84 18.4 L91 12"
-              fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
+    <div class="header-ornament"> 🗡 </div>
 
-      <div class="header-text">
-        <h1 aria-label="Pureblood Syndicate">
-          <span class="cap">P</span>ureblood
-          <span class="t-sub">Syndicate</span>
-        </h1>
-        <div class="title-rule"></div>
-        <p class="subtitle">Draco Dormiens Nunquam Titillandus</p>
-        <p class="traits">Ambición &nbsp;&#9670;&nbsp; Astucia &nbsp;&#9670;&nbsp; Determinación</p>
-      </div>
+    <h1>Pureblood Syndicate</h1>
+
+    <p class="subtitle">
+      Draco Dormiens Nunquam Titillandus
+    </p>
+
+    <div class="header-rule">
+
+      <span></span>
+
+      <b>𓆗</b>
+
+      <span></span>
 
     </div>
+
   </header>
 
-  <section class="months" id="months" aria-label="Calendario"></section>
+
+  <section
+    class="months"
+    id="months"
+    aria-label="Calendario"
+  ></section>
 
 </main>
 
-<div class="overlay" id="overlay" aria-hidden="true">
-  <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
-    <button class="close-btn" id="closeBtn" aria-label="Cerrar">⛌</button>
+<div
+  class="overlay"
+  id="overlay"
+  aria-hidden="true"
+>
+
+  <article
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+
+    <button
+      class="close-btn"
+      id="closeBtn"
+      aria-label="Cerrar"
+    >
+      ⛌
+    </button>
+
 
     <div class="modal-page">
+
       <span class="corner tl"></span>
       <span class="corner tr"></span>
       <span class="corner bl"></span>
       <span class="corner br"></span>
 
+
       <div class="modal-image">
-        <img id="modalImage" src="" alt="" hidden>
 
-        <video id="modalVideo" playsinline preload="auto" hidden></video>
+        <img
+          id="modalImage"
+          src=""
+          alt=""
+          hidden
+        >
 
-        <div class="image-placeholder" id="imagePlaceholder">
+        <video
+          id="modalVideo"
+          playsinline
+          preload="auto"
+          hidden
+        ></video>
+
+
+        <div
+          class="image-placeholder"
+          id="imagePlaceholder"
+        >
+
           <div class="orn">𖤝</div>
+
           <p id="placeholderText">
             Ni con un Aparecium haras que se revele lo que está oculto.
           </p>
+
         </div>
+
       </div>
+
 
       <div class="modal-content">
-        <div class="modal-symbol">❍</div>
 
-        <div class="modal-date" id="modalDate"></div>
-        <h2 class="modal-title" id="modalTitle"></h2>
+        <!-- ELEMENTOS LUNARES -->
+
+        <div
+          class="moon-orbit"
+          id="moonOrbit"
+          aria-hidden="true"
+          hidden
+        >
+
+          <span class="moon-orbit-line"></span>
+
+          <span class="moon-disc"></span>
+
+        </div>
+
+
+        <div
+          class="modal-symbol"
+          id="modalSymbol"
+        >
+          ❍
+        </div>
+
+
+        <div
+          class="modal-date"
+          id="modalDate"
+        ></div>
+
+
+        <div
+          class="moon-phase"
+          id="moonPhase"
+          hidden
+        >
+
+          <span class="moon-phase-icon"></span>
+
+          <span>Luna llena</span>
+
+        </div>
+
+
+        <h2
+          class="modal-title"
+          id="modalTitle"
+        ></h2>
+
 
         <div class="modal-rule">
+
           <span></span>
+
           <b>⚔︎</b>
+
           <span></span>
+
         </div>
 
-        <p class="modal-desc" id="modalDesc"></p>
+
+        <p
+          class="modal-desc"
+          id="modalDesc"
+        ></p>
+
 
         <div class="modal-footer">
-          <span class="house-mark" id="houseMark"></span>
-          <span id="modalHouse"></span>
+
+          <span
+            class="house-mark"
+            id="houseMark"
+          ></span>
+
+          <span
+            id="modalHouse"
+          ></span>
+
         </div>
+
       </div>
+
     </div>
+
   </article>
+
 </div>
+
 
 <script>
 
 
+/* =========================================================
+   CASAS
+   ========================================================= */
+
 const HOUSE = {
+
   slyt: {
+
     name: 'Slytherin',
-    color: '#3f7655'
+
+    color: '#3f7655',
+
+    moonGlow: 'rgba(63,118,85,.34)'
+
   },
+
   gryf: {
+
     name: 'Gryffindor',
-    color: '#6e3732'
+
+    color: '#6e3732',
+
+    moonGlow: 'rgba(110,55,50,.34)'
+
   },
+
   huff: {
+
     name: 'Hufflepuff',
-    color: '#807047'
+
+    color: '#807047',
+
+    moonGlow: 'rgba(128,112,71,.34)'
+
   },
+
   raven: {
+
     name: 'Ravenclaw',
-    color: '#465d70'
+
+    color: '#465d70',
+
+    moonGlow: 'rgba(70,93,112,.34)'
+
   }
+
 };
+
 
 const data = {
+
   Octubre: [
+
     {
+
       day:'3',
+
       title:'Actividad de presentación',
+
       house:'slyt',
+
       image:'images/october-1.gif',
+
       desc:'Nadie puede escapar de presentarse. Haz que tus palabras jueguen a tu favor; son la carta de presentación más poderosa que tienes.'
+
     },
+
     {
+
       day:'10',
+
       title:'Un mes, una canción',
+
       house:'raven',
+
       image:'images/Fleetwood Mac - Dreams.mp4',
+
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (Verdad o reto, gifs) en la casa Ravenclaw.'
+
     },
+
     {
+
       day:'17',
+
       title:'Día libre',
+
       house:'huff',
+
       image:'images/october-2.jpg',
+
       desc:'¡20 puntos para Hufflepuff si nos presta su sala común!'
+
     },
+
     {
+
       day:'24',
+
       title:'Gifs pasados de tono',
+
       house:'gryf',
+
       image:'images/JURO SOLEMNEMENTE.gif',
+
       desc:'Gryffindor consideró que sería divertido jugar con todas las casas, pero esta vez las cosas se tornarán muy sugerentes. 𑣿'
-    }
-    ,
+
+    },
+
     {
+
       day:'26',
+
       title:'Luna llena',
+
+      type:'moon',
+
+      moonName:'Luna del cazador',
+
       house:'slyt',
+
       image:'images/october - luna.jpg',
+
       desc:'En luna del cazador, parece que algunos estudiantes no durmieron en sus camas, o eso sugirió una lengua bípeda.'
+
     }
+
   ],
+
 
   Noviembre: [
+
     {
+
       day:'7',
+
       title:'Un mes, una canción',
+
       house:'gryf',
+
       image:'images/Stairway to Heaven.mp4',
+
       desc:'Cada estudiante elegirá una canción con la que se sienta identificado. Además, es noche de juegos (verdad o reto, gifs) en la casa Gryffindor.'
+
     },
+
     {
+
       day:'14',
+
       title:'Hogsmeade en sabado, domingo de fiesta',
+
       house:'huff',
+
       image:'images/noviembre-2.jpg',
+
       desc:'Después de un frío sábado en Hogsmeade, Hufflepuff tendrá que arreglárselas para entretener a todo Hogwarts en la fiesta del domingo.'
+
     },
+
     {
+
       day:'21',
+
       title:'Actividad secreta',
+
       house:'slyt',
+
       image:'',
+
       desc:'✉︎ Cada estudiante de las cuatro casas recibe en privado una tarjeta escrita por un compañero anónimo. Nadie, a excepción de un único prefecto, sabe quién las envía.'
+
     },
+
     {
+
       day:'24',
+
       title:'Luna llena',
+
+      type:'moon',
+
+      moonName:'Superluna del castor',
+
       house:'huff',
+
       image:'images/luna-castor.jpg',
+
       desc:'Uno no esperaría que, bajo la superluna del castor, se escucharan pasos de estos animales por los pasillos del castillo'
+
     },
+
     {
+
       day:'28',
+
       title:'Confesiones Hogwarts',
+
       house:'raven',
+
       image:'',
+
       desc:'Confiesa de una vez lo que agita tu corazón. ¿Te atreves a declarar tu amor, o dejarás salir un viejo resentimiento? 𓂃🪶'
+
     }
+
   ],
+
 
   Diciembre: [
+
     {
+
       day:'5',
+
       title:'Un mes, una canción',
+
       house:'huff',
+
       image:'images/A Horse With No Name - America.mp4',
+
       desc:'Ya saben lo que significa... Aunque las lechuzas han traído una nueva noticia ¡parece que la fiesta será en el comedor, y es de pijamas! Att; 𐦉 '
+
     },
+
     {
+
       day:'12',
+
       title:'Noche de velas',
+
       house:'raven',
+
       image:'',
+
       desc:'✧₊⁺🕯 Esta noche, cada estudiante escribirá un deseo de corazón que será guardado hasta el día de su graduación. ⋆.˚'
+
     },
+
     {
+
       day:'19',
+
       title:'Día libre',
+
       house:'slyt',
+
       image:'images/vacaciones.jpg',
+
       desc:'Las vacaciones finalmente han llegado, cinco días libres. Muchos estudiantes ya empiezan a empacar, aunque algunos no se ven tan entusiasmados.'
+
     },
+
     {
+
       day:'23',
+
       title:'Luna llena',
+
+      type:'moon',
+
+      moonName:'Luna fría',
+
       house:'raven',
+
       image:'images/Luna-fria.mp4',
+
       desc:'𖣂 La luna fría nos observa a todos. Abracen a sus amigos, abríguense y resguárdense junto a los suyos, especialmente aquellos que se encuentran lejos de casa.'
+
     },
+
     {
+
       day:'26',
+
       title:'❅ Yulle Ball ❄',
+
       house:'gryf',
+
       image:'',
+
       desc:'𝚿 Los días de invierno incrementan. El castillo se prepara para una de sus noches más esperadas. Y si todavía no han pensado con quién compartirán la pista, quizá sea momento de empezar a preguntar. No esperen hasta la última noche para invitar a alguien.'
+
     }
+
   ],
 
+
   Enero: [
+
     {
+
       day:'3',
+
       title:'Día libre',
+
       house:'raven',
+
       image:'images/harry potter library.jpg',
+
       desc:'Querrán descansar, jóvenes estudiantes, porque estamos cerca de los exámenes y serán determinantes. Aprovechen para prestar el material de estudio en la biblioteca.'
+
     },
+
     {
+
       day:'10',
-      title:'Un mes, una canción န',
+
+      title:'Un mes, una canción',
+
       house:'slyt',
+
       image:'images/Children of the Revolution.mp4',
+
       desc:'Los estudiantes elegirán una canción que les recuerde a alguien y se la dedicarán. Es el cumpleaños de Snape, lo que significa una fiesta en Slytherin, donde más de uno será reclutado finalmente para la guerra...'
+
     },
+
     {
+
       day:'17',
+
       title:'Exámenes',
+
       house:'gryf',
+
       image:'',
+
       desc:'En la semana de exámenes, cada uno demostrará de qué está hecho. ¿Preparados para una divertida secuencia de preguntas personales? ¿No? Pues yo sí. Atentamente: Sombrero Seleccionador.'
+
     },
+
     {
+
       day:'22',
+
       title:'Luna llena',
+
+      type:'moon',
+
+      moonName:'Luna de lobo',
+
       house:'gryf',
+
       image:'images/moon-wolf.gif',
+
       desc:'Luna de lobo, ¿Será esa la razón de los fuertes audillos esta noche? Una superluna deja a cuatro muchachos en alerta. Algo malo está a punto de pasar.'
-    }, 
+
+    },
+
     {
+
       day:'31',
+
       title:'Partido de Quidditch',
+
       house:'huff',
+
       image:'images/enero-5.jpg',
+
       desc:'Proximamente...'
+
     }
+
   ]
+
 };
 
-const monthsEl = document.getElementById('months');
 
-const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+const monthsEl =
+  document.getElementById('months');
 
-Object.entries(data).forEach(([month, events], monthIndex) => {
+const roman = [
+  'I','II','III','IV','V','VI',
+  'VII','VIII','IX','X','XI','XII'
+];
 
-  const col = document.createElement('section');
-  col.className = 'month';
 
-  col.innerHTML = `
-    <div class="month-head">
-      <span class="month-number">Mes ${roman[monthIndex]}</span>
-      <h2>${month}</h2>
-    </div>
-    <div class="rows"></div>
-  `;
+Object.entries(data).forEach(
+  ([month, events], monthIndex) => {
 
-  const rows = col.querySelector('.rows');
+    const col =
+      document.createElement('section');
 
-  events.forEach(ev => {
+    col.className = 'month';
 
-    const p = document.createElement('button');
-    p.type = 'button';
-    p.className = 'plaque';
-    p.style.setProperty('--event-color', HOUSE[ev.house].color);
+    col.innerHTML = `
 
-    p.innerHTML = `
-      <span class="event-date">
-        <span class="roman">${toRoman(Number(ev.day))}</span>
-        <strong>${ev.day}</strong>
-      </span>
-      <span class="event-copy">
-        <span class="label">${month}</span>
-        <span class="title">${ev.title}</span>
-      </span>
+      <div class="month-head">
+
+        <span class="month-number">
+          Mes ${roman[monthIndex]}
+        </span>
+
+        <h2>${month}</h2>
+
+      </div>
+
+      <div class="rows"></div>
+
     `;
 
-    p.addEventListener('click', () => openModal(ev, month));
-    rows.appendChild(p);
-  });
 
-  monthsEl.appendChild(col);
-});
+    const rows =
+      col.querySelector('.rows');
+
+
+    events.forEach(ev => {
+
+      const p =
+        document.createElement('button');
+
+      p.type = 'button';
+
+      p.className = 'plaque';
+
+      p.style.setProperty(
+        '--event-color',
+        HOUSE[ev.house].color
+      );
+
+
+      p.innerHTML = `
+
+        <span class="event-date">
+
+          <span class="roman">
+            ${toRoman(Number(ev.day))}
+          </span>
+
+          <strong>${ev.day}</strong>
+
+        </span>
+
+        <span class="event-copy">
+
+          <span class="label">
+            ${month}
+          </span>
+
+          <span class="title">
+            ${ev.title}
+          </span>
+
+        </span>
+
+      `;
+
+
+      p.addEventListener(
+        'click',
+        () => openModal(ev, month)
+      );
+
+
+      rows.appendChild(p);
+
+    });
+
+
+    monthsEl.appendChild(col);
+
+  }
+);
+
 
 function toRoman(num){
+
   const values = [
-    [1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],
-    [100,'C'],[90,'XC'],[50,'L'],[40,'XL'],
-    [10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']
+
+    [1000,'M'],
+    [900,'CM'],
+    [500,'D'],
+    [400,'CD'],
+    [100,'C'],
+    [90,'XC'],
+    [50,'L'],
+    [40,'XL'],
+    [10,'X'],
+    [9,'IX'],
+    [5,'V'],
+    [4,'IV'],
+    [1,'I']
+
   ];
 
   let result = '';
 
   for(const [value, symbol] of values){
+
     while(num >= value){
+
       result += symbol;
+
       num -= value;
+
     }
+
   }
 
   return result;
 }
 
-const overlay = document.getElementById('overlay');
-const modalEl = document.querySelector('.modal');
-const modalImage = document.getElementById('modalImage');
-const modalVideo = document.getElementById('modalVideo'); /* CAMBIO 8 */
-const imagePlaceholder = document.getElementById('imagePlaceholder');
+
+const overlay =
+  document.getElementById('overlay');
+
+const modalEl =
+  document.querySelector('.modal');
+
+const modalImage =
+  document.getElementById('modalImage');
+
+const modalVideo =
+  document.getElementById('modalVideo');
+
+const imagePlaceholder =
+  document.getElementById('imagePlaceholder');
+
+const modalSymbol =
+  document.getElementById('modalSymbol');
+
+const moonPhase =
+  document.getElementById('moonPhase');
+
+const moonOrbit =
+  document.getElementById('moonOrbit');
+
+
 let videoPlayCount = 0;
+
 const MAX_VIDEO_PLAYS = 4;
 
 
 function hexToRgba(hex, alpha){
-  const clean = hex.replace('#','');
-  const r = parseInt(clean.substring(0,2), 16);
-  const g = parseInt(clean.substring(2,4), 16);
-  const b = parseInt(clean.substring(4,6), 16);
+
+  const clean =
+    hex.replace('#','');
+
+  const r =
+    parseInt(clean.substring(0,2), 16);
+
+  const g =
+    parseInt(clean.substring(2,4), 16);
+
+  const b =
+    parseInt(clean.substring(4,6), 16);
+
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+
 function openModal(ev, month){
 
-  const house = HOUSE[ev.house];
+  const house =
+    HOUSE[ev.house];
 
 
-  modalEl.style.setProperty('--modal-bg', hexToRgba(house.color, 0.78));
-  modalEl.style.setProperty('--modal-content-bg', hexToRgba(house.color, 0.66));
+  /* =====================================================
+     CLASE LUNAR
+     ===================================================== */
+
+  modalEl.classList.toggle(
+    'moon-modal',
+    ev.type === 'moon'
+  );
+
+
+  /* =====================================================
+     COLORES DEL MODAL
+     ===================================================== */
+
+  modalEl.style.setProperty(
+    '--modal-bg',
+    hexToRgba(house.color, 0.78)
+  );
+
+  modalEl.style.setProperty(
+    '--modal-content-bg',
+    hexToRgba(house.color, 0.66)
+  );
+
+  modalEl.style.setProperty(
+    '--moon-color',
+    house.color
+  );
+
+  modalEl.style.setProperty(
+    '--moon-glow',
+    house.moonGlow
+  );
+
+
+  /* =====================================================
+     INFORMACIÓN
+     ===================================================== */
 
   document.getElementById('modalDate').textContent =
-    `${ev.day} de ${month}`;
+    ev.type === 'moon'
+      ? `${ev.day} de ${month} · ${ev.moonName || 'Luna llena'}`
+      : `${ev.day} de ${month}`;
+
 
   document.getElementById('modalTitle').textContent =
     ev.title;
 
+
   document.getElementById('modalDesc').textContent =
     ev.desc;
 
+
   document.getElementById('modalHouse').textContent =
     house.name;
+
 
   document.getElementById('houseMark').style.setProperty(
     '--event-color',
@@ -1066,79 +2194,237 @@ function openModal(ev, month){
   );
 
 
-  modalVideo.pause();
-  modalVideo.removeAttribute('src');
-  modalVideo.hidden = true;
-  modalImage.hidden = true;
+  /* =====================================================
+     ELEMENTOS LUNARES
+     ===================================================== */
 
-  modalImage.onload = () => {
-    modalImage.hidden = false;
-    imagePlaceholder.classList.remove('visible');
-  };
+  moonPhase.hidden =
+    ev.type !== 'moon';
 
-  modalImage.onerror = () => {
-    modalImage.hidden = true;
-    imagePlaceholder.classList.add('visible');
-  };
+  moonOrbit.hidden =
+    ev.type !== 'moon';
 
 
+  /* =====================================================
+     SÍMBOLO DEL MODAL
+     ===================================================== */
 
-  if(ev.image && /\.mp4(?:$|[?#])/i.test(ev.image)){
-    videoPlayCount = 0;
-    modalVideo.hidden = false;
-    imagePlaceholder.classList.remove('visible');
+  if(ev.type === 'moon'){
 
-    modalVideo.loop = true;
-    modalVideo.muted = false;
-    modalVideo.volume = 1;
+    modalSymbol.textContent = '☾';
 
-    modalVideo.onloadedmetadata = () => {
-      modalVideo.currentTime = 0;
-    };
-
-    modalVideo.onerror = () => {
-      modalVideo.hidden = true;
-      imagePlaceholder.classList.add('visible');
-      console.error('No se pudo cargar el video:', ev.image);
-    };
-
-    modalVideo.src = ev.image;
-    modalVideo.load();
-
-    modalVideo.play().catch(() => {
-      console.warn('El navegador bloqueó la reproducción con sonido. Haz clic una vez sobre el video.');
-    });
-  }else if(ev.image){
-    modalImage.alt = `${ev.title} — ilustración`;
-    modalImage.src = ev.image;
   }else{
-    imagePlaceholder.classList.add('visible');
+
+    modalSymbol.textContent = '❍';
+
   }
 
+
+  /* =====================================================
+     REINICIAR MULTIMEDIA
+     ===================================================== */
+
+  modalVideo.pause();
+
+  modalVideo.removeAttribute('src');
+
+  modalVideo.hidden = true;
+
+  modalImage.hidden = true;
+
+
+  modalImage.onload = () => {
+
+    modalImage.hidden = false;
+
+    imagePlaceholder.classList.remove(
+      'visible'
+    );
+
+  };
+
+
+  modalImage.onerror = () => {
+
+    modalImage.hidden = true;
+
+    imagePlaceholder.classList.add(
+      'visible'
+    );
+
+  };
+
+
+  /* =====================================================
+     VIDEO
+     ===================================================== */
+
+  if(
+    ev.image &&
+    /\.mp4(?:$|[?#])/i.test(ev.image)
+  ){
+
+    videoPlayCount = 0;
+
+    modalVideo.hidden = false;
+
+    imagePlaceholder.classList.remove(
+      'visible'
+    );
+
+    modalVideo.loop = true;
+
+    modalVideo.muted = false;
+
+    modalVideo.volume = 1;
+
+
+    modalVideo.onloadedmetadata = () => {
+
+      modalVideo.currentTime = 0;
+
+    };
+
+
+    modalVideo.onerror = () => {
+
+      modalVideo.hidden = true;
+
+      imagePlaceholder.classList.add(
+        'visible'
+      );
+
+      console.error(
+        'No se pudo cargar el video:',
+        ev.image
+      );
+
+    };
+
+
+    modalVideo.src =
+      ev.image;
+
+    modalVideo.load();
+
+
+    modalVideo.play().catch(() => {
+
+      console.warn(
+        'El navegador bloqueó la reproducción con sonido. Haz clic una vez sobre el video.'
+      );
+
+    });
+
+
+  }else if(ev.image){
+
+    modalImage.alt =
+      `${ev.title} — ilustración`;
+
+    modalImage.src =
+      ev.image;
+
+
+  }else{
+
+    imagePlaceholder.classList.add(
+      'visible'
+    );
+
+  }
+
+
+  /* =====================================================
+     MOSTRAR MODAL
+     ===================================================== */
+
   overlay.classList.add('open');
-  overlay.setAttribute('aria-hidden','false');
-  document.body.style.overflow = 'hidden';
+
+  overlay.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  document.body.style.overflow =
+    'hidden';
 }
+
 
 function closeModal(){
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden','true');
-  document.body.style.overflow = '';
-  modalVideo.pause(); 
+
+  overlay.classList.remove(
+    'open'
+  );
+
+  overlay.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  document.body.style.overflow =
+    '';
+
+
+  modalVideo.pause();
+
   videoPlayCount = 0;
+
+
+  /*
+    Limpiar elementos lunares al cerrar.
+    Esto evita que queden activos si se abre
+    posteriormente otro evento.
+  */
+
+  moonPhase.hidden = true;
+
+  moonOrbit.hidden = true;
+
+  modalEl.classList.remove(
+    'moon-modal'
+  );
+
 }
 
-document.getElementById('closeBtn')
-  .addEventListener('click', closeModal);
 
-overlay.addEventListener('click', e => {
-  if(e.target === overlay) closeModal();
-});
+document
+  .getElementById('closeBtn')
+  .addEventListener(
+    'click',
+    closeModal
+  );
 
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeModal();
-});
+
+overlay.addEventListener(
+  'click',
+  e => {
+
+    if(e.target === overlay){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Escape'){
+
+      closeModal();
+
+    }
+
+  }
+);
+
 </script>
 
 </body>
+
 </html>
