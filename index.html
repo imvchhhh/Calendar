@@ -9,7 +9,7 @@
 <!-- Tipografías: gótica para títulos y serif editorial para el contenido -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Grenze+Gotisch:wght@600;800&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -90,80 +90,124 @@ button{font:inherit}
 }
 
 /* =========================
-   CABECERA
+   CABECERA (estandarte)
    ========================= */
 
 .header{
   position:relative;
-  text-align:center;
-  padding:8px 0 30px;
+  overflow:hidden;
+  margin-top:6px;
+  padding:clamp(34px, 6vw, 62px) clamp(20px, 5vw, 60px);
+  border:1px solid var(--line);
+  outline:1px solid rgba(214,211,192,.16);
+  outline-offset:-8px;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(49,93,69,.30), transparent 60%),
+    linear-gradient(180deg, rgba(5,12,9,.45), rgba(5,12,9,.82));
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
+  box-shadow:0 24px 60px rgba(0,0,0,.5), inset 0 0 80px rgba(0,0,0,.45);
 }
 
+/* Las dos rayas plateadas diagonales del estandarte */
 .header::before,
 .header::after{
   content:"";
   position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(700px, 90%);
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--line), transparent);
+  top:0;
+  bottom:0;
+  width:150px;
+  pointer-events:none;
+  background:linear-gradient(115deg,
+    transparent 0 44%,
+    rgba(190,196,188,.50) 44% 48%,
+    transparent 48% 58%,
+    rgba(190,196,188,.30) 58% 60.5%,
+    transparent 60.5%);
 }
+.header::before{left:0}
+.header::after{right:0;transform:scaleX(-1)}
 
-.header::before{top:0}
-.header::after{bottom:0}
-
-.header-ornament{
-  color:var(--silver);
-  font-size:18px;
-  letter-spacing:.55em;
-  opacity:.72;
-  margin-bottom:8px;
-}
-
-h1{
-  margin:0;
-  color:#f0eee5;
-  font-family:var(--dumbledore); /* CAMBIO 2: antes var(--blackletter) */
-  font-size:clamp(3rem, 8vw, 6.7rem);
-  font-weight:400;
-  line-height:.88;
-  letter-spacing:.015em;
-  text-shadow:0 1px 0 #000;
-}
-
-.subtitle{
-  margin:15px 0 0;
-  color:#aeb3a9;
-  font-size:clamp(.95rem, 1.6vw, 1.2rem);
-  font-style:italic;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-
-.header-rule{
+.header-inner{
+  position:relative;
+  z-index:1;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:13px;
-  margin:18px auto 0;
-  color:#9ea69d;
-  opacity:.72;
+  gap:clamp(18px, 4vw, 52px);
 }
 
-.header-rule span{
-  width:115px;
+.serpent{
+  flex:none;
+  height:clamp(120px, 17vw, 200px);
+  width:auto;
+  color:#cfd3c9;
+  filter:drop-shadow(0 0 14px rgba(95,140,110,.45));
+}
+
+.header-text{min-width:0}
+
+h1{
+  margin:0;
+  font-family:'Grenze Gotisch','UnifrakturMaguntia',serif;
+  font-weight:800;
+  font-size:clamp(3.2rem, 9vw, 7rem);
+  line-height:.86;
+  letter-spacing:.01em;
+  /* efecto metal plateado */
+  color:transparent;
+  background:linear-gradient(180deg,#f6f5ee 0%,#c7cbc2 36%,#858d85 54%,#dcded4 70%,#98a097 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(95,140,110,.35));
+}
+
+h1 .cap{
+  font-family:'UnifrakturCook','UnifrakturMaguntia',serif;
+  font-weight:700;
+  font-size:1.3em;
+  line-height:.7;
+  margin-right:.03em;
+}
+
+h1 .t-sub{
+  display:block;
+  margin-top:.5em;
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:.27em;
+  letter-spacing:.62em;
+  text-transform:uppercase;
+}
+
+.title-rule{
   height:1px;
-  background:linear-gradient(90deg, transparent, var(--line));
+  margin:20px 0 14px;
+  background:linear-gradient(90deg, rgba(214,211,192,.7), rgba(214,211,192,.05));
 }
 
-.header-rule span:last-child{
-  transform:scaleX(-1);
+.subtitle{
+  margin:0;
+  color:#b4b9ae;
+  font-size:clamp(.95rem, 1.5vw, 1.15rem);
+  font-style:italic;
+  letter-spacing:.08em;
 }
 
-.header-rule b{
-  font-weight:400;
-  font-size:15px;
+.traits{
+  margin:12px 0 0;
+  color:#7f897f;
+  font-size:.72rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+}
+
+@media (max-width:720px){
+  .header-inner{flex-direction:column;text-align:center}
+  .serpent{height:108px}
+  .title-rule{background:linear-gradient(90deg, transparent, rgba(214,211,192,.6), transparent)}
+  .header::before,
+  .header::after{width:90px}
 }
 
 /* =========================
@@ -655,14 +699,36 @@ h1{
 <main class="page">
 
   <header class="header">
-    <div class="header-ornament"> 🗡 </div>
-    <h1>Pureblood Syndicate</h1>
-    <p class="subtitle">Draco Dormiens Nunquam Titillandus</p>
+    <div class="header-inner">
 
-    <div class="header-rule">
-      <span></span>
-      <b>𓆗</b>
-      <span></span>
+      <!-- Serpiente (reemplaza al emoji de la daga) -->
+      <svg class="serpent" viewBox="0 0 120 170" role="img" aria-label="Serpiente de Slytherin">
+        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
+              fill="none" stroke="#0a1a12" stroke-width="11" stroke-linecap="round"/>
+        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
+              fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+        <!-- escamas -->
+        <path d="M70 160 C 8 158, 6 112, 56 106 C 106 100, 104 58, 62 52 C 36 48, 34 30, 54 24"
+              fill="none" stroke="rgba(10,26,18,.55)" stroke-width="8" stroke-dasharray="1.2 5"/>
+        <!-- cabeza -->
+        <path d="M46 31 C 42 17, 58 9, 71 13 C 78 16, 77 25, 68 28 C 62 31, 53 36, 46 31 Z"
+              fill="currentColor" stroke="#0a1a12" stroke-width="1.5"/>
+        <circle cx="64" cy="19" r="1.8" fill="#0a1a12"/>
+        <!-- lengua -->
+        <path d="M76 20 L90 17 M84 18.4 L92 23 M84 18.4 L91 12"
+              fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+
+      <div class="header-text">
+        <h1 aria-label="Pureblood Syndicate">
+          <span class="cap">P</span>ureblood
+          <span class="t-sub">Syndicate</span>
+        </h1>
+        <div class="title-rule"></div>
+        <p class="subtitle">Draco Dormiens Nunquam Titillandus</p>
+        <p class="traits">Ambición &nbsp;&#9670;&nbsp; Astucia &nbsp;&#9670;&nbsp; Determinación</p>
+      </div>
+
     </div>
   </header>
 
