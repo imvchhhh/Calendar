@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Confesiones Hogwarts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#e7e4d8; --paper:#d7d4c4; --paper-ink:#2a2a22;
+  --bg:#080d0b; --panel:#0e1420; --panel-2:#152136;
+  --line:rgba(214,211,192,.22);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --black:'UnifrakturMaguntia','Times New Roman',serif;
+  --c:#465d70;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%}
+body{
+  margin:0; min-height:100%; color:var(--ink); font-family:var(--serif);
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% -15%, rgba(48,88,65,.18), transparent 48%),
+    linear-gradient(rgba(6,10,8,.62), rgba(6,10,8,.82)),
+    url("fondo.jpg");
+  background-size:cover; background-position:center; background-attachment:fixed;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+}
+button{font:inherit;color:inherit}
+.page{width:min(640px,100% - 28px);margin:0 auto;padding:22px 0 130px}
+
+.back{display:inline-block;color:#8e978d;font-size:1rem;text-decoration:none;padding:8px 0}
+.back:hover{color:var(--ink)}
+h1{margin:6px 0 0;text-align:center;font-family:var(--black);font-weight:400;font-size:clamp(2.6rem,12vw,4.4rem);line-height:.95;color:#f0eee5}
+.sub{margin:12px 0 26px;text-align:center;font-style:italic;color:#b4b9ae;font-size:1.1rem}
+
+/* ---------- Carta en escena ---------- */
+.stage{position:relative;touch-action:pan-y}
+.note{
+  position:relative; min-height:300px; padding:34px 28px 26px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  color:var(--paper-ink);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.28), transparent 55%),
+    repeating-linear-gradient(180deg, transparent 0 31px, rgba(60,50,30,.10) 31px 32px),
+    var(--paper);
+  border-radius:3px;
+  box-shadow:0 18px 40px rgba(0,0,0,.55), inset 0 0 40px rgba(90,75,40,.22);
+  transform:rotate(var(--tilt,-1deg));
+}
+.note.arrive{animation:arrive .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes arrive{from{opacity:0;transform:translateY(46px) rotate(5deg) scale(.96)}}
+.note-text{margin:0;font-size:clamp(1.3rem,5.4vw,1.6rem);line-height:1.5;font-style:italic;overflow-wrap:anywhere}
+.note-foot{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:.95rem;color:#5a5646}
+.seal{
+  flex:none;width:30px;height:30px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, color-mix(in srgb,var(--c) 60%,#fff), var(--c) 60%, #000 160%);
+  box-shadow:0 2px 5px rgba(0,0,0,.4);
+}
+.empty{text-align:center;font-style:italic;color:#5a5646;margin:auto}
+
+.bar{height:2px;margin-top:16px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:#9da49c;transform-origin:left;transform:scaleX(0)}
+.bar i.run{animation:fill 7s linear forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+
+.nav{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.nav button{width:48px;height:48px;border:1px solid var(--line);background:rgba(0,0,0,.25);font-size:1.3rem;cursor:pointer}
+.nav button:active{background:rgba(255,255,255,.08)}
+.count{color:#8e978d;letter-spacing:.14em;font-size:.9rem}
+
+/* ---------- Muro ---------- */
+.feed-title{margin:44px 0 14px;text-align:center;font-family:var(--black);font-weight:400;font-size:1.9rem;color:#e2e1d8}
+.item{
+  margin-bottom:12px;padding:16px 16px 14px 18px;
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(214,211,192,.13); border-left:3px solid var(--c);
+  opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;
+}
+.item.in{opacity:1;transform:none}
+.item p{margin:0;font-size:1.15rem;line-height:1.5;overflow-wrap:anywhere}
+.item small{display:block;margin-top:8px;color:#8e978d;font-size:.9rem}
+
+/* ---------- Botón escribir ---------- */
+.write{
+  position:fixed; left:50%; transform:translateX(-50%);
+  bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:20;
+  padding:15px 28px; min-height:52px; cursor:pointer;
+  border:1px solid rgba(231,228,216,.4); background:rgba(8,13,11,.88);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  font-size:1.1rem; letter-spacing:.06em; white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+
+/* ---------- Hoja para escribir ---------- */
+.shade{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(3,6,5,.82);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.shade.open{opacity:1;visibility:visible}
+.sheet{
+  width:min(560px,100%); max-height:92vh; overflow:auto;
+  padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(207,207,192,.25); border-bottom:0;
+  transform:translateY(100%); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.shade.open .sheet{transform:none}
+@media (min-width:700px){.shade{align-items:center}.sheet{border-bottom:1px solid rgba(207,207,192,.25)}}
+.sheet h2{margin:0 0 4px;font-family:var(--black);font-weight:400;font-size:2rem}
+.sheet .hint{margin:0 0 16px;font-style:italic;color:#9ea79e}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{
+  padding:10px 14px; min-height:44px; cursor:pointer; background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.18); border-left:3px solid var(--c); font-size:1.02rem;
+}
+.chip[aria-pressed="true"]{background:rgba(230,217,168,.14);border-color:rgba(230,217,168,.6);border-left-color:var(--c)}
+textarea{
+  width:100%; min-height:140px; padding:14px; resize:none;
+  background:var(--paper); color:var(--paper-ink); border:0; border-radius:2px;
+  font:italic 1.3rem/1.45 var(--serif); /* 1.3rem evita el zoom automático en iPhone */
+}
+textarea:focus-visible{outline:2px solid #5f8c6e}
+.row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:12px}
+.chars{color:#8e978d;font-size:.95rem}
+.send{padding:13px 22px;min-height:48px;cursor:pointer;background:#315d45;border:1px solid #5f8c6e;font-size:1.05rem}
+.send:disabled{opacity:.45;cursor:default}
+.err{min-height:1.3em;margin:10px 0 0;color:#d9a19b;font-style:italic}
+
+.toast{
+  position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translate(-50%,-90px);z-index:40;
+  padding:12px 20px;background:#152136;border:1px solid var(--line);font-style:italic;
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);max-width:90%;text-align:center
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .item{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <a class="back" href="index.html">← Volver al calendario</a>
+  <h1>Confesiones Hogwarts</h1>
+  <p class="sub">Lo que se dice aquí, nadie lo firma.</p>
+
+  <section class="stage" id="stage" aria-live="polite">
+    <article class="note" id="note">
+      <p class="note-text" id="noteText"></p>
+      <div class="note-foot"><span class="seal" id="noteSeal"></span><span id="noteMeta"></span></div>
+    </article>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="nav">
+      <button type="button" id="prev" aria-label="Confesión anterior">‹</button>
+      <span class="count" id="count"></span>
+      <button type="button" id="next" aria-label="Confesión siguiente">›</button>
+    </div>
+  </section>
+
+  <h2 class="feed-title">El muro</h2>
+  <section id="feed"></section>
+</main>
+
+<button class="write" id="openWrite" type="button">✉ Escribir una confesión</button>
+
+<div class="shade" id="shade" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle">Tu confesión</h2>
+    <p class="hint">Elige tu casa. Nadie verá tu nombre.</p>
+    <div class="chips" id="chips"></div>
+    <textarea id="text" maxlength="280" placeholder="Escribe aquí lo que necesites confesar…" aria-label="Tu confesión"></textarea>
+    <div class="row">
+      <span class="chars" id="chars">0 / 280</span>
+      <button class="send" id="send" type="button" disabled>Enviar</button>
+    </div>
+    <p class="err" id="err" aria-live="polite"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+
+const CONFESSION_URL = '';
+
+const KEY = 'hogwartsConfessions';
+const LAST_KEY = 'hogwartsConfessionLast';
+const COOLDOWN = 20000;
+const INTERVAL = 7000;
+const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+const HOUSES = {
+  slyt:  {name:'Slytherin',  color:'#3f7655'},
+  gryf:  {name:'Gryffindor', color:'#8a3f39'},
+  huff:  {name:'Hufflepuff', color:'#a8934f'},
+  raven: {name:'Ravenclaw',  color:'#465d70'},
+  anon:  {name:'Sin casa',   color:'#8c928b'}
+};
+
+const $ = id => document.getElementById(id);
+let list = [], idx = 0, timer = null, chosen = null;
+
+/* ---------- Datos ---------- */
+const clean = a => (Array.isArray(a) ? a : [])
+  .filter(x => x && HOUSES[x.house] && typeof x.text === 'string' && x.text.trim())
+  .map(x => ({house:x.house, text:x.text.slice(0,280), ts:Number(x.ts) || Date.now()}))
+  .sort((a,b) => b.ts - a.ts);
+
+function readLocal(){ try{ return clean(JSON.parse(localStorage.getItem(KEY))); }catch(e){ return []; } }
+function saveLocal(){ try{ localStorage.setItem(KEY, JSON.stringify(list)); }catch(e){} }
+
+async function readRemote(){
+  if(!CONFESSION_URL) return null;
+  try{ const r = await fetch(CONFESSION_URL); return clean(await r.json()); }catch(e){ return null; }
+}
+
+function when(ts){
+  return new Date(ts).toLocaleDateString('es', {day:'numeric', month:'long'});
+}
+
+/* ---------- Carta en escena ---------- */
+function show(i, animate = true){
+  const note = $('note');
+  if(!list.length){
+    $('noteText').textContent = 'El muro está en silencio. Escribe la primera confesión.';
+    $('noteText').className = 'note-text empty';
+    $('noteMeta').textContent = '';
+    $('noteSeal').style.setProperty('--c', '#8c928b');
+    $('count').textContent = '';
+    $('barFill').className = '';
+    return;
+  }
+  idx = (i + list.length) % list.length;
+  const c = list[idx], h = HOUSES[c.house];
+  $('noteText').className = 'note-text';
+  $('noteText').textContent = '«' + c.text + '»';
+  $('noteMeta').textContent = h.name + ' · ' + when(c.ts);
+  $('noteSeal').style.setProperty('--c', h.color);
+  note.style.setProperty('--tilt', (idx % 2 ? 1 : -1) * (0.6 + (idx % 3) * 0.4) + 'deg');
+  $('count').textContent = (idx + 1) + ' / ' + list.length;
+  if(animate && !reduce){
+    note.classList.remove('arrive'); void note.offsetWidth; note.classList.add('arrive');
+  }
+  restartAuto();
+}
+
+function restartAuto(){
+  clearInterval(timer);
+  const bar = $('barFill');
+  bar.className = ''; void bar.offsetWidth;
+  if(reduce || list.length < 2 || $('shade').classList.contains('open')) return;
+  bar.className = 'run';
+  timer = setInterval(() => show(idx + 1), INTERVAL);
+}
+
+$('next').addEventListener('click', () => show(idx + 1));
+$('prev').addEventListener('click', () => show(idx - 1));
+
+/* Deslizar con el dedo */
+let x0 = null;
+const stage = $('stage');
+stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+stage.addEventListener('touchend', e => {
+  if(x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if(Math.abs(dx) > 45) show(idx + (dx < 0 ? 1 : -1));
+}, {passive:true});
+
+document.addEventListener('visibilitychange', () => { document.hidden ? clearInterval(timer) : restartAuto(); });
+
+/* ---------- Muro (aparecen al deslizar) ---------- */
+const io = 'IntersectionObserver' in window
+  ? new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.15})
+  : null;
+
+function renderFeed(){
+  const feed = $('feed');
+  feed.textContent = '';
+  list.forEach(c => {
+    const h = HOUSES[c.house];
+    const el = document.createElement('article');
+    el.className = 'item';
+    el.style.setProperty('--c', h.color);
+    const p = document.createElement('p'); p.textContent = c.text;
+    const s = document.createElement('small'); s.textContent = h.name + ' · ' + when(c.ts);
+    el.append(p, s);
+    feed.appendChild(el);
+    io ? io.observe(el) : el.classList.add('in');
+  });
+}
+
+/* ---------- Escribir ---------- */
+const chips = $('chips');
+Object.entries(HOUSES).forEach(([k, h]) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'chip'; b.textContent = h.name;
+  b.style.setProperty('--c', h.color); b.setAttribute('aria-pressed', 'false');
+  b.addEventListener('click', () => {
+    chosen = k;
+    chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    validate();
+  });
+  chips.appendChild(b);
+});
+
+function validate(){
+  const n = $('text').value.trim().length;
+  $('chars').textContent = $('text').value.length + ' / 280';
+  $('send').disabled = !(chosen && n >= 3);
+}
+$('text').addEventListener('input', validate);
+
+function openSheet(){
+  $('shade').classList.add('open'); $('shade').setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden'; clearInterval(timer);
+}
+function closeSheet(){
+  $('shade').classList.remove('open'); $('shade').setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = ''; restartAuto();
+}
+$('openWrite').addEventListener('click', openSheet);
+$('shade').addEventListener('click', e => { if(e.target === $('shade')) closeSheet(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSheet(); });
+
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+$('send').addEventListener('click', async () => {
+  const text = $('text').value.trim();
+  if(!chosen || text.length < 3) return;
+
+  let last = 0; try{ last = Number(localStorage.getItem(LAST_KEY)) || 0; }catch(e){}
+  const wait = COOLDOWN - (Date.now() - last);
+  if(wait > 0){ $('err').textContent = 'Espera ' + Math.ceil(wait / 1000) + ' s antes de enviar otra.'; return; }
+
+  const c = {house:chosen, text, ts:Date.now()};
+  list.unshift(c); saveLocal();
+  try{ localStorage.setItem(LAST_KEY, String(c.ts)); }catch(e){}
+
+  if(CONFESSION_URL){
+    try{
+      await fetch(CONFESSION_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify({house:c.house, text:c.text})});
+    }catch(e){}
+  }
+
+  $('text').value = ''; $('err').textContent = '';
+  chosen = null; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  validate(); closeSheet();
+  renderFeed(); show(0);
+  toast('La lechuza ya salió con tu carta.');
+  scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+});
+
+/* ---------- Inicio ---------- */
+(async () => {
+  list = readLocal();
+  const remote = await readRemote();
+  if(remote) list = remote;
+  renderFeed(); show(0, false);
+})();
+</script>
+</body>
+</html>
