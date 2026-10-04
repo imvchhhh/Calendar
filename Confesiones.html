@@ -54,11 +54,7 @@ h1{margin:6px 0 0;text-align:center;font-family:var(--black);font-weight:400;fon
 @keyframes arrive{from{opacity:0;transform:translateY(46px) rotate(5deg) scale(.96)}}
 .note-text{margin:0;font-size:clamp(1.3rem,5.4vw,1.6rem);line-height:1.5;font-style:italic;overflow-wrap:anywhere}
 .note-foot{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:.95rem;color:#5a5646}
-.seal{
-  flex:none;width:30px;height:30px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, color-mix(in srgb,var(--c) 60%,#fff), var(--c) 60%, #000 160%);
-  box-shadow:0 2px 5px rgba(0,0,0,.4);
-}
+.seal{flex:none;width:30px;text-align:center;font-size:1.5rem;line-height:1}
 .empty{text-align:center;font-style:italic;color:#5a5646;margin:auto}
 
 .bar{height:2px;margin-top:16px;background:var(--line);overflow:hidden}
@@ -160,7 +156,7 @@ textarea:focus-visible{outline:2px solid #5f8c6e}
     </div>
   </section>
 
-  <h2 class="feed-title">El muro</h2>
+  <h2 class="feed-title">Muro</h2>
   <section id="feed"></section>
 </main>
 
@@ -193,11 +189,11 @@ const INTERVAL = 7000;
 const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 const HOUSES = {
-  slyt:  {name:'Slytherin',  color:'#3f7655'},
-  gryf:  {name:'Gryffindor', color:'#8a3f39'},
-  huff:  {name:'Hufflepuff', color:'#a8934f'},
-  raven: {name:'Ravenclaw',  color:'#465d70'},
-  anon:  {name:'Sin casa',   color:'#8c928b'}
+  slyt:  {name:'Slytherin',  color:'#3f7655', emoji:'𓆗'},
+  gryf:  {name:'Gryffindor', color:'#8a3f39', emoji:'𓃬'},
+  huff:  {name:'Hufflepuff', color:'#a8934f', emoji:'𓃮'},
+  raven: {name:'Ravenclaw',  color:'#465d70', emoji:'𓅆'},
+  anon:  {name:'Sin casa',   color:'#8c928b', emoji:'ꄗ'}
 };
 
 const $ = id => document.getElementById(id);
@@ -228,7 +224,7 @@ function show(i, animate = true){
     $('noteText').textContent = 'El muro está en silencio. Escribe la primera confesión.';
     $('noteText').className = 'note-text empty';
     $('noteMeta').textContent = '';
-    $('noteSeal').style.setProperty('--c', '#8c928b');
+    $('noteSeal').textContent = 'ꄗ';
     $('count').textContent = '';
     $('barFill').className = '';
     return;
@@ -238,7 +234,7 @@ function show(i, animate = true){
   $('noteText').className = 'note-text';
   $('noteText').textContent = '«' + c.text + '»';
   $('noteMeta').textContent = h.name + ' · ' + when(c.ts);
-  $('noteSeal').style.setProperty('--c', h.color);
+  $('noteSeal').textContent = h.emoji;
   note.style.setProperty('--tilt', (idx % 2 ? 1 : -1) * (0.6 + (idx % 3) * 0.4) + 'deg');
   $('count').textContent = (idx + 1) + ' / ' + list.length;
   if(animate && !reduce){
